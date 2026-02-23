@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이지승 | Lee Ji-seung - 영화 감독 · 프로듀서</title>
+    <meta name="description" content="대한민국 영화 감독 및 프로듀서 이지승의 공식 포트폴리오 웹사이트.">
+    <meta name="keywords" content="이지승 감독, 이지승 프로듀서, 해운대 제작자, 공정사회 감독, 섬 사라진 사람들 감독, 여타짜 감독">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#080808',
+                            dark: '#121212',
+                            gray: '#1e1e1e',
+                            light: '#e5e5e5',
+                            gold: '#c5a059',
+                            muted: '#888888'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                        serif: ['"Noto Serif KR"', 'serif'],
+                        cinzel: ['"Cinzel"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #080808; color: #e5e5e5; overflow-x: hidden; }
+        .hero-bg {
+            background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.9) 80%, rgba(8,8,8,1) 100%),
+                        url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop') center/cover no-repeat;
+            background-attachment: fixed;
+        }
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .nav-scrolled { background-color: rgba(8, 8, 8, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .poster-card { overflow: hidden; position: relative; background: #1a1a1a; }
+        .poster-img-container { aspect-ratio: 2/3; overflow: hidden; position: relative; background: #252525; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .poster-img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .poster-card:hover img { transform: scale(1.05); }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-brand-black">
+
+    <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 py-6">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="#" class="text-xl md:text-2xl font-cinzel font-semibold tracking-widest text-brand-light">LEE JI-SEUNG</a>
+            <div class="hidden md:flex space-x-8 text-sm font-sans tracking-wider text-brand-light/80">
+                <a href="#about" class="hover:underline">About</a>
+                <a href="#director-works" class="hover:underline">Director</a>
+                <a href="#producer-works" class="hover:underline">Producer</a>
+                <a href="#contact" class="hover:underline">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-screen flex flex-col justify-center items-center text-center hero-bg px-6">
+        <div class="fade-up z-10 space-y-6 mt-12">
+            <h1 class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.2em] font-light text-brand-light drop-shadow-lg">LEE JI-SEUNG</h1>
+            <div class="h-px w-24 bg-brand-gold mx-auto"></div>
+            <h2 class="font-serif text-lg md:text-2xl font-light tracking-widest text-brand-light/90">Film Director · Producer</h2>
+            <p class="font-serif text-brand-light/70 max-w-2xl mx-auto mt-8 leading-relaxed font-light text-sm md:text-base italic">
+                "상업영화 제작의 풍부한 경험을 바탕으로 창의적 연출의 경계를 넓히는 영화인"
+            </p>
+        </div>
+        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 scroll-indicator z-10">
+            <a href="#about" class="text-brand-light/50 hover:text-brand-gold transition-colors">
+                <span class="block text-xs uppercase tracking-[0.3em] mb-2 font-sans">Scroll</span>
+                <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
+        </div>
+    </header>
+
+    <section id="about" class="py-32 px-6 md:px-12 max-w-6xl mx-auto border-b border-white/5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div class="lg:col-span-5 fade-up">
+                <div class="relative w-full aspect-[4/5] bg-brand-dark border border-white/10 p-2">
+                    <div class="w-full h-full bg-brand-gray flex items-center justify-center relative overflow-hidden">
+                        <img src="profile_image.jpg" alt="이지승 프로필" class="w-full h-full object-cover opacity-80">
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <span class="text-white/10 font-serif text-xs uppercase tracking-widest">Profile Image</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-7 fade-up">
+                <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">ABOUT</h3>
+                <h2 class="font-serif text-3xl md:text-4xl font-light mb-8">소개</h2>
+                <div class="space-y-6 font-sans text-brand-light/80 font-light leading-relaxed text-sm md:text-base">
+                    <p>이지승은 1969년 서울에서 태어나 한양대학교 연극영화과를 졸업하고 뉴욕대학교(NYU) 대학원에서 영화이론학 석사 학위를 취득했습니다[cite: 7, 13, 14, 90]. 그는 이론적 깊이와 현장 실무 능력을 모두 겸비한 제작자형 감독으로 평가받습니다[cite: 15, 16].</p>
+                    <p>하이컨셉픽쳐스(주)의 대표이자 한국영화아카데미(KAFA) 및 서울필름아카데미(SFA) 등에서 교육자로 활동하며 한국 영화계의 발전에 기여하고 있습니다.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 pt-10 border-t border-white/10 font-sans">
+                    <div>
+                        <h4 class="text-brand-gold text-xs font-bold tracking-widest mb-4 uppercase font-cinzel">Experience</h4>
+                        <ul class="space-y-3 text-sm text-brand-light/90 font-light">
+                            <li>• 하이컨셉픽쳐스(주) 대표</li>
+                            <li>• 서울필름아카데미 연출전공 학장</li>
+                            <li>• 한국영화아카데미 제작총괄 책임교수</li>
+                            <li>• 극동대학교 미디어영상제작학과 초빙교수</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-brand-gold text-xs font-bold tracking-widest mb-4 uppercase font-cinzel">Education</h4>
+                        <ul class="space-y-3 text-sm text-brand-light/90 font-light">
+                            <li>• 한양대학교 연극영화과 졸업</li>
+                            <li>• 뉴욕대학교 대학원 영화이론학 석사</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="director-works" class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center mb-20 fade-up">
+            <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">DIRECTOR</h3>
+            <h2 class="font-serif text-3xl md:text-4xl font-light">주요 연출작</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 fade-up">
+            <div class="poster-card group border border-white/5">
+                <div class="poster-img-container">
+                    <img src="azooma_poster.jpg" alt="공정사회">
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span class="text-white/10 font-serif text-xs uppercase tracking-widest">Azooma Poster</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <span class="font-sans text-xs text-brand-gold font-bold tracking-widest">2012</span>
+                    <h4 class="font-serif text-2xl mt-2 mb-3">공정사회</h4>
+                    <p class="text-brand-light/60 text-sm font-sans mb-4">기획 · 제작 · 각본 · 연출 [cite: 31, 101]</p>
+                    <p class="text-brand-muted text-xs leading-relaxed font-light">상업영화 제작자에서 감독으로 전환한 대표작으로, 사회적 메시지를 담은 스릴러물입니다[cite: 32, 33, 34].</p>
+                </div>
+            </div>
+            <div class="poster-card group border border-white/5">
+                <div class="poster-img-container">
+                    <img src="island_poster.jpg" alt="섬. 사라진 사람들">
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span class="text-white/10 font-serif text-xs uppercase tracking-widest">No Tomorrow Poster</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <span class="font-sans text-xs text-brand-gold font-bold tracking-widest">2015</span>
+                    <h4 class="font-serif text-2xl mt-2 mb-3">섬. 사라진 사람들</h4>
+                    <p class="text-brand-light/60 text-sm font-sans mb-4">감독 · 각본 · 기획 [cite: 99, 102]</p>
+                    <p class="text-brand-muted text-xs leading-relaxed font-light">날카로운 사회적 시선을 유지하며 영화적 긴장감을 완성한 이지승 감독의 두 번째 장편 연출작입니다.</p>
+                </div>
+            </div>
+            <div class="poster-card group border border-white/5">
+                <div class="poster-img-container">
+                    <img src="tazza_poster.jpg" alt="여타짜">
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span class="text-white/10 font-serif text-xs uppercase tracking-widest">Tazza Poster</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <span class="font-sans text-xs text-brand-gold font-bold tracking-widest">2021</span>
+                    <h4 class="font-serif text-2xl mt-2 mb-3">여타짜</h4>
+                    <p class="text-brand-light/60 text-sm font-sans mb-4">감독 · 각색 [cite: 99]</p>
+                    <p class="text-brand-muted text-xs leading-relaxed font-light">장르적 재미와 감각적인 연출이 돋보이는 최신작으로, 감독의 넓은 연출 스펙트럼을 보여줍니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="producer-works" class="py-32 px-6 md:px-12 max-w-7xl mx-auto border-t border-white/5 bg-brand-dark">
+        <div class="flex items-center gap-4 mb-16 fade-up">
+            <h4 class="font-cinzel text-xl md:text-2xl tracking-widest">PRODUCER CREDIT</h4>
+            <div class="h-px bg-white/10 flex-grow"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 fade-up">
+            <div class="bg-brand-gray p-6 border border-white/5">
+                <h5 class="font-serif text-lg mb-1">해운대 <span class="text-xs text-brand-muted ml-1">(2009)</span></h5>
+                <p class="text-brand-gold text-xs font-sans tracking-widest uppercase mb-3">Producer [cite: 23, 102]</p>
+            </div>
+            <div class="bg-brand-gray p-6 border border-white/5">
+                <h5 class="font-serif text-lg mb-1">통증 <span class="text-xs text-brand-muted ml-1">(2011)</span></h5>
+                <p class="text-brand-gold text-xs font-sans tracking-widest uppercase mb-3">Executive Producer [cite: 25, 102]</p>
+            </div>
+            <div class="bg-brand-gray p-6 border border-white/5">
+                <h5 class="font-serif text-lg mb-1">색즉시공 <span class="text-xs text-brand-muted ml-1">(2002)</span></h5>
+                <p class="text-brand-gold text-xs font-sans tracking-widest uppercase mb-3">Producer [cite: 21, 102]</p>
+            </div>
+            <div class="bg-brand-gray p-6 border border-white/5">
+                <h5 class="font-serif text-lg mb-1">어벤져스: 에이지 오브 울트론</h5>
+                <p class="text-brand-gold text-xs font-sans tracking-widest uppercase mb-3">Korea Unit Producer [cite: 26, 63]</p>
+            </div>
+            <div class="bg-brand-gray p-6 border border-white/5">
+                <h5 class="font-serif text-lg mb-1">청춘만화</h5>
+                <p class="text-brand-gold text-xs font-sans tracking-widest uppercase mb-3">Producer [cite: 22, 102]</p>
+            </div>
+            <div class="bg-brand-gray p-6 border border-white/5">
+                <h5 class="font-serif text-lg mb-1">기음/성실한 나라의 앨리스</h5>
+                <p class="text-brand-gold text-xs font-sans tracking-widest uppercase mb-3">Production Supervisor [cite: 101]</p>
+            </div>
+            <div class="bg-brand-gray p-6 border border-white/5">
+                <h5 class="font-serif text-lg mb-1">소셜포비아/잉투기/들개</h5>
+                <p class="text-brand-gold text-xs font-sans tracking-widest uppercase mb-3">Production Supervisor [cite: 109, 110]</p>
+            </div>
+            <div class="bg-brand-gray p-6 border border-white/5">
+                <h5 class="font-serif text-lg mb-1">취화선/춘향뎐/세기말</h5>
+                <p class="text-brand-gold text-xs font-sans tracking-widest uppercase mb-3">Planning 담당 [cite: 102, 103, 111]</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 px-6 max-w-2xl mx-auto text-center fade-up">
+        <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">CONTACT</h3>
+        <h2 class="font-serif text-3xl md:text-4xl font-light mb-12">Contact for Collaboration</h2>
+        <div class="space-y-4 font-sans text-brand-light/70 tracking-widest text-sm">
+            <p>LeeJiSeung Film Portfolio</p>
+            <p>Official Website 2026</p>
+        </div>
+    </section>
+
+    <footer class="bg-brand-black py-12 border-t border-white/5 text-center">
+        <div class="fade-up">
+            <h2 class="font-cinzel text-xl text-brand-light tracking-[0.2em] mb-2">LEE JI-SEUNG</h2>
+            <p class="font-serif text-sm text-brand-muted mb-8 italic">Director · Producer · Educator</p>
+            <p class="font-sans text-xs text-brand-light/30 tracking-wider">&copy; 2026 Lee Ji-seung. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+                navbar.classList.remove('py-6');
+                navbar.classList.add('py-4');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-6');
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(element => observer.observe(element));
+    </script>
+</body>
+</html>

@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -136,6 +138,20 @@
     </style>
 </head>
 <body class="antialiased selection:bg-brand-gold selection:text-brand-black">
+
+    <div id="intro-overlay" class="fixed inset-0 z-[9999] bg-black overflow-hidden flex items-center justify-center">
+        <div class="absolute inset-0 z-50 pointer-events-none opacity-40 mix-blend-screen" style="background: url('https://www.transparenttextures.com/patterns/stardust.png');"></div>
+        
+        <div id="intro-posters" class="absolute inset-0 z-0 flex items-center justify-center opacity-0"></div>
+
+        <div id="intro-mask" class="absolute inset-0 z-10 flex items-center justify-center bg-black text-white opacity-0 pointer-events-none" style="mix-blend-mode: multiply;">
+            <h1 class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-bold pl-[0.25em]">LEE JI-SEUNG</h1>
+        </div>
+
+        <div id="intro-gold-text" class="absolute inset-0 z-20 flex items-center justify-center opacity-0 pointer-events-none">
+            <h1 class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-light text-brand-gold drop-shadow-[0_0_20px_rgba(197,160,89,0.7)] pl-[0.25em]">LEE JI-SEUNG</h1>
+        </div>
+    </div>
 
     <div class="film-texture"></div>
     
@@ -597,6 +613,80 @@
             <p class="font-sans text-xs text-brand-light/30 tracking-wider">&copy; 2026 Lee Ji-seung. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 스크롤 방지 및 최상단 이동
+            document.body.style.overflow = 'hidden';
+            window.scrollTo(0, 0);
+
+            // 페이지에 사용된 포스터 이미지 자동 수집
+            const images = Array.from(document.querySelectorAll('.poster-card img')).map(img => img.src);
+            const posterContainer = document.getElementById('intro-posters');
+            
+            // 시퀀스에 사용할 이미지 (최대 6개)
+            const selectedImages = images.slice(0, 6);
+            
+            selectedImages.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'absolute inset-0 w-full h-full object-cover origin-center';
+                img.style.opacity = 0;
+                posterContainer.appendChild(img);
+            });
+
+            const introImages = posterContainer.querySelectorAll('img');
+            
+            // GSAP 메인 타임라인 설정
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    // Phase 4: 전체 오버레이 페이드 아웃
+                    gsap.to('#intro-overlay', { 
+                        opacity: 0, 
+                        duration: 0.8, 
+                        ease: "power2.inOut", 
+                        onComplete: () => {
+                            document.getElementById('intro-overlay').style.display = 'none';
+                            document.body.style.overflow = ''; // 스크롤 복구
+                        }
+                    });
+                }
+            });
+
+            // 포스터 컨테이너 초기 노출
+            tl.to('#intro-posters', { opacity: 1, duration: 0 }, 0);
+            
+            const phase1End = 1.2;
+            const phase2End = 2.2;
+            const durationPerImg = phase2End / introImages.length;
+            
+            // Phase 1 (0 ~ 1.2초) ~ Phase 2 연결: 느린 페이드와 필름 그레인 효과 
+            introImages.forEach((img, i) => {
+                const startTime = i * durationPerImg;
+                const isLast = i === introImages.length - 1;
+                
+                tl.fromTo(img, 
+                    { opacity: 0, scale: 1.15, filter: 'blur(4px)' },
+                    { opacity: 1, scale: 1.05, filter: 'blur(0px)', duration: durationPerImg * 0.6, ease: "power1.inOut" },
+                    startTime
+                );
+                
+                if (!isLast) {
+                    tl.to(img, { opacity: 0, duration: durationPerImg * 0.6, ease: "power1.inOut" }, startTime + durationPerImg * 0.6);
+                } else {
+                    // 마지막 이미지는 실루엣 마스킹 때까지 유지
+                    tl.to(img, { scale: 1, duration: durationPerImg, ease: "power1.out" }, startTime + durationPerImg * 0.6);
+                }
+            });
+
+            // Phase 2 (1.2 ~ 2.2초): 포스터가 중앙으로 모이며 'LEE JI-SEUNG' 실루엣 생성
+            tl.to('#intro-mask', { opacity: 1, duration: 0.6, ease: "power2.inOut" }, phase1End);
+
+            // Phase 3 (2.2 ~ 3.0초): 실루엣을 밀어내고 금빛 텍스트 등장 (Curtain Call 효과)
+            tl.to('#intro-gold-text', { opacity: 1, duration: 0.6, ease: "power2.inOut" }, phase2End);
+            tl.to('#intro-posters', { opacity: 0, duration: 0.6, ease: "power2.inOut" }, phase2End);
+        });
+    </script>
 
     <script>
         // --- 📧 Formspree 모던 AJAX 비동기 통신 --- //

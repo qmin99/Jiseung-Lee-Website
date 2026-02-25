@@ -1,838 +1,1750 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>이지승 | Lee Ji-seung - 영화 감독 · 프로듀서</title>
-    <link rel="icon" href="slate.jpeg" type="image/x-icon">
-    
-    <meta name="description" content="대한민국 영화 감독 및 프로듀서 이지승의 공식 포트폴리오 웹사이트. 연출과 제작을 아우르는 한국 영화계 대표 크리에이터.">
-    <meta name="keywords" content="이지승 감독, 이지승 프로듀서, 한국 영화 프로듀서, 해운대 제작자, 공정사회 감독, 한국 영화 제작자, Marvel Korea Unit Producer, Korean Film Producer">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <link rel="icon" href="slate.jpeg" type="image/x-icon" />
+
+    <meta
+      name="description"
+      content="대한민국 영화 감독 및 프로듀서 이지승의 공식 포트폴리오 웹사이트. 연출과 제작을 아우르는 한국 영화계 대표 크리에이터."
+    />
+    <meta
+      name="keywords"
+      content="이지승 감독, 이지승 프로듀서, 한국 영화 프로듀서, 해운대 제작자, 공정사회 감독, 한국 영화 제작자, Marvel Korea Unit Producer, Korean Film Producer"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            black: '#080808',
-                            dark: '#121212',
-                            gray: '#2a2a2a',
-                            light: '#e5e5e5',
-                            gold: '#c5a059',
-                            muted: '#888888'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Noto Sans KR"', 'sans-serif'],
-                        serif: ['"Noto Serif KR"', 'serif'],
-                        cinzel: ['"Cinzel"', 'serif'],
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                black: "#080808",
+                dark: "#121212",
+                gray: "#2a2a2a",
+                light: "#e5e5e5",
+                gold: "#c5a059",
+                muted: "#888888",
+              },
+            },
+            fontFamily: {
+              sans: ['"Noto Sans KR"', "sans-serif"],
+              serif: ['"Noto Serif KR"', "serif"],
+              cinzel: ['"Cinzel"', "serif"],
+              bebas: ['"Bebas Neue"', "sans-serif"],
+              calibri: ['Calibri', 'Carlito', 'Helvetica Neue', 'sans-serif'],
+            },
+          },
+        },
+      };
     </script>
 
     <style>
-        body {
-            background-color: #111111;
-            color: #e5e5e5;
-            overflow-x: hidden;
-            overscroll-behavior: none; 
-        }
+      body {
+        background-color: #111111;
+        color: #e5e5e5;
+        overflow-x: hidden;
+        overscroll-behavior: none;
+      }
 
-        .hero-bg {
-            background: linear-gradient(to bottom, rgba(17,17,17,0.3) 0%, rgba(17,17,17,0.9) 80%, rgba(17,17,17,1) 100%),
-                        url('hero.png') center/cover no-repeat;
-            background-attachment: fixed;
-        }
+      .hero-bg {
+        background:
+          linear-gradient(
+            to bottom,
+            rgba(17, 17, 17, 0.3) 0%,
+            rgba(17, 17, 17, 0.9) 80%,
+            rgba(17, 17, 17, 1) 100%
+          ),
+          url("hero.png") center/cover no-repeat;
+        background-attachment: fixed;
+      }
 
-        .film-texture {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.2;
-            pointer-events: none;
-            z-index: 50;
-        }
+      .film-texture {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("https://www.transparenttextures.com/patterns/stardust.png");
+        opacity: 0.2;
+        pointer-events: none;
+        z-index: 50;
+      }
 
-        .fade-up {
-            opacity: 0;
-            transform: translateY(60px) scale(0.97);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
-        .delay-400 { transition-delay: 400ms; }
+      .fade-up {
+        opacity: 0;
+        transform: translateY(60px) scale(0.97);
+        transition:
+          opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
 
-        .nav-scrolled {
-            background-color: rgba(17, 17, 17, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+      .nav-scrolled {
+        background-color: rgba(17, 17, 17, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
 
-        .hover-underline {
-            position: relative;
-        }
-        .hover-underline::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #c5a059;
-            transition: width 0.3s ease;
-        }
-        .hover-underline:hover::after {
-            width: 100%;
-        }
+      .hover-underline {
+        position: relative;
+      }
+      .hover-underline::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -4px;
+        left: 0;
+        background-color: #c5a059;
+        transition: width 0.3s ease;
+      }
+      .hover-underline:hover::after {
+        width: 100%;
+      }
 
-        .poster-card {
-            overflow: hidden;
-            position: relative;
-        }
-        .poster-card img {
-            transition: transform 0.6s ease;
-        }
-        .poster-card:hover img {
-            transform: scale(1.05);
-        }
+      .poster-card {
+        overflow: hidden;
+        position: relative;
+      }
+      .poster-card img {
+        transition: transform 0.6s ease;
+      }
+      .poster-card:hover img {
+        transform: scale(1.05);
+      }
 
-        input, textarea {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #333;
-            color: #fff;
-            padding: 0.75rem 0;
-            width: 100%;
-            transition: border-color 0.3s ease;
-        }
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #c5a059;
-        }
+      input,
+      textarea {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #333;
+        color: #fff;
+        padding: 0.75rem 0;
+        width: 100%;
+        transition: border-color 0.3s ease;
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #c5a059;
+      }
 
-        .scroll-indicator {
-            animation: bounce 2s infinite;
+      .scroll-indicator {
+        animation: bounce 2s infinite;
+      }
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
         }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+        40% {
+          transform: translateY(-10px);
         }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
+      /* 시네마틱 인트로 전용 스타일 */
+      #intro-mask {
+        mix-blend-mode: multiply;
+      }
+      .intro-poster-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        opacity: 0;
+        will-change: transform, opacity;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      }
+
+      /* 프로페셔널한 시네마틱 액자 프레임 (데스크탑 전용) */
+      @media (min-width: 769px) {
+        .phase1-frame {
+          border: 8px solid #080808; /* 안쪽 블랙 매트 */
+          outline: 1px solid rgba(255, 255, 255, 0.15); /* 얇은 실버 테두리 */
+          border-radius: 2px;
+        }
+      }
     </style>
-</head>
-<body class="antialiased selection:bg-brand-gold selection:text-brand-black">
+  </head>
+  <body class="antialiased selection:bg-brand-gold selection:text-brand-black">
+    <div
+      id="intro-overlay"
+      class="fixed inset-0 z-[9999] bg-black overflow-hidden flex items-center justify-center"
+    >
+      <div
+        class="absolute inset-0 z-50 pointer-events-none opacity-40 mix-blend-screen"
+        style="
+          background: url(&quot;https://www.transparenttextures.com/patterns/stardust.png&quot;);
+        "
+      ></div>
 
-    <div id="intro-overlay" class="fixed inset-0 z-[9999] bg-black overflow-hidden flex items-center justify-center">
-        <div class="absolute inset-0 z-50 pointer-events-none opacity-40 mix-blend-screen" style="background: url('https://www.transparenttextures.com/patterns/stardust.png');"></div>
-        
-        <div id="intro-posters" class="absolute inset-0 z-0 flex items-center justify-center opacity-0"></div>
-
-        <div id="intro-mask" class="absolute inset-0 z-10 flex items-center justify-center bg-black text-white opacity-0 pointer-events-none" style="mix-blend-mode: multiply;">
-            <h1 class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-bold pl-[0.25em]">LEE JI-SEUNG</h1>
+      <div
+        id="highconcept-intro"
+        class="absolute inset-0 z-40 flex items-center justify-center bg-black opacity-0"
+      >
+        <div
+          id="highconcept-text"
+          class="flex flex-col items-center justify-center text-center"
+        >
+         <div class="overflow-hidden pb-2">
+    <h2 id="hc-word1" class="font-calibri text-white/95 text-3xl md:text-5xl lg:text-6xl tracking-[0.05em]  translate-y-full opacity-0 pl-[0.3em] font-normal leading-normal">HIGH CONCEPT</h2>
+</div>
+          <div
+            id="hc-line"
+            class="h-[1px] w-0 bg-gradient-to-r from-transparent via-white/50 to-transparent my-3 md:my-5"
+          ></div>
+          <div class="overflow-hidden">
+            <p
+              id="hc-word2"
+              class="font-sans text-brand-gold/70 text-[9px] md:text-[11px] tracking-[1em] uppercase -translate-y-full opacity-0 pl-[1em]"
+            >
+              Pictures
+            </p>
+          </div>
         </div>
+      </div>
 
-        <div id="intro-gold-text" class="absolute inset-0 z-20 flex items-center justify-center opacity-0 pointer-events-none">
-            <h1 class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-light text-brand-gold drop-shadow-[0_0_20px_rgba(197,160,89,0.7)] pl-[0.25em]">LEE JI-SEUNG</h1>
-        </div>
+      <div
+        id="intro-posters"
+        class="absolute inset-0 z-0 flex items-center justify-center opacity-0"
+      ></div>
+
+      <div
+        id="intro-mask"
+        class="absolute inset-0 z-10 flex items-center justify-center bg-black text-white opacity-0 pointer-events-none"
+        style="mix-blend-mode: multiply"
+      >
+        <h1
+          class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-bold pl-[0.25em]"
+        >
+          LEE JI-SEUNG
+        </h1>
+      </div>
+
+      <div
+        id="intro-gold-text"
+        class="absolute inset-0 z-20 flex items-center justify-center opacity-0 pointer-events-none"
+      >
+        <h1
+          class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-light bg-gradient-to-b from-[#D4AF37] via-[#FFF2CD] to-[#AA7C11] text-transparent bg-clip-text drop-shadow-[0_0_20px_rgba(197,160,89,0.5)] pl-[0.25em]"
+        >
+          LEE JI-SEUNG
+        </h1>
+      </div>
     </div>
 
     <div class="film-texture"></div>
-    
-    <div id="cursor-glow" class="pointer-events-none fixed inset-0 z-[99] transition-opacity duration-300"></div>
+
+    <div
+      id="cursor-glow"
+      class="pointer-events-none fixed inset-0 z-[99] transition-opacity duration-300"
+    ></div>
 
     <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 py-6">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-            <a href="#" class="text-xl md:text-2xl font-cinzel font-semibold tracking-widest text-brand-light">
-                LEE JI-SEUNG
-            </a>
-            
-            <div class="hidden md:flex space-x-8 text-sm font-sans tracking-wider text-brand-light/80">
-                <a href="#about" class="hover-underline hover:text-brand-light transition-colors">About</a>
-                <a href="#filmography" class="hover-underline hover:text-brand-light transition-colors">Filmography</a>
-                <a href="#philosophy" class="hover-underline hover:text-brand-light transition-colors">Philosophy</a>
-                <a href="#awards" class="hover-underline hover:text-brand-light transition-colors">Awards</a>
-                <a href="#media" class="hover-underline hover:text-brand-light transition-colors">Media</a>
-                <a href="#contact" class="hover-underline hover:text-brand-light transition-colors">Contact</a>
-            </div>
+      <div
+        class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center"
+      >
+        <a
+          href="#"
+          class="text-xl md:text-2xl font-cinzel font-semibold tracking-widest text-brand-light"
+          >LEE JI-SEUNG</a
+        >
 
-            <button id="mobile-menu-btn" class="md:hidden text-brand-light focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+        <div
+          class="hidden md:flex space-x-8 text-sm font-sans tracking-wider text-brand-light/80"
+        >
+          <a
+            href="#about"
+            class="hover-underline hover:text-brand-light transition-colors"
+            >About</a
+          >
+          <a
+            href="#filmography"
+            class="hover-underline hover:text-brand-light transition-colors"
+            >Filmography</a
+          >
+          <a
+            href="#philosophy"
+            class="hover-underline hover:text-brand-light transition-colors"
+            >Philosophy</a
+          >
+          <a
+            href="#awards"
+            class="hover-underline hover:text-brand-light transition-colors"
+            >Awards</a
+          >
+          <a
+            href="#media"
+            class="hover-underline hover:text-brand-light transition-colors"
+            >Media</a
+          >
+          <a
+            href="#contact"
+            class="hover-underline hover:text-brand-light transition-colors"
+            >Contact</a
+          >
         </div>
-        
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-brand-black/95 backdrop-blur-md border-t border-white/10 py-4 px-6 flex flex-col space-y-4 font-sans tracking-wide text-sm">
-            <a href="#about" class="text-brand-light/80 hover:text-brand-gold">About / 소개</a>
-            <a href="#filmography" class="text-brand-light/80 hover:text-brand-gold">Filmography / 필모그래피</a>
-            <a href="#philosophy" class="text-brand-light/80 hover:text-brand-gold">Philosophy / 철학</a>
-            <a href="#awards" class="text-brand-light/80 hover:text-brand-gold">Awards / 성과</a>
-            <a href="#media" class="text-brand-light/80 hover:text-brand-gold">Media / 미디어</a>
-            <a href="#contact" class="text-brand-light/80 hover:text-brand-gold">Contact / 문의</a>
-        </div>
+
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden text-brand-light focus:outline-none"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              stroke-width="1.5"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="hidden absolute top-full left-0 w-full bg-brand-black/95 backdrop-blur-md border-t border-white/10 py-4 px-6 flex flex-col space-y-4 font-sans tracking-wide text-sm"
+      >
+        <a href="#about" class="text-brand-light/80 hover:text-brand-gold"
+          >About / 소개</a
+        >
+        <a href="#filmography" class="text-brand-light/80 hover:text-brand-gold"
+          >Filmography / 필모그래피</a
+        >
+        <a href="#philosophy" class="text-brand-light/80 hover:text-brand-gold"
+          >Philosophy / 철학</a
+        >
+        <a href="#awards" class="text-brand-light/80 hover:text-brand-gold"
+          >Awards / 성과</a
+        >
+        <a href="#media" class="text-brand-light/80 hover:text-brand-gold"
+          >Media / 미디어</a
+        >
+        <a href="#contact" class="text-brand-light/80 hover:text-brand-gold"
+          >Contact / 문의</a
+        >
+      </div>
     </nav>
 
-    <header class="relative h-screen flex flex-col justify-center items-center text-center hero-bg px-6 z-10">
-        <div class="fade-up z-10 flex flex-col items-center w-full mt-12 space-y-8">
-            
-            <h1 class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-light text-brand-light drop-shadow-2xl pl-[0.25em]">
-                LEE JI-SEUNG
-            </h1>
-            
-            <div class="flex items-center gap-4">
-                <div class="h-[1px] w-8 md:w-16 bg-brand-gold/40"></div>
-                <h2 class="font-sans text-[10px] md:text-[12px] font-medium tracking-[0.5em] text-brand-gold uppercase pl-[0.5em]">
-                    Film Director & Producer
-                </h2>
-                <div class="h-[1px] w-8 md:w-16 bg-brand-gold/40"></div>
-            </div>
-            
-            <p class="font-serif text-brand-light/70 max-w-2xl mx-auto leading-[2.2] font-light text-[14px] md:text-[15px] pt-4">
-                대형 상업영화 프로듀서로 시작하여 감독으로 활동 영역을 넓히고,<br class="hidden md:block">
-                국제 프로젝트 및 영화 교육 분야에서도 영향력을 발휘하고 있는 인물.<br>
-                <span class="text-brand-light/95 font-normal mt-2 block">이론과 현장 경험을 겸비한 대한민국 대표 제작자형 감독.</span>
-            </p>
+    <header
+      class="relative h-screen flex flex-col justify-center items-center text-center hero-bg px-6 z-10"
+    >
+      <div
+        class="fade-up z-10 flex flex-col items-center w-full mt-12 space-y-8"
+      >
+        <h1
+          class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-light text-brand-light drop-shadow-2xl pl-[0.25em]"
+        >
+          LEE JI-SEUNG
+        </h1>
+        <div class="flex items-center gap-4">
+          <div class="h-[1px] w-8 md:w-16 bg-brand-gold/40"></div>
+          <h2
+            class="font-sans text-[10px] md:text-[12px] font-medium tracking-[0.5em] text-brand-gold uppercase pl-[0.5em]"
+          >
+            Film Director & Producer
+          </h2>
+          <div class="h-[1px] w-8 md:w-16 bg-brand-gold/40"></div>
         </div>
-
-        <div class="absolute bottom-12 inset-x-0 flex justify-center scroll-indicator z-10">
-            <a href="#about" class="text-brand-light/50 hover:text-brand-gold transition-colors flex flex-col items-center">
-                <span class="block text-[10px] uppercase tracking-[0.3em] pl-[0.3em] mb-2 font-sans">Scroll</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                </svg>
-            </a>
-        </div>
+        <p
+          class="font-serif text-brand-light/70 max-w-2xl mx-auto leading-[2.2] font-light text-[14px] md:text-[15px] pt-4"
+        >
+          대형 상업영화 프로듀서로 시작하여 감독으로 활동 영역을 넓히고,<br
+            class="hidden md:block"
+          />
+          국제 프로젝트 및 영화 교육 분야에서도 영향력을 발휘하고 있는 인물.<br />
+          <span class="text-brand-light/95 font-normal mt-2 block"
+            >이론과 현장 경험을 겸비한 대한민국 대표 제작자형 감독.</span
+          >
+        </p>
+      </div>
+      <div
+        class="absolute bottom-12 inset-x-0 flex justify-center scroll-indicator z-10"
+      >
+        <a
+          href="#about"
+          class="text-brand-light/50 hover:text-brand-gold transition-colors flex flex-col items-center"
+        >
+          <span
+            class="block text-[10px] uppercase tracking-[0.3em] pl-[0.3em] mb-2 font-sans"
+            >Scroll</span
+          >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              stroke-width="1.5"
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            ></path>
+          </svg>
+        </a>
+      </div>
     </header>
 
-    <section id="about" class="w-full bg-[#111111] relative z-10 border-b border-white/5">
-        <div class="pt-16 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
-            <div class="fade-up mb-20 text-center">
-                <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">ABOUT</h3>
-                <h2 class="font-serif text-3xl md:text-4xl font-light">소개</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-start">
-                <div class="md:col-span-5 fade-up md:mt-4">
-                    <div class="relative w-full aspect-[3/4] bg-brand-dark border border-white/10 p-2 shadow-2xl">
-                        <div class="w-full h-full bg-brand-gray flex items-center justify-center relative overflow-hidden">
-                           <img src="profile_pic.png" alt="이지승 감독" class="w-full h-full object-cover opacity-100 hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-brand-black/10 mix-blend-overlay"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="md:col-span-7 fade-up">
-                    <div class="font-sans" style="padding-top: 30px;">
-                        <div class="relative pl-5 md:pl-6">
-                            <div class="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-gradient-to-b from-brand-gold via-brand-gold/40 to-transparent rounded-full"></div>
-                            
-                            <p class="text-[14.5px] text-[#a0a0a0] font-light leading-[1.9] tracking-wide mb-5">
-                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-yellow-600 font-medium tracking-widest text-[15px]">이지승(Lee Ji-seung)</span>은 한국 상업영화 산업에서 제작 중심 경력을 기반으로 연출까지 확장한 영화인이다. 1969년 대한민국 서울에서 출생하였으며, 한양대학교 연극영화과를 졸업한 후 미국 <span class="text-[#cfcfcf] font-medium border-b border-[#cfcfcf]/30 pb-0.5">뉴욕대학교(NYU) 대학원 영화이론학 석사</span> 학위를 취득하였다. 미국 유학을 통해 이론적 기반을 갖춘 뒤, 한국 영화 산업 현장에서 실무 중심의 제작 경력을 쌓았다.
-                            </p>
-                            <p class="text-[14.5px] text-[#a0a0a0] font-light leading-[1.9] tracking-wide">
-                                2000년대 초중반부터 대형 상업영화 프로듀서로 탄탄한 커리어를 다진 후, 2013년 사회고발 스릴러 <span class="text-[#cfcfcf] font-medium border-b border-brand-gold/30 pb-0.5">《공정사회》</span>로 첫 메가폰을 잡으며 성공적인 감독 데뷔를 치렀다. 이후 파운드 푸티지 형식을 도입한 팩션 영화 <span class="text-[#cfcfcf] font-medium border-b border-[#cfcfcf]/30 pb-0.5">《섬. 사라진 사람들》(2016)</span>과 범죄물 <span class="text-[#cfcfcf] font-medium border-b border-[#cfcfcf]/30 pb-0.5">《여타짜》(2021)</span>를 연출하며, 사회적 메시지와 흥행성을 아우르는 독창적인 스토리텔링 기술을 지닌 창작자로 입지를 굳혔다.
-                            </p>
-                        </div>
-                        
-                        <div class="bg-[#121212]/40 backdrop-blur-md rounded-xl p-6 border border-white/5 mt-8 shadow-xl relative overflow-hidden fade-up delay-100" style="padding-top: 8px;">
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-[60px] rounded-full pointer-events-none"></div>
-                            
-                            <dl class="flex flex-col font-sans relative z-10">
-                                <div class="flex flex-col sm:flex-row py-3 border-b border-white/5 items-start">
-                                    <dt class="w-24 shrink-0 text-brand-muted font-medium text-[13.5px] pt-0.5 tracking-wider">출생</dt>
-                                    <dd class="text-[#dcdcdc] text-[14.5px]">1969년 서울특별시</dd>
-                                </div>
-                                <div class="flex flex-col sm:flex-row py-3 border-b border-white/5 items-start">
-                                    <dt class="w-24 shrink-0 text-brand-muted font-medium text-[13.5px] pt-0.5 tracking-wider">학력</dt>
-                                    <dd class="text-[#dcdcdc] text-[14.5px] space-y-1">
-                                        <span class="block text-brand-gold/90 font-medium">뉴욕대학교 대학원 영화이론학 석사</span>
-                                        <span class="block text-brand-light/50 text-[13.5px]">한양대학교 연극영화과 졸업</span>
-                                    </dd>
-                                </div>
-                                <div class="flex flex-col sm:flex-row pt-3 items-start">
-                                    <dt class="w-24 shrink-0 text-brand-muted font-medium text-[13.5px] pt-0.5 tracking-wider">경력</dt>
-                                    <dd class="text-[#dcdcdc] text-[14.5px] space-y-2">
-                                        <span class="block hover:text-brand-gold transition-colors cursor-default">하이컨셉픽쳐스(주) 대표</span>
-                                        <span class="block hover:text-brand-gold transition-colors cursor-default">극동대학교 미디어영상제작학과 초빙교수</span>
-                                        <span class="block hover:text-brand-gold transition-colors cursor-default">서울필름아카데미 (SFA) 연출전공 학장</span>
-                                        <span class="block hover:text-brand-gold transition-colors cursor-default">한국영화아카데미 (KAFA)프로듀싱전공 제작총괄 책임교수</span>
-                                    </dd>
-                                </div>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section
+      id="about"
+      class="w-full bg-[#111111] relative z-10 border-b border-white/5"
+    >
+      <div class="pt-16 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="fade-up mb-20 text-center">
+          <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">
+            ABOUT
+          </h3>
+          <h2 class="font-serif text-3xl md:text-4xl font-light">소개</h2>
         </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-start"
+        >
+          <div class="md:col-span-5 fade-up md:mt-4">
+            <div
+              class="relative w-full aspect-[3/4] bg-brand-dark border border-white/10 p-2 shadow-2xl"
+            >
+              <div
+                class="w-full h-full bg-brand-gray flex items-center justify-center relative overflow-hidden"
+              >
+                <img
+                  src="profile_pic.png"
+                  alt="이지승 감독"
+                  class="w-full h-full object-cover opacity-100 hover:scale-105 transition-transform duration-700"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/10 mix-blend-overlay"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="md:col-span-7 fade-up">
+            <div class="font-sans" style="padding-top: 30px">
+              <div class="relative pl-5 md:pl-6">
+                <div
+                  class="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-gradient-to-b from-brand-gold via-brand-gold/40 to-transparent rounded-full"
+                ></div>
+                <p
+                  class="text-[14.5px] text-[#a0a0a0] font-light leading-[1.9] tracking-wide mb-5"
+                >
+                  <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-yellow-600 font-medium tracking-widest text-[15px]"
+                    >이지승(Lee Ji-seung)</span
+                  >은 한국 상업영화 산업에서 제작 중심 경력을 기반으로 연출까지
+                  확장한 영화인이다. 1969년 대한민국 서울에서 출생하였으며,
+                  한양대학교 연극영화과를 졸업한 후 미국
+                  <span
+                    class="text-[#cfcfcf] font-medium border-b border-[#cfcfcf]/30 pb-0.5"
+                    >뉴욕대학교(NYU) 대학원 영화이론학 석사</span
+                  >
+                  학위를 취득하였다. 미국 유학을 통해 이론적 기반을 갖춘 뒤,
+                  한국 영화 산업 현장에서 실무 중심의 제작 경력을 쌓았다.
+                </p>
+                <p
+                  class="text-[14.5px] text-[#a0a0a0] font-light leading-[1.9] tracking-wide"
+                >
+                  2000년대 초중반부터 대형 상업영화 프로듀서로 탄탄한 커리어를
+                  다진 후, 2013년 사회고발 스릴러
+                  <span
+                    class="text-[#cfcfcf] font-medium border-b border-brand-gold/30 pb-0.5"
+                    >《공정사회》</span
+                  >로 첫 메가폰을 잡으며 성공적인 감독 데뷔를 치렀다. 이후
+                  파운드 푸티지 형식을 도입한 팩션 영화
+                  <span
+                    class="text-[#cfcfcf] font-medium border-b border-[#cfcfcf]/30 pb-0.5"
+                    >《섬. 사라진 사람들》(2016)</span
+                  >과 범죄물
+                  <span
+                    class="text-[#cfcfcf] font-medium border-b border-[#cfcfcf]/30 pb-0.5"
+                    >《여타짜》(2021)</span
+                  >를 연출하며, 사회적 메시지와 흥행성을 아우르는 독창적인
+                  스토리텔링 기술을 지닌 창작자로 입지를 굳혔다.
+                </p>
+              </div>
+              <div
+                class="bg-[#121212]/40 backdrop-blur-md rounded-xl p-6 border border-white/5 mt-8 shadow-xl relative overflow-hidden fade-up delay-100"
+                style="padding-top: 8px"
+              >
+                <div
+                  class="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-[60px] rounded-full pointer-events-none"
+                ></div>
+                <dl class="flex flex-col font-sans relative z-10">
+                  <div
+                    class="flex flex-col sm:flex-row py-3 border-b border-white/5 items-start"
+                  >
+                    <dt
+                      class="w-24 shrink-0 text-brand-muted font-medium text-[13.5px] pt-0.5 tracking-wider"
+                    >
+                      출생
+                    </dt>
+                    <dd class="text-[#dcdcdc] text-[14.5px]">
+                      1969년 서울특별시
+                    </dd>
+                  </div>
+                  <div
+                    class="flex flex-col sm:flex-row py-3 border-b border-white/5 items-start"
+                  >
+                    <dt
+                      class="w-24 shrink-0 text-brand-muted font-medium text-[13.5px] pt-0.5 tracking-wider"
+                    >
+                      학력
+                    </dt>
+                    <dd class="text-[#dcdcdc] text-[14.5px] space-y-1">
+                      <span class="block text-brand-gold/90 font-medium"
+                        >뉴욕대학교 대학원 영화이론학 석사</span
+                      >
+                      <span class="block text-brand-light/50 text-[13.5px]"
+                        >한양대학교 연극영화과 졸업</span
+                      >
+                    </dd>
+                  </div>
+                  <div class="flex flex-col sm:flex-row pt-3 items-start">
+                    <dt
+                      class="w-24 shrink-0 text-brand-muted font-medium text-[13.5px] pt-0.5 tracking-wider"
+                    >
+                      경력
+                    </dt>
+                    <dd class="text-[#dcdcdc] text-[14.5px] space-y-2">
+                      <span
+                        class="block hover:text-brand-gold transition-colors cursor-default"
+                        >하이컨셉픽쳐스(주) 대표</span
+                      >
+                      <span
+                        class="block hover:text-brand-gold transition-colors cursor-default"
+                        >극동대학교 미디어영상제작학과 초빙교수</span
+                      >
+                      <span
+                        class="block hover:text-brand-gold transition-colors cursor-default"
+                        >서울필름아카데미 (SFA) 연출전공 학장</span
+                      >
+                      <span
+                        class="block hover:text-brand-gold transition-colors cursor-default"
+                        >한국영화아카데미 (KAFA)프로듀싱전공 제작총괄
+                        책임교수</span
+                      >
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="filmography" class="w-full bg-[#161616] relative z-10">
-        <div class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
-            <div class="text-center mb-24 fade-up">
-                <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">FILMOGRAPHY</h3>
-                <h2 class="font-serif text-3xl md:text-4xl font-light">주요 작품</h2>
-            </div>
-
-            <div class="mb-32">
-                <div class="flex items-center gap-4 mb-12 fade-up">
-                    <h4 class="font-serif text-xl tracking-widest text-brand-light">감독 <span class="font-cinzel text-brand-gold ml-1 text-lg">/ Directed</span></h4>
-                    <div class="h-px bg-white/10 flex-grow"></div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <a href="https://cine21.com/movie/info/?movie_id=58673" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up bg-brand-dark border border-white/5 rounded-sm shadow-xl">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="여타짜.webp" alt="여타짜" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-4 text-center">
-                                <span class="font-cinzel text-brand-gold text-xs tracking-[0.2em] mb-3 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[15px] text-brand-light/90 leading-loose font-light drop-shadow-md">이채영, 정혜인<br>최민철, 김선빈</p>
-                            </div>
-                        </div>
-                        <div class="p-8">
-                            <span class="font-sans text-xs text-brand-gold font-bold tracking-widest">2021</span>
-                            <h4 class="font-serif text-2xl mt-2 mb-4 group-hover:text-brand-gold transition-colors duration-300">여타짜</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2.5 py-1 text-[11px] tracking-widest uppercase mb-4 rounded-sm">감독 · 이지승</span>
-                            <p class="text-brand-muted text-[13.5px] leading-relaxed font-light line-clamp-3">도박판에 뛰어든 미미가 정체불명의 타짜 오자와 만나 인생을 건 짜릿한 승부를 펼치는 범죄 오락 영화.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://cine21.com/movie/info/?movie_id=45757" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up delay-100 bg-brand-dark border border-white/5 rounded-sm shadow-xl">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="섬_사라진_사람들.webp" alt="섬. 사라진 사람들" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-4 text-center">
-                                <span class="font-cinzel text-brand-gold text-xs tracking-[0.2em] mb-3 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[15px] text-brand-light/90 leading-loose font-light drop-shadow-md">박효주, 배성우<br>이현욱</p>
-                            </div>
-                        </div>
-                        <div class="p-8">
-                            <span class="font-sans text-xs text-brand-gold font-bold tracking-widest">2015</span>
-                            <h4 class="font-serif text-2xl mt-2 mb-4 group-hover:text-brand-gold transition-colors duration-300">섬. 사라진 사람들</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2.5 py-1 text-[11px] tracking-widest uppercase mb-4 rounded-sm">감독 · 이지승</span>
-                            <p class="text-brand-muted text-[13.5px] leading-relaxed font-light line-clamp-3">염전노예 사건 제보를 받고 섬으로 간 기자들이 끔찍한 살인사건에 휘말리며 진실을 파헤치는 파운드 푸티지 스릴러.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://cine21.com/movie/info/?movie_id=37588" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up delay-200 bg-brand-dark border border-white/5 rounded-sm shadow-xl">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="공정사회.webp" alt="공정사회" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-4 text-center">
-                                <span class="font-cinzel text-brand-gold text-xs tracking-[0.2em] mb-3 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[15px] text-brand-light/90 leading-loose font-light drop-shadow-md">장영남, 마동석<br>황태광, 배성우</p>
-                            </div>
-                        </div>
-                        <div class="p-8">
-                            <span class="font-sans text-xs text-brand-gold font-bold tracking-widest">2012</span>
-                            <h4 class="font-serif text-2xl mt-2 mb-4 group-hover:text-brand-gold transition-colors duration-300">공정사회</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2.5 py-1 text-[11px] tracking-widest uppercase mb-4 rounded-sm">감독 · 이지승</span>
-                            <p class="text-brand-muted text-[13.5px] leading-relaxed font-light line-clamp-3">경찰과 남편이 외면한 딸의 성폭행범을 직접 찾아 나서 40일간의 추적 끝에 통쾌한 복수를 감행하는 엄마의 이야기.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="fade-up pt-16 border-t border-white/5">
-                <div class="flex items-center gap-4 mb-12">
-                    <h4 class="font-serif text-xl tracking-widest text-brand-light">프로듀서 <span class="font-cinzel text-brand-gold ml-1 text-lg">/ Produced</span></h4>
-                    <div class="h-px bg-white/10 flex-grow"></div>
-                </div>
-                
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                    <a href="https://cine21.com/movie/info/?movie_id=41335" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up bg-brand-dark border border-white/5 rounded-sm">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="avengers.webp" alt="어벤져스" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center">
-                                <span class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md">로버트 다우니 주니어<br>크리스 에반스, 수현</p>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <span class="font-sans text-[10px] text-brand-gold font-bold tracking-widest">2015</span>
-                            <h4 class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300">어벤져스<span class="text-[14px]"> : 에이지 오브 울트론</span></h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm">Korea Unit Producer</span>
-                            <p class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3">인류를 멸종시키려는 인공지능에 맞서 최강의 전투를 벌이는 어벤져스의 글로벌 블록버스터.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://cine21.com/movie/info/?movie_id=44034" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up delay-100 bg-brand-dark border border-white/5 rounded-sm">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="성실한_앨리스.webp" alt="성실한 나라의 앨리스" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center">
-                                <span class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md">이정현, 이해영<br>명계남</p>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <span class="font-sans text-[10px] text-brand-gold font-bold tracking-widest">2015</span>
-                            <h4 class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300">성실한 나라의 앨리스</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm">Production Supervisor</span>
-                            <p class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3">억척스럽게 살아온 수남의 잔혹한 복수극을 비롯해 KAFA가 배출한 완성도 높은 독립영화들.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://cine21.com/movie/info/?movie_id=42741" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up delay-200 bg-brand-dark border border-white/5 rounded-sm">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="소셜포비아.jpg" alt="소셜포비아" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center">
-                                <span class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md">변요한, 이주승<br>류준열</p>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <span class="font-sans text-[10px] text-brand-gold font-bold tracking-widest">2014</span>
-                            <h4 class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300">소셜포비아</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm">Production Supervisor</span>
-                            <p class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3">악플러의 죽음을 추적하며 벌어지는 숨 막히는 SNS 추적극 등 신선한 소재와 연출력이 돋보이는 작품들.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://cine21.com/movie/info/?movie_id=31615" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up delay-300 bg-brand-dark border border-white/5 rounded-sm">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="통증.jpg" alt="통증" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center">
-                                <span class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md">권상우, 정려원<br>마동석</p>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <span class="font-sans text-[10px] text-brand-gold font-bold tracking-widest">2011</span>
-                            <h4 class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300">통증</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm">Executive Producer</span>
-                            <p class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3">통증을 느끼지 못하는 남자와 작은 상처에도 치명적인 통증을 느끼는 여자의 강렬한 멜로.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://cine21.com/movie/info/?movie_id=24396" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up bg-brand-dark border border-white/5 rounded-sm">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="해운대_(영화).jpg" alt="해운대" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center">
-                                <span class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md">설경구, 하지원<br>박중훈, 엄정화</p>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <span class="font-sans text-[10px] text-brand-gold font-bold tracking-widest">2009</span>
-                            <h4 class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300">해운대</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm">Producer</span>
-                            <p class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3">부산 해운대에 초대형 쓰나미가 닥치면서 생존을 위해 사투를 벌이는 재난 블록버스터.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://cine21.com/movie/info/?movie_id=12493" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up delay-100 bg-brand-dark border border-white/5 rounded-sm">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="청춘만화.webp" alt="청춘만화" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center">
-                                <span class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md">권상우, 김하늘</p>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <span class="font-sans text-[10px] text-brand-gold font-bold tracking-widest">2006</span>
-                            <h4 class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300">청춘만화</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm">Producer</span>
-                            <p class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3">13년 지기 소꿉친구인 스턴트맨 지망생 지환과 배우 지망생 달래의 티격태격 로맨틱 코미디.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://cine21.com/movie/info/?movie_id=6685" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up delay-200 bg-brand-dark border border-white/5 rounded-sm">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="색즉시공.jpg" alt="색즉시공" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center">
-                                <span class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md">임창정, 하지원<br>유채영</p>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <span class="font-sans text-[10px] text-brand-gold font-bold tracking-widest">2002</span>
-                            <h4 class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300">색즉시공</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm">Producer</span>
-                            <p class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3">대학 차력 동아리와 에어로빅 동아리 학생들 사이에서 벌어지는 좌충우돌 청춘들의 이야기.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://cine21.com/movie/info/?movie_id=5487" target="_blank" rel="noopener noreferrer" class="block poster-card group fade-up delay-300 bg-brand-dark border border-white/5 rounded-sm">
-                        <div class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5">
-                            <img src="취화선.webp" alt="취화선" class="w-full h-full object-cover opacity-80">
-                            <div class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center">
-                                <span class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1">CAST</span>
-                                <p class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md">최민식, 안성기<br>유호정</p>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <span class="font-sans text-[10px] text-brand-gold font-bold tracking-widest">2002</span>
-                            <h4 class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300">취화선 외</h4>
-                            <span class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm">Planning</span>
-                            <p class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3">조선 천재 화가 장승업의 예술혼을 그린 걸작 '취화선'을 비롯한 당대 웰메이드 상업영화 기획.</p>
-                        </div>
-                    </a>
-
-                </div>
-            </div>
+      <div class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center mb-24 fade-up">
+          <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">
+            FILMOGRAPHY
+          </h3>
+          <h2 class="font-serif text-3xl md:text-4xl font-light">주요 작품</h2>
         </div>
+        <div class="mb-32">
+          <div class="flex items-center gap-4 mb-12 fade-up">
+            <h4 class="font-serif text-xl tracking-widest text-brand-light">
+              감독
+              <span class="font-cinzel text-brand-gold ml-1 text-lg"
+                >/ Directed</span
+              >
+            </h4>
+            <div class="h-px bg-white/10 flex-grow"></div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <a
+              href="https://cine21.com/movie/info/?movie_id=58673"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up bg-brand-dark border border-white/5 rounded-sm shadow-xl"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="여타짜.webp"
+                  alt="여타짜"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-4 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-xs tracking-[0.2em] mb-3 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[15px] text-brand-light/90 leading-loose font-light drop-shadow-md"
+                  >
+                    이채영, 정혜인<br />최민철, 김선빈
+                  </p>
+                </div>
+              </div>
+              <div class="p-8">
+                <span
+                  class="font-sans text-xs text-brand-gold font-bold tracking-widest"
+                  >2021</span
+                >
+                <h4
+                  class="font-serif text-2xl mt-2 mb-4 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  여타짜
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2.5 py-1 text-[11px] tracking-widest uppercase mb-4 rounded-sm"
+                  >감독 · 이지승</span
+                >
+                <p
+                  class="text-brand-muted text-[13.5px] leading-relaxed font-light line-clamp-3"
+                >
+                  도박판에 뛰어든 미미가 정체불명의 타짜 오자와 만나 인생을 건
+                  짜릿한 승부를 펼치는 범죄 오락 영화.
+                </p>
+              </div>
+            </a>
+            <a
+              href="https://cine21.com/movie/info/?movie_id=45757"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up delay-100 bg-brand-dark border border-white/5 rounded-sm shadow-xl"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="섬_사라진_사람들.webp"
+                  alt="섬. 사라진 사람들"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-4 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-xs tracking-[0.2em] mb-3 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[15px] text-brand-light/90 leading-loose font-light drop-shadow-md"
+                  >
+                    박효주, 배성우<br />이현욱
+                  </p>
+                </div>
+              </div>
+              <div class="p-8">
+                <span
+                  class="font-sans text-xs text-brand-gold font-bold tracking-widest"
+                  >2015</span
+                >
+                <h4
+                  class="font-serif text-2xl mt-2 mb-4 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  섬. 사라진 사람들
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2.5 py-1 text-[11px] tracking-widest uppercase mb-4 rounded-sm"
+                  >감독 · 이지승</span
+                >
+                <p
+                  class="text-brand-muted text-[13.5px] leading-relaxed font-light line-clamp-3"
+                >
+                  염전노예 사건 제보를 받고 섬으로 간 기자들이 끔찍한 살인사건에
+                  휘말리며 진실을 파헤치는 파운드 푸티지 스릴러.
+                </p>
+              </div>
+            </a>
+            <a
+              href="https://cine21.com/movie/info/?movie_id=37588"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up delay-200 bg-brand-dark border border-white/5 rounded-sm shadow-xl"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="공정사회.webp"
+                  alt="공정사회"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-4 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-xs tracking-[0.2em] mb-3 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[15px] text-brand-light/90 leading-loose font-light drop-shadow-md"
+                  >
+                    장영남, 마동석<br />황태광, 배성우
+                  </p>
+                </div>
+              </div>
+              <div class="p-8">
+                <span
+                  class="font-sans text-xs text-brand-gold font-bold tracking-widest"
+                  >2012</span
+                >
+                <h4
+                  class="font-serif text-2xl mt-2 mb-4 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  공정사회
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2.5 py-1 text-[11px] tracking-widest uppercase mb-4 rounded-sm"
+                  >감독 · 이지승</span
+                >
+                <p
+                  class="text-brand-muted text-[13.5px] leading-relaxed font-light line-clamp-3"
+                >
+                  경찰과 남편이 외면한 딸의 성폭행범을 직접 찾아 나서 40일간의
+                  추적 끝에 통쾌한 복수를 감행하는 엄마의 이야기.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="fade-up pt-16 border-t border-white/5">
+          <div class="flex items-center gap-4 mb-12">
+            <h4 class="font-serif text-xl tracking-widest text-brand-light">
+              프로듀서
+              <span class="font-cinzel text-brand-gold ml-1 text-lg"
+                >/ Produced</span
+              >
+            </h4>
+            <div class="h-px bg-white/10 flex-grow"></div>
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            <a
+              href="https://cine21.com/movie/info/?movie_id=41335"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up bg-brand-dark border border-white/5 rounded-sm"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="avengers.webp"
+                  alt="어벤져스"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md"
+                  >
+                    로버트 다우니 주니어<br />크리스 에반스, 수현
+                  </p>
+                </div>
+              </div>
+              <div class="p-5">
+                <span
+                  class="font-sans text-[10px] text-brand-gold font-bold tracking-widest"
+                  >2015</span
+                >
+                <h4
+                  class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  어벤져스<span class="text-[14px]"> : 에이지 오브 울트론</span>
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm"
+                  >Korea Unit Producer</span
+                >
+                <p
+                  class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3"
+                >
+                  인류를 멸종시키려는 인공지능에 맞서 최강의 전투를 벌이는
+                  어벤져스의 글로벌 블록버스터.
+                </p>
+              </div>
+            </a>
+            <a
+              href="https://cine21.com/movie/info/?movie_id=44034"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up delay-100 bg-brand-dark border border-white/5 rounded-sm"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="성실한_앨리스.webp"
+                  alt="성실한 나라의 앨리스"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md"
+                  >
+                    이정현, 이해영<br />명계남
+                  </p>
+                </div>
+              </div>
+              <div class="p-5">
+                <span
+                  class="font-sans text-[10px] text-brand-gold font-bold tracking-widest"
+                  >2015</span
+                >
+                <h4
+                  class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  성실한 나라의 앨리스
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm"
+                  >Production Supervisor</span
+                >
+                <p
+                  class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3"
+                >
+                  억척스럽게 살아온 수남의 잔혹한 복수극을 비롯해 KAFA가 배출한
+                  완성도 높은 독립영화들.
+                </p>
+              </div>
+            </a>
+            <a
+              href="https://cine21.com/movie/info/?movie_id=42741"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up delay-200 bg-brand-dark border border-white/5 rounded-sm"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="소셜포비아.jpg"
+                  alt="소셜포비아"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md"
+                  >
+                    변요한, 이주승<br />류준열
+                  </p>
+                </div>
+              </div>
+              <div class="p-5">
+                <span
+                  class="font-sans text-[10px] text-brand-gold font-bold tracking-widest"
+                  >2014</span
+                >
+                <h4
+                  class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  소셜포비아
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm"
+                  >Production Supervisor</span
+                >
+                <p
+                  class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3"
+                >
+                  악플러의 죽음을 추적하며 벌어지는 숨 막히는 SNS 추적극 등
+                  신선한 소재와 연출력이 돋보이는 작품들.
+                </p>
+              </div>
+            </a>
+            <a
+              href="https://cine21.com/movie/info/?movie_id=31615"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up delay-300 bg-brand-dark border border-white/5 rounded-sm"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="통증.jpg"
+                  alt="통증"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md"
+                  >
+                    권상우, 정려원<br />마동석
+                  </p>
+                </div>
+              </div>
+              <div class="p-5">
+                <span
+                  class="font-sans text-[10px] text-brand-gold font-bold tracking-widest"
+                  >2011</span
+                >
+                <h4
+                  class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  통증
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm"
+                  >Executive Producer</span
+                >
+                <p
+                  class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3"
+                >
+                  통증을 느끼지 못하는 남자와 작은 상처에도 치명적인 통증을
+                  느끼는 여자의 강렬한 멜로.
+                </p>
+              </div>
+            </a>
+            <a
+              href="https://cine21.com/movie/info/?movie_id=24396"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up bg-brand-dark border border-white/5 rounded-sm"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="해운대_(영화).jpg"
+                  alt="해운대"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md"
+                  >
+                    설경구, 하지원<br />박중훈, 엄정화
+                  </p>
+                </div>
+              </div>
+              <div class="p-5">
+                <span
+                  class="font-sans text-[10px] text-brand-gold font-bold tracking-widest"
+                  >2009</span
+                >
+                <h4
+                  class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  해운대
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm"
+                  >Producer</span
+                >
+                <p
+                  class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3"
+                >
+                  부산 해운대에 초대형 쓰나미가 닥치면서 생존을 위해 사투를
+                  벌이는 재난 블록버스터.
+                </p>
+              </div>
+            </a>
+            <a
+              href="https://cine21.com/movie/info/?movie_id=12493"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up delay-100 bg-brand-dark border border-white/5 rounded-sm"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="청춘만화.webp"
+                  alt="청춘만화"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md"
+                  >
+                    권상우, 김하늘
+                  </p>
+                </div>
+              </div>
+              <div class="p-5">
+                <span
+                  class="font-sans text-[10px] text-brand-gold font-bold tracking-widest"
+                  >2006</span
+                >
+                <h4
+                  class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  청춘만화
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm"
+                  >Producer</span
+                >
+                <p
+                  class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3"
+                >
+                  13년 지기 소꿉친구인 스턴트맨 지망생 지환과 배우 지망생 달래의
+                  티격태격 로맨틱 코미디.
+                </p>
+              </div>
+            </a>
+            <a
+              href="https://cine21.com/movie/info/?movie_id=6685"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up delay-200 bg-brand-dark border border-white/5 rounded-sm"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="색즉시공.jpg"
+                  alt="색즉시공"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md"
+                  >
+                    임창정, 하지원<br />유채영
+                  </p>
+                </div>
+              </div>
+              <div class="p-5">
+                <span
+                  class="font-sans text-[10px] text-brand-gold font-bold tracking-widest"
+                  >2002</span
+                >
+                <h4
+                  class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  색즉시공
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm"
+                  >Producer</span
+                >
+                <p
+                  class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3"
+                >
+                  대학 차력 동아리와 에어로빅 동아리 학생들 사이에서 벌어지는
+                  좌충우돌 청춘들의 이야기.
+                </p>
+              </div>
+            </a>
+            <a
+              href="https://cine21.com/movie/info/?movie_id=5487"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block poster-card group fade-up delay-300 bg-brand-dark border border-white/5 rounded-sm"
+            >
+              <div
+                class="aspect-[2/3] relative overflow-hidden bg-[#252525] border-b border-white/5"
+              >
+                <img
+                  src="취화선.webp"
+                  alt="취화선"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <div
+                  class="absolute inset-0 bg-brand-black/40 backdrop-blur-[1px] flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 px-3 text-center"
+                >
+                  <span
+                    class="font-cinzel text-brand-gold text-[10px] tracking-[0.2em] mb-2 border-b border-brand-gold/30 pb-1"
+                    >CAST</span
+                  >
+                  <p
+                    class="font-sans text-[13px] text-brand-light/90 leading-relaxed font-light drop-shadow-md"
+                  >
+                    최민식, 안성기<br />유호정
+                  </p>
+                </div>
+              </div>
+              <div class="p-5">
+                <span
+                  class="font-sans text-[10px] text-brand-gold font-bold tracking-widest"
+                  >2002</span
+                >
+                <h4
+                  class="font-serif text-lg mt-1 mb-3 line-clamp-1 group-hover:text-brand-gold transition-colors duration-300"
+                >
+                  취화선 외
+                </h4>
+                <span
+                  class="inline-block border border-white/10 bg-white/5 text-brand-light/80 px-2 py-0.5 text-[10px] tracking-widest uppercase mb-3 rounded-sm"
+                  >Planning</span
+                >
+                <p
+                  class="text-brand-muted text-xs leading-relaxed font-light line-clamp-3"
+                >
+                  조선 천재 화가 장승업의 예술혼을 그린 걸작 '취화선'을 비롯한
+                  당대 웰메이드 상업영화 기획.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="philosophy" class="w-full pt-40 pb-64 bg-[#111111] relative z-10 overflow-hidden border-y border-white/5">
-        <div class="max-w-4xl mx-auto px-6 text-center fade-up">
-            <h2 class="font-cinzel text-2xl md:text-4xl text-brand-light mb-6 tracking-wide leading-snug">
-                "Cinema as Structure,<br>Emotion as Truth."
-            </h2>
-            <h3 class="font-serif text-xl md:text-2xl text-brand-gold mb-12 font-light">
-                영화는 구조 위에 세워진 감정이다.
-            </h3>
-            <p class="font-sans text-brand-light/70 font-light leading-loose text-sm md:text-base max-w-2xl mx-auto">
-                상업성과 예술성의 균형,<br>
-                제작자의 시각과 감독의 감각을 동시에 지향하며,<br>
-                산업 안에서 지속 가능한 창작 구조를 고민하는 태도.
-            </p>
-        </div>
+    <section
+      id="philosophy"
+      class="w-full pt-40 pb-64 bg-[#111111] relative z-10 overflow-hidden border-y border-white/5"
+    >
+      <div class="max-w-4xl mx-auto px-6 text-center fade-up">
+        <h2
+          class="font-cinzel text-2xl md:text-4xl text-brand-light mb-6 tracking-wide leading-snug"
+        >
+          "Cinema as Structure,<br />Emotion as Truth."
+        </h2>
+        <h3
+          class="font-serif text-xl md:text-2xl text-brand-gold mb-12 font-light"
+        >
+          영화는 구조 위에 세워진 감정이다.
+        </h3>
+        <p
+          class="font-sans text-brand-light/70 font-light leading-loose text-sm md:text-base max-w-2xl mx-auto"
+        >
+          상업성과 예술성의 균형,<br />
+          제작자의 시각과 감독의 감각을 동시에 지향하며,<br />
+          산업 안에서 지속 가능한 창작 구조를 고민하는 태도.
+        </p>
+      </div>
     </section>
 
     <section id="awards" class="w-full bg-[#161616] relative z-10">
-        <div class="pt-32 pb-56 px-6 md:px-12 max-w-3xl mx-auto">
-            <div class="text-center mb-20 fade-up">
-                <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">AWARDS & ACHIEVEMENTS</h3>
-                <h2 class="font-serif text-3xl md:text-4xl font-light">수상 및 주요 성과</h2>
-            </div>
-
-            <div class="relative border-l border-white/10 ml-4 md:ml-0">
-                <div class="mb-12 pl-8 relative fade-up delay-100">
-                    <div class="absolute w-3 h-3 bg-brand-gold rounded-full -left-[6.5px] top-1.5 shadow-[0_0_10px_rgba(197,160,89,0.5)]"></div>
-                    <h4 class="font-serif text-xl mb-2">해외 영화제 주목 및 창작자 역량 입증</h4>
-                    <p class="font-sans text-sm text-brand-muted font-light leading-relaxed">
-                        감독 데뷔작 <span class="text-brand-gold font-medium">《공정사회》</span>(2012)를 통해 국내외 주요 영화제에서 초청 및 수상하며 단순 제작자가 아닌 창작자로서의 독창적 색채를 국제적으로 인정받음.
-                    </p>
-                </div>
-
-                <div class="mb-12 pl-8 relative fade-up delay-200">
-                    <div class="absolute w-3 h-3 bg-brand-dark border border-brand-gold rounded-full -left-[6.5px] top-1.5"></div>
-                    <h4 class="font-serif text-xl mb-2">대형 흥행 프로젝트 기여</h4>
-                    <p class="font-sans text-sm text-brand-muted font-light leading-relaxed">
-                        <span class="text-brand-gold font-medium">《해운대》</span>(2009) 프로듀서로 참여하여 한국 재난 블록버스터 장르의 상업적 대성공을 견인함. 한국 상업영화 핵심 프로젝트들을 안정적으로 관리하며 자본 운용 및 제작 총괄 능력을 입증.
-                    </p>
-                </div>
-
-                <div class="pl-8 relative fade-up delay-300">
-                    <div class="absolute w-3 h-3 bg-brand-dark border border-brand-gold rounded-full -left-[6.5px] top-1.5"></div>
-                    <h4 class="font-serif text-xl mb-2">영화 교육 및 산업 기여</h4>
-                    <p class="font-sans text-sm text-brand-muted font-light leading-relaxed">
-                        한국영화아카데미(KAFA) 제작총괄 책임교수를 역임하며 산업 현장의 실무 경험을 교육 현장에 직접 연결. 차세대 영화인 양성에 기여함.
-                    </p>
-                </div>
-            </div>
+      <div class="pt-32 pb-56 px-6 md:px-12 max-w-3xl mx-auto">
+        <div class="text-center mb-20 fade-up">
+          <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">
+            AWARDS & ACHIEVEMENTS
+          </h3>
+          <h2 class="font-serif text-3xl md:text-4xl font-light">
+            수상 및 주요 성과
+          </h2>
         </div>
+        <div class="relative border-l border-white/10 ml-4 md:ml-0">
+          <div class="mb-12 pl-8 relative fade-up delay-100">
+            <div
+              class="absolute w-3 h-3 bg-brand-gold rounded-full -left-[6.5px] top-1.5 shadow-[0_0_10px_rgba(197,160,89,0.5)]"
+            ></div>
+            <h4 class="font-serif text-xl mb-2">
+              해외 영화제 주목 및 창작자 역량 입증
+            </h4>
+            <p
+              class="font-sans text-sm text-brand-muted font-light leading-relaxed"
+            >
+              감독 데뷔작
+              <span class="text-brand-gold font-medium">《공정사회》</span
+              >(2012)를 통해 국내외 주요 영화제에서 초청 및 수상하며 단순
+              제작자가 아닌 창작자로서의 독창적 색채를 국제적으로 인정받음.
+            </p>
+          </div>
+          <div class="mb-12 pl-8 relative fade-up delay-200">
+            <div
+              class="absolute w-3 h-3 bg-brand-dark border border-brand-gold rounded-full -left-[6.5px] top-1.5"
+            ></div>
+            <h4 class="font-serif text-xl mb-2">대형 흥행 프로젝트 기여</h4>
+            <p
+              class="font-sans text-sm text-brand-muted font-light leading-relaxed"
+            >
+              <span class="text-brand-gold font-medium">《해운대》</span>(2009)
+              프로듀서로 참여하여 한국 재난 블록버스터 장르의 상업적 대성공을
+              견인함. 한국 상업영화 핵심 프로젝트들을 안정적으로 관리하며 자본
+              운용 및 제작 총괄 능력을 입증.
+            </p>
+          </div>
+          <div class="pl-8 relative fade-up delay-300">
+            <div
+              class="absolute w-3 h-3 bg-brand-dark border border-brand-gold rounded-full -left-[6.5px] top-1.5"
+            ></div>
+            <h4 class="font-serif text-xl mb-2">영화 교육 및 산업 기여</h4>
+            <p
+              class="font-sans text-sm text-brand-muted font-light leading-relaxed"
+            >
+              한국영화아카데미(KAFA) 제작총괄 책임교수를 역임하며 산업 현장의
+              실무 경험을 교육 현장에 직접 연결. 차세대 영화인 양성에 기여함.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="media" class="w-full bg-[#111111] border-y border-white/5 relative z-10">
-        <div class="pt-32 pb-56 px-6 md:px-12 max-w-7xl mx-auto">
-            <div class="text-center mb-16 fade-up">
-                <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">MEDIA</h3>
-                <h2 class="font-serif text-3xl md:text-4xl font-light">인터뷰 & 보도</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <a href="https://www.mhns.co.kr/news/articleView.html?idxno=10972" target="_blank" rel="noopener noreferrer" class="group block border border-white/10 p-6 hover:border-brand-gold/50 transition-colors bg-brand-black fade-up delay-100 h-full flex flex-col">
-                    <p class="font-sans text-xs text-brand-gold mb-4 tracking-wider">PRESS & INTERVIEW</p>
-                    <h4 class="font-serif text-lg mb-4 group-hover:text-brand-gold transition-colors leading-snug flex-grow">
-                        '어벤져스' 韓 프로듀서부터 '섬' 감독까지… 뼛속까지 영화인 이지승
-                    </h4>
-                    <p class="font-sans text-sm text-brand-muted font-light leading-relaxed mb-6 line-clamp-3">
-                        "프로듀서일 때는 예산과 환경 등 영화 전반을 크게 봐야 한다면, 감독일 때는 크리에이티브 영역에 깊이 집중합니다." 대형 상업 프로듀서부터 독창적인 창작자까지 쉼 없이 달리는 그의 영화 철학.
-                    </p>
-                    <span class="font-sans text-xs text-brand-light/50 tracking-widest uppercase group-hover:text-brand-light transition-colors mt-auto">Read More →</span>
-                </a>
-
-                <a href="https://www.newshyu.com/news/articleView.html?idxno=19147" target="_blank" rel="noopener noreferrer" class="group block border border-white/10 p-6 hover:border-brand-gold/50 transition-colors bg-brand-black fade-up delay-200 h-full flex flex-col">
-                    <p class="font-sans text-xs text-brand-gold mb-4 tracking-wider">EDUCATION & LIFE</p>
-                    <h4 class="font-serif text-lg mb-4 group-hover:text-brand-gold transition-colors leading-snug flex-grow">
-                        스크린에 펼친 또 다른 세상, 영화 감독 이지승 동문
-                    </h4>
-                    <p class="font-sans text-sm text-brand-muted font-light leading-relaxed mb-6 line-clamp-3">
-                        태흥영화사라는 배경의 무게를 넘어 자신만의 길을 개척한 이지승 감독. 할리우드 대작의 로케이션 프로듀싱부터 한국영화아카데미(KAFA)에서 후학을 양성하는 교육자의 삶까지, 영화와 함께하는 진솔한 인생 이야기.
-                    </p>
-                    <span class="font-sans text-xs text-brand-light/50 tracking-widest uppercase group-hover:text-brand-light transition-colors mt-auto">Read More →</span>
-                </a>
-
-                <a href="https://sports.khan.co.kr/article/201206202035493" target="_blank" rel="noopener noreferrer" class="group block border border-white/10 p-6 hover:border-brand-gold/50 transition-colors bg-brand-black fade-up delay-300 h-full flex flex-col">
-                    <p class="font-sans text-xs text-brand-gold mb-4 tracking-wider">DIRECTORIAL DEBUT</p>
-                    <h4 class="font-serif text-lg mb-4 group-hover:text-brand-gold transition-colors leading-snug flex-grow">
-                        천만 영화 프로듀서에서 신인 감독으로… 이지승의 뚝심 《공정사회》
-                    </h4>
-                    <p class="font-sans text-sm text-brand-muted font-light leading-relaxed mb-6 line-clamp-3">
-                        대형 상업영화 '해운대'의 프로듀서로 활약했던 그가 메가폰을 잡았다. 5천만 원의 저예산과 단 9회 차라는 척박한 촬영 조건 속에서도 영화적 완성도를 끌어올리며 강렬한 사회적 메시지를 던진 감독 데뷔 스토리.
-                    </p>
-                    <span class="font-sans text-xs text-brand-light/50 tracking-widest uppercase group-hover:text-brand-light transition-colors mt-auto">Read More →</span>
-                </a>
-            </div>
+    <section
+      id="media"
+      class="w-full bg-[#111111] border-y border-white/5 relative z-10"
+    >
+      <div class="pt-32 pb-56 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center mb-16 fade-up">
+          <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">
+            MEDIA
+          </h3>
+          <h2 class="font-serif text-3xl md:text-4xl font-light">
+            인터뷰 & 보도
+          </h2>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <a
+            href="https://www.mhns.co.kr/news/articleView.html?idxno=10972"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group block border border-white/10 p-6 hover:border-brand-gold/50 transition-colors bg-brand-black fade-up delay-100 h-full flex flex-col"
+          >
+            <p class="font-sans text-xs text-brand-gold mb-4 tracking-wider">
+              PRESS & INTERVIEW
+            </p>
+            <h4
+              class="font-serif text-lg mb-4 group-hover:text-brand-gold transition-colors leading-snug flex-grow"
+            >
+              '어벤져스' 韓 프로듀서부터 '섬' 감독까지… 뼛속까지 영화인 이지승
+            </h4>
+            <p
+              class="font-sans text-sm text-brand-muted font-light leading-relaxed mb-6 line-clamp-3"
+            >
+              "프로듀서일 때는 예산과 환경 등 영화 전반을 크게 봐야 한다면,
+              감독일 때는 크리에이티브 영역에 깊이 집중합니다." 대형 상업
+              프로듀서부터 독창적인 창작자까지 쉼 없이 달리는 그의 영화 철학.
+            </p>
+            <span
+              class="font-sans text-xs text-brand-light/50 tracking-widest uppercase group-hover:text-brand-light transition-colors mt-auto"
+              >Read More →</span
+            >
+          </a>
+          <a
+            href="https://www.newshyu.com/news/articleView.html?idxno=19147"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group block border border-white/10 p-6 hover:border-brand-gold/50 transition-colors bg-brand-black fade-up delay-200 h-full flex flex-col"
+          >
+            <p class="font-sans text-xs text-brand-gold mb-4 tracking-wider">
+              EDUCATION & LIFE
+            </p>
+            <h4
+              class="font-serif text-lg mb-4 group-hover:text-brand-gold transition-colors leading-snug flex-grow"
+            >
+              스크린에 펼친 또 다른 세상, 영화 감독 이지승 동문
+            </h4>
+            <p
+              class="font-sans text-sm text-brand-muted font-light leading-relaxed mb-6 line-clamp-3"
+            >
+              태흥영화사라는 배경의 무게를 넘어 자신만의 길을 개척한 이지승
+              감독. 할리우드 대작의 로케이션 프로듀싱부터
+              한국영화아카데미(KAFA)에서 후학을 양성하는 교육자의 삶까지, 영화와
+              함께하는 진솔한 인생 이야기.
+            </p>
+            <span
+              class="font-sans text-xs text-brand-light/50 tracking-widest uppercase group-hover:text-brand-light transition-colors mt-auto"
+              >Read More →</span
+            >
+          </a>
+          <a
+            href="https://sports.khan.co.kr/article/201206202035493"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group block border border-white/10 p-6 hover:border-brand-gold/50 transition-colors bg-brand-black fade-up delay-300 h-full flex flex-col"
+          >
+            <p class="font-sans text-xs text-brand-gold mb-4 tracking-wider">
+              DIRECTORIAL DEBUT
+            </p>
+            <h4
+              class="font-serif text-lg mb-4 group-hover:text-brand-gold transition-colors leading-snug flex-grow"
+            >
+              천만 영화 프로듀서에서 신인 감독으로… 이지승의 뚝심 《공정사회》
+            </h4>
+            <p
+              class="font-sans text-sm text-brand-muted font-light leading-relaxed mb-6 line-clamp-3"
+            >
+              대형 상업영화 '해운대'의 프로듀서로 활약했던 그가 메가폰을 잡았다.
+              5천만 원의 저예산과 단 9회 차라는 척박한 촬영 조건 속에서도 영화적
+              완성도를 끌어올리며 강렬한 사회적 메시지를 던진 감독 데뷔 스토리.
+            </p>
+            <span
+              class="font-sans text-xs text-brand-light/50 tracking-widest uppercase group-hover:text-brand-light transition-colors mt-auto"
+              >Read More →</span
+            >
+          </a>
+        </div>
+      </div>
     </section>
 
     <section id="contact" class="w-full bg-[#161616] relative z-10">
-        <div class="py-32 px-6 max-w-2xl mx-auto text-center fade-up">
-            <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">CONTACT</h3>
-            <h2 class="font-serif text-3xl md:text-4xl font-light mb-12">문의</h2>
-            
-            <form id="contact-form" action="https://formspree.io/f/mnjbgkeg" method="POST" class="space-y-8 text-left font-sans text-sm">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <input type="text" name="name" placeholder="이름 (Name)" required>
-                    <input type="email" name="email" placeholder="이메일 (Email)" required>
-                </div>
-                <textarea name="message" rows="4" placeholder="메시지 (Message)" required></textarea>
-                <div class="text-center pt-4">
-                    <button id="submit-btn" type="submit" class="border border-brand-gold text-brand-gold px-12 py-3 tracking-widest uppercase hover:bg-brand-gold hover:text-brand-black transition-all duration-300 flex items-center justify-center mx-auto min-w-[220px]">
-                        <span id="btn-text">Send Message</span>
-                        <svg id="btn-spinner" class="hidden animate-spin ml-3 h-4 w-4 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </button>
-                </div>
-            </form>
-        </div>
+      <div class="py-32 px-6 max-w-2xl mx-auto text-center fade-up">
+        <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">
+          CONTACT
+        </h3>
+        <h2 class="font-serif text-3xl md:text-4xl font-light mb-12">문의</h2>
+        <form
+          id="contact-form"
+          action="https://formspree.io/f/mnjbgkeg"
+          method="POST"
+          class="space-y-8 text-left font-sans text-sm"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <input type="text" name="name" placeholder="이름 (Name)" required />
+            <input
+              type="email"
+              name="email"
+              placeholder="이메일 (Email)"
+              required
+            />
+          </div>
+          <textarea
+            name="message"
+            rows="4"
+            placeholder="메시지 (Message)"
+            required
+          ></textarea>
+          <div class="text-center pt-4">
+            <button
+              id="submit-btn"
+              type="submit"
+              class="border border-brand-gold text-brand-gold px-12 py-3 tracking-widest uppercase hover:bg-brand-gold hover:text-brand-black transition-all duration-300 flex items-center justify-center mx-auto min-w-[220px]"
+            >
+              <span id="btn-text">Send Message</span>
+              <svg
+                id="btn-spinner"
+                class="hidden animate-spin ml-3 h-4 w-4 text-current"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
 
-    <footer class="w-full bg-[#111111] py-12 text-center relative z-20 border-t border-white/5">
-        <div class="fade-up">
-            <h2 class="font-cinzel text-xl text-brand-light tracking-[0.2em] mb-2">LEE JI-SEUNG</h2>
-            <p class="font-serif text-sm text-brand-muted mb-8">Film Director & Producer | 이지승 영화 감독 · 프로듀서</p>
-            <p class="font-sans text-xs text-brand-light/30 tracking-wider">&copy; 2026 Lee Ji-seung. All Rights Reserved.</p>
-        </div>
+    <footer
+      class="w-full bg-[#111111] py-12 text-center relative z-20 border-t border-white/5"
+    >
+      <div class="fade-up">
+        <h2 class="font-cinzel text-xl text-brand-light tracking-[0.2em] mb-2">
+          LEE JI-SEUNG
+        </h2>
+        <p class="font-serif text-sm text-brand-muted mb-8">
+          Film Director & Producer | 이지승 영화 감독 · 프로듀서
+        </p>
+        <p class="font-sans text-xs text-brand-light/30 tracking-wider">
+          &copy; 2026 Lee Ji-seung. All Rights Reserved.
+        </p>
+      </div>
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // 스크롤 방지 및 최상단 이동
-            document.body.style.overflow = 'hidden';
-            window.scrollTo(0, 0);
+      document.addEventListener("DOMContentLoaded", function () {
+        // 초기 세팅
+        document.body.style.overflow = "hidden";
+        window.scrollTo(0, 0);
 
-            // 페이지에 사용된 포스터 이미지 자동 수집
-            const images = Array.from(document.querySelectorAll('.poster-card img')).map(img => img.src);
-            const posterContainer = document.getElementById('intro-posters');
-            
-            // 시퀀스에 사용할 이미지 (최대 6개)
-            const selectedImages = images.slice(0, 6);
-            
-            selectedImages.forEach(src => {
-                const img = document.createElement('img');
-                img.src = src;
-                img.className = 'absolute inset-0 w-full h-full object-cover origin-center';
-                img.style.opacity = 0;
-                posterContainer.appendChild(img);
-            });
+        const posterContainer = document.getElementById("intro-posters");
 
-            const introImages = posterContainer.querySelectorAll('img');
-            
-            // GSAP 메인 타임라인 설정
-            const tl = gsap.timeline({
-                onComplete: () => {
-                    // Phase 4: 전체 오버레이 페이드 아웃
-                    gsap.to('#intro-overlay', { 
-                        opacity: 0, 
-                        duration: 0.8, 
-                        ease: "power2.inOut", 
-                        onComplete: () => {
-                            document.getElementById('intro-overlay').style.display = 'none';
-                            document.body.style.overflow = ''; // 스크롤 복구
-                        }
-                    });
-                }
-            });
+        // [분리 적용] 1차 시퀀스용: 전체 6장 (청춘만화로 끝남)
+        const phase1Images = [
+          "해운대_(영화).jpg",
+          "여타짜.webp",
+          "공정사회.webp",
+          "avengers.webp",
+          "통증.jpg",
+          "청춘만화.webp",
+        ];
 
-            // 포스터 컨테이너 초기 노출
-            tl.to('#intro-posters', { opacity: 1, duration: 0 }, 0);
-            
-            const phase1End = 1.2;
-            const phase2End = 2.2;
-            const durationPerImg = phase2End / introImages.length;
-            
-            // Phase 1 (0 ~ 1.2초) ~ Phase 2 연결: 느린 페이드와 필름 그레인 효과 
-            introImages.forEach((img, i) => {
-                const startTime = i * durationPerImg;
-                const isLast = i === introImages.length - 1;
-                
-                tl.fromTo(img, 
-                    { opacity: 0, scale: 1.15, filter: 'blur(4px)' },
-                    { opacity: 1, scale: 1.05, filter: 'blur(0px)', duration: durationPerImg * 0.6, ease: "power1.inOut" },
-                    startTime
-                );
-                
-                if (!isLast) {
-                    tl.to(img, { opacity: 0, duration: durationPerImg * 0.6, ease: "power1.inOut" }, startTime + durationPerImg * 0.6);
-                } else {
-                    // 마지막 이미지는 실루엣 마스킹 때까지 유지
-                    tl.to(img, { scale: 1, duration: durationPerImg, ease: "power1.out" }, startTime + durationPerImg * 0.6);
-                }
-            });
+        // [분리 적용] 2차 시퀀스용: 마스크 안쪽 3장 (해운대, 여타짜, 공정사회)
+        const phase2Images = [
+          "해운대_(영화).jpg",
+          "여타짜.webp",
+          "공정사회.webp",
+        ];
 
-            // Phase 2 (1.2 ~ 2.2초): 포스터가 중앙으로 모이며 'LEE JI-SEUNG' 실루엣 생성
-            tl.to('#intro-mask', { opacity: 1, duration: 0.6, ease: "power2.inOut" }, phase1End);
+        // 반응형 크기 설정 (모바일은 꽉 차게, 데스크탑은 0.6 스케일 액자)
+        const isMobile = window.innerWidth <= 768;
+        const startScale1 = isMobile ? 1.05 : 0.65;
+        const endScale1 = isMobile ? 1.0 : 0.6;
 
-            // Phase 3 (2.2 ~ 3.0초): 실루엣을 밀어내고 금빛 텍스트 등장 (Curtain Call 효과)
-            tl.to('#intro-gold-text', { opacity: 1, duration: 0.6, ease: "power2.inOut" }, phase2End);
-            tl.to('#intro-posters', { opacity: 0, duration: 0.6, ease: "power2.inOut" }, phase2End);
+        // 1차 이미지 DOM 생성 (데스크탑에만 액자 프레임 클래스 추가)
+        const els1 = phase1Images.map(function (src) {
+          const img = document.createElement("img");
+          img.src = src;
+          img.className = isMobile
+            ? "intro-poster-img"
+            : "intro-poster-img phase1-frame";
+          posterContainer.appendChild(img);
+          return img;
         });
+
+        // 2차 이미지 DOM 생성 (잔상 버그 방지를 위해 따로 생성, 마스크용이므로 프레임 없음)
+        const els2 = phase2Images.map(function (src) {
+          const img = document.createElement("img");
+          img.src = src;
+          img.className = "intro-poster-img";
+          posterContainer.appendChild(img);
+          return img;
+        });
+
+        const tl = gsap.timeline({
+          onComplete: function () {
+            gsap.to("#intro-overlay", {
+              opacity: 0,
+              duration: 0.8,
+              ease: "power2.inOut",
+              onComplete: function () {
+                document.getElementById("intro-overlay").style.display = "none";
+                document.body.style.overflow = "";
+              },
+            });
+          },
+        });
+
+        // [Phase 0] High Concept Pictures 모던 타이포그래피 등장
+        tl.to("#highconcept-intro", { opacity: 1, duration: 0.5 })
+          .to("#hc-word1", {
+            y: 0,
+            opacity: 1,
+            duration: 1.0,
+            ease: "power3.out",
+          })
+          .to(
+            "#hc-line",
+            { width: "120px", duration: 1.0, ease: "power2.inOut" },
+            "-=0.6",
+          )
+          .to(
+            "#hc-word2",
+            { y: 0, opacity: 1, duration: 1.0, ease: "power3.out" },
+            "-=0.8",
+          )
+          .to("#highconcept-intro", {
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.inOut",
+            delay: 0.6,
+          });
+
+        // [Phase 1] 1차 파바박: 전체 화면 or 액자 뷰 포스터 시퀀스
+        const phase1Start = tl.recent().endTime();
+        tl.to("#intro-posters", { opacity: 1, duration: 0 }, phase1Start);
+
+        const dur1 = 0.25;
+        els1.forEach(function (img, i) {
+          const startTime = phase1Start + i * dur1;
+          const isLast = i === els1.length - 1;
+
+          if (!isLast) {
+            tl.fromTo(
+              img,
+              { opacity: 0, scale: startScale1, filter: "blur(2px)" },
+              {
+                opacity: 1,
+                scale: endScale1,
+                filter: "blur(0px)",
+                duration: dur1,
+                ease: "none",
+              },
+              startTime,
+            );
+            tl.to(img, { opacity: 0, duration: 0.05 }, startTime + dur1 - 0.05);
+          } else {
+            // 마지막 사진 '청춘만화' 확실하게 1초간 홀드!
+            tl.fromTo(
+              img,
+              { opacity: 0, scale: startScale1, filter: "blur(2px)" },
+              {
+                opacity: 1,
+                scale: endScale1,
+                filter: "blur(0px)",
+                duration: 1.0,
+                ease: "power1.out",
+              },
+              startTime,
+            );
+            // 홀드 후 부드럽게 완전 소멸
+            tl.to(img, { opacity: 0, duration: 0.3 }, startTime + 1.0);
+          }
+        });
+
+        // [Phase 2] 2차 파바박: 마스크 등장 후 글자 안에서 포스터 시퀀스 (마블 효과)
+        const phase2Start = phase1Start + (els1.length - 1) * dur1 + 1.1;
+
+        // 마스크 먼저 씌우기
+        tl.to("#intro-mask", { opacity: 1, duration: 0.1 }, phase2Start);
+
+        const dur2 = 0.35; // 약간 느리게 변경 (요청사항 반영)
+        els2.forEach(function (img, i) {
+          const startTime = phase2Start + i * dur2;
+          const isLast = i === els2.length - 1;
+
+          if (!isLast) {
+            tl.fromTo(
+              img,
+              { opacity: 0, scale: 1.05, filter: "brightness(1.5)" },
+              {
+                opacity: 1,
+                scale: 1.0,
+                filter: "brightness(1.0)",
+                duration: dur2,
+                ease: "none",
+              },
+              startTime,
+            );
+            tl.to(img, { opacity: 0, duration: 0.05 }, startTime + dur2 - 0.05);
+          } else {
+            // Phase 2의 마지막 사진(공정사회) 글자 속에서 1.2초간 확실한 홀드
+            tl.fromTo(
+              img,
+              { opacity: 0, scale: 1.05, filter: "brightness(1.5)" },
+              {
+                opacity: 1,
+                scale: 1.0,
+                filter: "brightness(1.0)",
+                duration: 1.2,
+                ease: "power2.out",
+              },
+              startTime,
+            );
+          }
+        });
+
+        // [Phase 3] 마지막 3색 골드 로고로 넘어가기 (Seamless Crossfade)
+        // 글자 속 홀드가 끝난 후 전환
+        const phase3Start = phase2Start + (els2.length - 1) * dur2 + 1.2;
+
+        // 1. 금색 로고 띄우기
+        tl.to(
+          "#intro-gold-text",
+          { opacity: 1, duration: 0.8, ease: "power2.inOut" },
+          phase3Start,
+        );
+
+        // 2. 포스터 컨테이너 전체를 투명하게 날림
+        tl.to(
+          "#intro-posters",
+          { opacity: 0, duration: 0.8, ease: "power2.inOut" },
+          phase3Start,
+        );
+
+        // 3. 포스터가 100% 안보일 때 마스크 지우기
+        tl.to("#intro-mask", { opacity: 0, duration: 0.1 }, phase3Start + 0.8);
+      });
     </script>
 
     <script>
-        // --- 📧 Formspree 모던 AJAX 비동기 통신 --- //
-        const contactForm = document.getElementById('contact-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const btnText = document.getElementById('btn-text');
-        const btnSpinner = document.getElementById('btn-spinner');
+      const contactForm = document.getElementById("contact-form");
+      const submitBtn = document.getElementById("submit-btn");
+      const btnText = document.getElementById("btn-text");
+      const btnSpinner = document.getElementById("btn-spinner");
 
-        if(contactForm) {
-            contactForm.addEventListener('submit', async (e) => {
-                e.preventDefault(); 
-                
-                submitBtn.disabled = true;
-                submitBtn.classList.add('cursor-not-allowed', 'opacity-70');
-                btnText.textContent = 'SENDING...';
-                btnSpinner.classList.remove('hidden'); 
+      if (contactForm) {
+        contactForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          submitBtn.disabled = true;
+          submitBtn.classList.add("cursor-not-allowed", "opacity-70");
+          btnText.textContent = "SENDING...";
+          btnSpinner.classList.remove("hidden");
 
-                try {
-                    const response = await fetch(contactForm.action, {
-                        method: 'POST',
-                        body: new FormData(contactForm),
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-
-                    if (response.ok) {
-                        submitBtn.classList.remove('opacity-70', 'hover:bg-brand-gold', 'hover:text-brand-black');
-                        submitBtn.classList.add('bg-brand-gold', 'text-brand-black');
-                        btnText.textContent = 'MESSAGE SENT ✓';
-                        btnSpinner.classList.add('hidden'); 
-                        contactForm.reset(); 
-                        
-                        setTimeout(() => {
-                            submitBtn.disabled = false;
-                            submitBtn.classList.remove('cursor-not-allowed', 'bg-brand-gold', 'text-brand-black');
-                            submitBtn.classList.add('hover:bg-brand-gold', 'hover:text-brand-black');
-                            btnText.textContent = 'SEND MESSAGE';
-                        }, 5000);
-                    } else {
-                        btnText.textContent = 'ERROR. TRY AGAIN.';
-                        btnSpinner.classList.add('hidden');
-                        submitBtn.disabled = false;
-                        submitBtn.classList.remove('cursor-not-allowed', 'opacity-70');
-                    }
-                } catch (error) {
-                    btnText.textContent = 'ERROR. TRY AGAIN.';
-                    btnSpinner.classList.add('hidden');
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('cursor-not-allowed', 'opacity-70');
-                }
-            });
-        }
-
-        // --- ✨ SEAMLESS PARALLAX & FADE-OUT TRANSITION --- //
-        const initSeamlessTransitions = () => {
-            const sections = document.querySelectorAll('header, section, footer');
-            
-            sections.forEach((sec, i) => {
-                sec.style.position = 'relative';
-                sec.style.zIndex = i + 10;
-                
-                if (i > 0) {
-                    sec.style.boxShadow = '0 -20px 60px rgba(0, 0, 0, 0.5)';
-                }
-                sec.style.willChange = 'transform, opacity';
+          try {
+            const response = await fetch(contactForm.action, {
+              method: "POST",
+              body: new FormData(contactForm),
+              headers: { Accept: "application/json" },
             });
 
-            window.addEventListener('scroll', () => {
-                requestAnimationFrame(() => {
-                    const windowHeight = window.innerHeight;
-                    
-                    sections.forEach((sec, i) => {
-                        const nextSec = sections[i + 1];
-                        
-                        if (nextSec) {
-                            const nextRect = nextSec.getBoundingClientRect();
-                            
-                            if (nextRect.top < windowHeight && nextRect.top > 0) {
-                                const overlap = windowHeight - nextRect.top;
-                                const progress = overlap / windowHeight;
+            if (response.ok) {
+              submitBtn.classList.remove(
+                "opacity-70",
+                "hover:bg-brand-gold",
+                "hover:text-brand-black",
+              );
+              submitBtn.classList.add("bg-brand-gold", "text-brand-black");
+              btnText.textContent = "MESSAGE SENT ✓";
+              btnSpinner.classList.add("hidden");
+              contactForm.reset();
 
-                                const yOffset = overlap * 0.25; 
-                                const scale = 1 - (progress * 0.02); 
-                                const opacity = 1 - (progress * 1.5); 
-
-                                sec.style.transform = `translateY(${yOffset}px) scale(${scale})`;
-                                sec.style.opacity = Math.max(0, opacity);
-                            } else if (nextRect.top <= 0) {
-                                sec.style.opacity = 0;
-                            } else {
-                                sec.style.transform = `translateY(0px) scale(1)`;
-                                sec.style.opacity = 1;
-                            }
-                        }
-                    });
-                });
-            });
-        };
-
-        window.addEventListener('load', initSeamlessTransitions);
-
-        // --- 마우스 커서 스포트라이트 --- //
-        const cursorGlow = document.getElementById('cursor-glow');
-        window.addEventListener('mousemove', (e) => {
-            cursorGlow.style.background = `radial-gradient(circle 260px at ${e.clientX}px ${e.clientY}px, rgba(240, 235, 225, 0.04), transparent 80%)`;
-        });
-
-        // --- 네비게이션 블러 효과 --- //
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-scrolled');
-                navbar.classList.remove('py-6');
-                navbar.classList.add('py-4');
+              setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove(
+                  "cursor-not-allowed",
+                  "bg-brand-gold",
+                  "text-brand-black",
+                );
+                submitBtn.classList.add(
+                  "hover:bg-brand-gold",
+                  "hover:text-brand-black",
+                );
+                btnText.textContent = "SEND MESSAGE";
+              }, 5000);
             } else {
-                navbar.classList.remove('nav-scrolled');
-                navbar.classList.remove('py-4');
-                navbar.classList.add('py-6');
+              btnText.textContent = "ERROR. TRY AGAIN.";
+              btnSpinner.classList.add("hidden");
+              submitBtn.disabled = false;
+              submitBtn.classList.remove("cursor-not-allowed", "opacity-70");
             }
+          } catch (error) {
+            btnText.textContent = "ERROR. TRY AGAIN.";
+            btnSpinner.classList.add("hidden");
+            submitBtn.disabled = false;
+            submitBtn.classList.remove("cursor-not-allowed", "opacity-70");
+          }
+        });
+      }
+
+      const initSeamlessTransitions = function () {
+        const sections = document.querySelectorAll("header, section, footer");
+        sections.forEach(function (sec, i) {
+          sec.style.position = "relative";
+          sec.style.zIndex = i + 10;
+          if (i > 0) sec.style.boxShadow = "0 -20px 60px rgba(0, 0, 0, 0.5)";
+          sec.style.willChange = "transform, opacity";
         });
 
-        // --- 모바일 메뉴 제어 --- //
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // --- 스크롤 페이드 업 애니메이션 옵저버 --- //
-        const observerOptions = { threshold: 0.15 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        window.addEventListener("scroll", function () {
+          requestAnimationFrame(function () {
+            const windowHeight = window.innerHeight;
+            sections.forEach(function (sec, i) {
+              const nextSec = sections[i + 1];
+              if (nextSec) {
+                const nextRect = nextSec.getBoundingClientRect();
+                if (nextRect.top < windowHeight && nextRect.top > 0) {
+                  const overlap = windowHeight - nextRect.top;
+                  const progress = overlap / windowHeight;
+                  sec.style.transform =
+                    "translateY(" +
+                    overlap * 0.25 +
+                    "px) scale(" +
+                    (1 - progress * 0.02) +
+                    ")";
+                  sec.style.opacity = Math.max(0, 1 - progress * 1.5);
+                } else if (nextRect.top <= 0) {
+                  sec.style.opacity = 0;
+                } else {
+                  sec.style.transform = "translateY(0px) scale(1)";
+                  sec.style.opacity = 1;
                 }
+              }
             });
-        }, observerOptions);
+          });
+        });
+      };
+      window.addEventListener("load", initSeamlessTransitions);
 
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+      const cursorGlow = document.getElementById("cursor-glow");
+      window.addEventListener("mousemove", function (e) {
+        cursorGlow.style.background =
+          "radial-gradient(circle 260px at " +
+          e.clientX +
+          "px " +
+          e.clientY +
+          "px, rgba(240, 235, 225, 0.04), transparent 80%)";
+      });
+
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+          navbar.classList.add("nav-scrolled");
+          navbar.classList.remove("py-6");
+          navbar.classList.add("py-4");
+        } else {
+          navbar.classList.remove("nav-scrolled");
+          navbar.classList.remove("py-4");
+          navbar.classList.add("py-6");
+        }
+      });
+
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      mobileBtn.addEventListener("click", function () {
+        mobileMenu.classList.toggle("hidden");
+      });
+      const mobileLinks = mobileMenu.querySelectorAll("a");
+      mobileLinks.forEach(function (link) {
+        link.addEventListener("click", function () {
+          mobileMenu.classList.add("hidden");
+        });
+      });
+
+      const observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.15 },
+      );
+      document.querySelectorAll(".fade-up").forEach(function (el) {
+        observer.observe(el);
+      });
     </script>
-</body>
+  </body>
 </html>

@@ -184,8 +184,8 @@
       /* 프로페셔널한 시네마틱 액자 프레임 (데스크탑 전용) */
       @media (min-width: 769px) {
         .phase1-frame {
-          border: 8px solid #080808; /* 안쪽 블랙 매트 */
-          outline: 1px solid rgba(255, 255, 255, 0.15); /* 얇은 실버 테두리 */
+          border: 12px solid #554d4dc1;; /* 두꺼운 하얀 테두리 */ /* 안쪽 블랙 매트 */
+          outline: 3px solid #c59f599e; /* 얇은 실버 테두리 */
           border-radius: 2px;
         }
       }
@@ -1429,7 +1429,7 @@
 
         // [분리 적용] 2차 시퀀스용: 마스크 안쪽 3장 (해운대, 여타짜, 공정사회)
         const phase2Images = [
-         "색즉시공.jpg",
+          "색즉시공.jpg",
           "성실한_앨리스.webp",
           "공정사회.webp",
         ];
@@ -1690,7 +1690,7 @@
                     "px) scale(" +
                     (1 - progress * 0.02) +
                     ")";
-                  sec.style.opacity = Math.max(0, 1 - progress * 1.5);
+                  sec.style.opacity = Math.max(0, 1 - progress * 1);
                 } else if (nextRect.top <= 0) {
                   sec.style.opacity = 0;
                 } else {

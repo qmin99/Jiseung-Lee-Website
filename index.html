@@ -44,7 +44,7 @@
               serif: ['"Noto Serif KR"', "serif"],
               cinzel: ['"Cinzel"', "serif"],
               bebas: ['"Bebas Neue"', "sans-serif"],
-              calibri: ['Calibri', 'Carlito', 'Helvetica Neue', 'sans-serif'],
+              calibri: ["Calibri", "Carlito", "Helvetica Neue", "sans-serif"],
             },
           },
         },
@@ -211,9 +211,14 @@
           id="highconcept-text"
           class="flex flex-col items-center justify-center text-center"
         >
-         <div class="overflow-hidden pb-2">
-    <h2 id="hc-word1" class="font-calibri text-white/95 text-3xl md:text-5xl lg:text-6xl tracking-[0.05em]  translate-y-full opacity-0 pl-[0.3em] font-normal leading-normal">HIGH CONCEPT</h2>
-</div>
+          <div class="overflow-hidden pb-2">
+            <h2
+              id="hc-word1"
+              class="font-calibri text-white/95 text-3xl md:text-5xl lg:text-6xl tracking-[0.05em] translate-y-full opacity-0 pl-[0.3em] font-normal leading-normal"
+            >
+              HIGH CONCEPT
+            </h2>
+          </div>
           <div
             id="hc-line"
             class="h-[1px] w-0 bg-gradient-to-r from-transparent via-white/50 to-transparent my-3 md:my-5"
@@ -221,7 +226,7 @@
           <div class="overflow-hidden">
             <p
               id="hc-word2"
-              class="font-sans text-brand-gold/70 text-[9px] md:text-[11px] tracking-[1em] uppercase -translate-y-full opacity-0 pl-[1em]"
+              class="font-sans text-brand-gold/70 text-[9px] md:text-[11px] tracking-[0.3em] uppercase -translate-y-full opacity-0 pl-[1em]"
             >
               Pictures
             </p>
@@ -240,7 +245,7 @@
         style="mix-blend-mode: multiply"
       >
         <h1
-          class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-bold pl-[0.25em]"
+          class="font-cinzel text-3xl md:text-7xl lg:text-8xl tracking-[0.25em] font-bold pl-[0.25em]"
         >
           LEE JI-SEUNG
         </h1>
@@ -251,7 +256,7 @@
         class="absolute inset-0 z-20 flex items-center justify-center opacity-0 pointer-events-none"
       >
         <h1
-          class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-light bg-gradient-to-b from-[#D4AF37] via-[#FFF2CD] to-[#AA7C11] text-transparent bg-clip-text drop-shadow-[0_0_20px_rgba(197,160,89,0.5)] pl-[0.25em]"
+          class="font-cinzel text-3xl md:text-7xl lg:text-8xl tracking-[0.25em] font-bold bg-gradient-to-b from-[#D4AF37] via-[#FFF2CD] to-[#AA7C11] text-transparent bg-clip-text drop-shadow-[0_0_20px_rgba(197,160,89,0.5)] pl-[0.25em]"
         >
           LEE JI-SEUNG
         </h1>
@@ -362,7 +367,7 @@
         class="fade-up z-10 flex flex-col items-center w-full mt-12 space-y-8"
       >
         <h1
-          class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-[0.25em] font-light text-brand-light drop-shadow-2xl pl-[0.25em]"
+          class="font-cinzel text-3xl md:text-7xl lg:text-8xl tracking-[0.25em] font-light text-brand-light drop-shadow-2xl pl-[0.25em]"
         >
           LEE JI-SEUNG
         </h1>
@@ -1414,7 +1419,7 @@
 
         // [분리 적용] 1차 시퀀스용: 전체 6장 (청춘만화로 끝남)
         const phase1Images = [
-          "해운대_(영화).jpg",
+          "해운대.jpg",
           "여타짜.webp",
           "공정사회.webp",
           "avengers.webp",
@@ -1424,8 +1429,8 @@
 
         // [분리 적용] 2차 시퀀스용: 마스크 안쪽 3장 (해운대, 여타짜, 공정사회)
         const phase2Images = [
-          "해운대_(영화).jpg",
-          "여타짜.webp",
+         "색즉시공.jpg",
+          "성실한_앨리스.webp",
           "공정사회.webp",
         ];
 
@@ -1458,7 +1463,7 @@
           onComplete: function () {
             gsap.to("#intro-overlay", {
               opacity: 0,
-              duration: 0.8,
+              duration: 2.0,
               ease: "power2.inOut",
               onComplete: function () {
                 document.getElementById("intro-overlay").style.display = "none";
@@ -1497,7 +1502,7 @@
         const phase1Start = tl.recent().endTime();
         tl.to("#intro-posters", { opacity: 1, duration: 0 }, phase1Start);
 
-        const dur1 = 0.25;
+        const dur1 = 0.32;
         els1.forEach(function (img, i) {
           const startTime = phase1Start + i * dur1;
           const isLast = i === els1.length - 1;
@@ -1541,7 +1546,7 @@
         // 마스크 먼저 씌우기
         tl.to("#intro-mask", { opacity: 1, duration: 0.1 }, phase2Start);
 
-        const dur2 = 0.35; // 약간 느리게 변경 (요청사항 반영)
+        const dur2 = 0.525; // 약간 느리게 변경 (요청사항 반영)
         els2.forEach(function (img, i) {
           const startTime = phase2Start + i * dur2;
           const isLast = i === els2.length - 1;

@@ -199,14 +199,15 @@
         will-change: transform, opacity;
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
       }
-
-      /* 프로페셔널한 시네마틱 액자 프레임 (데스크탑 전용) */
-      @media (min-width: 769px) {
+@media (min-width: 769px) {
         .phase1-frame {
           border-radius: 2px;
           inset: auto;
-          width: 70%;
-          height: 110%;
+          /* 👇 기존의 width 70%, height 110%를 지우고 아래 3줄로 교체합니다 👇 */
+          height: 85vh;         /* 모니터 높이의 85%만큼 큼직하게 */
+          width: auto;          /* 가로는 높이에 맞춰서 자동으로 설정 */
+          aspect-ratio: 2 / 3;  /* 완벽한 영화 포스터 비율 (가장 중요!) */
+          
           border: 12px solid #4a4545;
           outline: 5px solid #765f34;
           outline-offset: 1px;
@@ -1889,10 +1890,11 @@
           "청춘만화.webp",
         ];
         const phase2Images = ["공정사회.webp", "성실한_앨리스.webp"];
-        const isMobile = window.innerWidth <= 768;
-        const startScale1 = isMobile ? 1.05 : 0.65;
-        const endScale1 = isMobile ? 1.0 : 0.6;
-
+      const isMobile = window.innerWidth <= 768;
+        
+        // 👇 데스크탑일 때(뒤에 있는 숫자)의 줌 크기를 0.9 -> 0.85 로 수정했습니다.
+        const startScale1 = isMobile ? 1.05 : 0.9;
+        const endScale1 = isMobile ? 1.0 : 0.85;
         const els1 = phase1Images.map((src) => {
           const img = document.createElement("img");
           img.src = src;

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWARDS 최종 하이브리드 레이아웃</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#080808',
+                            dark: '#121212',
+                            gold: '#c5a059',
+                            muted: '#888888',
+                            light: '#e5e5e5'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                        serif: ['"Noto Serif KR"', 'serif'],
+                        cinzel: ['"Cinzel"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #080808; color: #e5e5e5; }
+        .fade-up { animation: fadeUp 1s ease-out forwards; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-brand-black">
+
+    <div class="h-[50vh] flex flex-col items-center justify-center border-b border-white/5 bg-[#111]">
+        <h1 class="font-cinzel text-3xl text-brand-gold tracking-widest mb-4">THE FINAL HYBRID</h1>
+        <p class="font-sans text-brand-muted text-sm tracking-widest">스크롤을 아래로 내려보세요 ↓</p>
+    </div>
+
+    <section id="awards" class="w-full bg-[#161616] relative z-10 border-t border-white/5">
+      <div class="pt-32 pb-40 px-6 md:px-12 max-w-6xl mx-auto">
+        
+        <div class="text-center mb-24 fade-up">
+          <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">AWARDS & ACHIEVEMENTS</h3>
+          <h2 class="font-serif text-3xl md:text-4xl font-light">수상 및 주요 성과</h2>
+        </div>
+
+        <div class="flex flex-col md:flex-row mb-28 relative fade-up">
+          <div class="w-full md:w-1/3 mb-8 md:mb-0 relative">
+            <div class="md:sticky md:top-32 py-2 z-10 bg-[#161616]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
+              <h3 class="font-cinzel text-brand-gold text-lg md:text-xl tracking-[0.2em] leading-snug">MAJOR<br>AWARDS</h3>
+              <div class="w-8 h-[2px] bg-brand-gold mt-4"></div>
+            </div>
+          </div>
+          
+          <div class="w-full md:w-2/3 md:border-l border-white/10 md:pl-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              
+              <div class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group">
+                <svg class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="6"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                <span class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium">2012</span>
+                <h4 class="font-serif text-[16px] text-white/95 leading-snug mb-2">코스타리카 국제영화제</h4>
+                <p class="font-sans text-[13.5px] text-brand-light/60 font-light">최우수 장편영화 작품상</p>
+              </div>
+
+              <div class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group">
+                <svg class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="6"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                <span class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium">2012</span>
+                <h4 class="font-serif text-[16px] text-white/95 leading-snug mb-2">네바다 국제영화제</h4>
+                <p class="font-sans text-[13.5px] text-brand-light/60 font-light">플래티넘 어워드</p>
+              </div>
+
+              <div class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group">
+                <svg class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="6"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                <span class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium">2013</span>
+                <h4 class="font-serif text-[16px] text-white/95 leading-snug mb-2">벨로이트 국제영화제</h4>
+                <p class="font-sans text-[13.5px] text-brand-light/60 font-light">최우수 작품상</p>
+              </div>
+
+              <div class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group">
+                <svg class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="6"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                <span class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium">2013</span>
+                <h4 class="font-serif text-[16px] text-white/95 leading-snug mb-2">애선스 국제영화제</h4>
+                <p class="font-sans text-[13.5px] text-brand-light/60 font-light">경쟁부문 First Prize</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row mb-28 relative fade-up" style="animation-delay: 0.1s;">
+          <div class="w-full md:w-1/3 mb-8 md:mb-0 relative">
+            <div class="md:sticky md:top-32 py-2 z-10 bg-[#161616]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
+              <h3 class="font-cinzel text-brand-gold text-lg md:text-xl tracking-[0.2em] leading-snug">GLOBAL<br>SELECTIONS</h3>
+              <div class="w-8 h-[2px] bg-brand-gold mt-4"></div>
+            </div>
+          </div>
+          
+          <div class="w-full md:w-2/3 md:border-l border-white/10 md:pl-10">
+            <div class="border-t border-white/10 mt-2">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
+                    <h4 class="font-serif text-white/90 text-[15.5px]">스페인 시체스 국제판타스틱영화제</h4>
+                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">포커스 아시아상 후보 노미네이트</span>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
+                    <h4 class="font-serif text-white/90 text-[15.5px]">미국 뉴욕 현대미술관(MoMA)</h4>
+                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">한국영화제 공식 초청</span>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
+                    <h4 class="font-serif text-white/90 text-[15.5px]">러시아 모스크바 국제영화제</h4>
+                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">비경쟁 부문 공식 초청</span>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
+                    <h4 class="font-serif text-white/90 text-[15.5px]">캐나다 몬트리올 국제영화제</h4>
+                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">포커스 온 월드 시네마 부문 초청</span>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row relative fade-up" style="animation-delay: 0.2s;">
+          <div class="w-full md:w-1/3 mb-8 md:mb-0 relative">
+            <div class="md:sticky md:top-32 py-2 z-10 bg-[#161616]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
+              <h3 class="font-cinzel text-brand-gold text-lg md:text-xl tracking-[0.2em] leading-snug">EXPERIMENTAL<br>ROOTS</h3>
+              <div class="w-8 h-[2px] bg-brand-gold mt-4"></div>
+            </div>
+          </div>
+          
+          <div class="w-full md:w-2/3 md:border-l border-white/10 md:pl-10">
+            <div class="border-t border-white/10 mt-2">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
+                    <h4 class="font-serif text-white/90 text-[15.5px]">미국 블랙 마리아 영화제</h4>
+                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">Director's Citation 수상</span>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
+                    <h4 class="font-serif text-white/90 text-[15.5px]">영국 레인댄스 영화제</h4>
+                    <span class="font-sans text-brand-light/50 text-[13.5px] mt-2 sm:mt-0 font-light">공식 초청</span>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
+                    <h4 class="font-serif text-white/90 text-[15.5px]">제 1회 한국독립단편영화제</h4>
+                    <span class="font-sans text-brand-light/50 text-[13.5px] mt-2 sm:mt-0 font-light">공식 초청</span>
+                </div>
+            </div>
+            <div class="h-10"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="h-[60vh] flex flex-col items-center justify-center border-t border-white/5 bg-[#111]">
+        <h1 class="font-cinzel text-xl text-white/20 tracking-widest">END OF TEST</h1>
+    </div>
+
+</body>
+</html>

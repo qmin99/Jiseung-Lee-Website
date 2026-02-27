@@ -65,7 +65,7 @@
         overflow-x: hidden;
         overscroll-behavior: none;
       }
-
+      /* 1. 기본(모바일) 설정: 아이폰 렌더링 버그 방지를 위해 scroll 적용 */
       .hero-bg {
         background:
           linear-gradient(
@@ -75,7 +75,19 @@
             rgba(17, 17, 17, 1) 100%
           ),
           url("hero.png") center/cover no-repeat;
-        background-attachment: fixed;
+        background-attachment: scroll; /* 모바일은 스크롤로 고정 해제 */
+        -webkit-transform: translate3d(
+          0,
+          0,
+          0
+        ); /* iOS 하드웨어 가속 강제 (버그 방지) */
+      }
+
+      /* 2. 데스크탑 설정: 화면이 클 때만 멋진 고정(fixed) 효과 적용 */
+      @media (min-width: 768px) {
+        .hero-bg {
+          background-attachment: fixed;
+        }
       }
 
       .film-texture {

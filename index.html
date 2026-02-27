@@ -18,13 +18,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&family=Pinyon+Script&display=swap"
       rel="stylesheet"
     />
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -44,7 +44,14 @@
               serif: ['"Noto Serif KR"', "serif"],
               cinzel: ['"Cinzel"', "serif"],
               bebas: ['"Bebas Neue"', "sans-serif"],
-              calibri: ["Calibri", "Carlito", "Helvetica Neue", "sans-serif"],
+              // 새 폰트 추가
+              montserrat: ['"Montserrat"', "sans-serif"],
+              pinyon: ['"Pinyon Script"', "cursive"],
+            },
+            keyframes: {
+              shimmer: {
+                "100%": { transform: "translateX(100%)" },
+              },
             },
           },
         },
@@ -186,13 +193,105 @@
         .phase1-frame {
           border-radius: 2px;
           inset: auto;
-          width: 70%; 
+          width: 70%;
           height: 110%;
           border: 12px solid #4a4545;
           outline: 5px solid #765f34;
           outline-offset: 1px;
           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
         }
+      }
+
+      /* 6각형 이미지 크롭용 CSS */
+      .clip-hexagon {
+        clip-path: polygon(
+          50% 0%,
+          100% 25%,
+          100% 75%,
+          50% 100%,
+          0% 75%,
+          0% 25%
+        );
+      }
+
+      /* 빛 반사 호버 이펙트 */
+      .hover-shimmer::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(197, 160, 89, 0.08),
+          transparent
+        );
+        transform: skewX(-20deg);
+        transition: none;
+        pointer-events: none;
+      }
+      .group:hover .hover-shimmer::after {
+        animation: shimmer 1s ease-in-out forwards;
+      }
+
+      /* 👇👇 시네마틱 타이핑 커서 CSS 추가 👇👇 */
+      /* 1. 플리커 방지 및 레이아웃 강제 고정 */
+      .hero-bg h1,
+      .hero-bg .flex.items-center,
+      #hero-typing-p {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      #hero-typing-p {
+        display: block;
+        text-align: center;
+        width: 100%;
+        line-height: 2.2;
+        word-break: keep-all;
+        white-space: pre-wrap;
+      }
+
+      /* 2. 타이핑 글자 하나하나의 기본 상태 (투명) */
+      .t-char {
+        display: inline-block;
+        opacity: 0;
+        transition: opacity 0.05s ease;
+      }
+
+      /* 3. 시네마틱 커서 (흔들림 방지 Absolute) */
+      .custom-cursor {
+        position: absolute;
+        width: 2px;
+        height: 1.1em; /* 글자 크기와 비슷하게 맞춤 */
+        background-color: #c5a059;
+        display: inline-block;
+        animation: blink 1s step-end infinite;
+        pointer-events: none;
+        z-index: 10;
+        will-change: transform;
+        /* 👇👇 커서 위치를 글자 높이에 맞춰 아래로 미세 조정 (0.5em 정도가 적당) */
+        transform: translateY(0.59em);
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* 4. 금빛 하이라이트 (초기 상태는 일반색, 스크립트가 클래스 추가) */
+      .gold-part {
+        transition:
+          color 1.5s ease,
+          text-shadow 1.5s ease;
+      }
+      .gold-glow {
+        color: #c5a059 !important;
+        text-shadow: 0 0 15px rgba(197, 160, 89, 0.6);
+        font-weight: 500;
       }
     </style>
   </head>
@@ -219,19 +318,19 @@
           <div class="overflow-hidden pb-2">
             <h2
               id="hc-word1"
-              class="font-calibri text-white/95 text-3xl md:text-5xl lg:text-6xl tracking-[0.05em] translate-y-full opacity-0 pl-[0.3em] font-normal leading-normal"
+              class="font-montserrat font-bold text-white/95 text-4xl md:text-6xl lg:text-7xl tracking-tighter translate-y-full opacity-0 leading-none"
             >
               HIGH CONCEPT
             </h2>
           </div>
           <div
             id="hc-line"
-            class="h-[1px] w-0 bg-gradient-to-r from-transparent via-white/50 to-transparent my-3 md:my-5"
+            class="h-[1px] w-0 bg-gradient-to-r from-transparent via-white/50 to-transparent my-3 md:my-4"
           ></div>
           <div class="overflow-hidden">
             <p
               id="hc-word2"
-              class="font-sans text-brand-gold/70 text-[9px] md:text-[11px] tracking-[0.3em] uppercase -translate-y-full opacity-0 pl-[1em]"
+              class="font-pinyon text-brand-gold text-3xl md:text-5xl lg:text-5xl tracking-wider -translate-y-full opacity-0"
             >
               Pictures
             </p>
@@ -364,7 +463,6 @@
         >
       </div>
     </nav>
-
     <header
       class="relative h-screen flex flex-col justify-center items-center text-center hero-bg px-6 z-10"
     >
@@ -385,18 +483,15 @@
           </h2>
           <div class="h-[1px] w-8 md:w-16 bg-brand-gold/40"></div>
         </div>
-        <p
-          class="font-serif text-brand-light/70 max-w-2xl mx-auto leading-[2.2] font-light text-[14px] md:text-[15px] pt-4"
-        >
-          대형 상업영화 프로듀서로 시작하여 감독으로 활동 영역을 넓히고,<br
-            class="hidden md:block"
-          />
-          국제 프로젝트 및 영화 교육 분야에서도 영향력을 발휘하고 있는 인물.<br />
-          <span class="text-brand-light/95 font-normal mt-2 block"
-            >이론과 현장 경험을 겸비한 대한민국 대표 제작자형 감독.</span
-          >
-        </p>
+
+        <div class="max-w-2xl mx-auto pt-4 min-h-[6em]">
+          <p
+            id="hero-typing-p"
+            class="font-serif text-brand-light/70 leading-[2.2] font-light text-[14px] md:text-[15px] relative"
+          ></p>
+        </div>
       </div>
+
       <div
         class="absolute bottom-12 inset-x-0 flex justify-center scroll-indicator z-10"
       >
@@ -1183,59 +1278,163 @@
       </div>
     </section>
 
-    <section id="awards" class="w-full bg-[#161616] relative z-10 border-t border-white/5">
+    <section
+      id="awards"
+      class="w-full bg-[#161616] relative z-10 border-t border-white/5"
+    >
       <div class="pt-32 pb-40 px-6 md:px-12 max-w-6xl mx-auto">
-        
         <div class="text-center mb-24 fade-up">
-          <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">AWARDS & ACHIEVEMENTS</h3>
-          <h2 class="font-serif text-3xl md:text-4xl font-light">수상 및 주요 성과</h2>
+          <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">
+            AWARDS & ACHIEVEMENTS
+          </h3>
+          <h2 class="font-serif text-3xl md:text-4xl font-light">
+            수상 및 주요 성과
+          </h2>
         </div>
 
         <div class="flex flex-col md:flex-row mb-28 relative fade-up">
           <div class="w-full md:w-1/3 mb-8 md:mb-0 relative">
-            <div class="md:sticky md:top-32 py-2 z-10 bg-[#161616]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
-              <h3 class="font-cinzel text-brand-gold text-lg md:text-xl tracking-[0.2em] leading-snug">MAJOR<br>AWARDS</h3>
+            <div
+              class="md:sticky md:top-32 py-2 z-10 bg-[#161616]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none"
+            >
+              <h3
+                class="font-cinzel text-brand-gold text-lg md:text-xl tracking-[0.2em] leading-snug"
+              >
+                MAJOR<br />AWARDS
+              </h3>
               <div class="w-8 h-[2px] bg-brand-gold mt-4"></div>
             </div>
           </div>
-          
+
           <div class="w-full md:w-2/3 md:border-l border-white/10 md:pl-10">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group">
-                <svg class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <div
+                class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group"
+              >
+                <svg
+                  class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="12" cy="8" r="6"></circle>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                  <polyline
+                    points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"
+                  ></polyline>
                 </svg>
-                <span class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium">2012</span>
-                <h4 class="font-serif text-[16px] text-white/95 leading-snug mb-2">코스타리카 국제영화제</h4>
-                <p class="font-sans text-[13.5px] text-brand-light/60 font-light">최우수 장편영화 작품상</p>
+                <span
+                  class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium"
+                  >2012</span
+                >
+                <h4
+                  class="font-serif text-[16px] text-white/95 leading-snug mb-2"
+                >
+                  코스타리카 국제영화제
+                </h4>
+                <p
+                  class="font-sans text-[13.5px] text-brand-light/60 font-light"
+                >
+                  최우수 장편영화 작품상
+                </p>
               </div>
-              <div class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group">
-                <svg class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <div
+                class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group"
+              >
+                <svg
+                  class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="12" cy="8" r="6"></circle>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                  <polyline
+                    points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"
+                  ></polyline>
                 </svg>
-                <span class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium">2012</span>
-                <h4 class="font-serif text-[16px] text-white/95 leading-snug mb-2">네바다 국제영화제</h4>
-                <p class="font-sans text-[13.5px] text-brand-light/60 font-light">플래티넘 어워드</p>
+                <span
+                  class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium"
+                  >2012</span
+                >
+                <h4
+                  class="font-serif text-[16px] text-white/95 leading-snug mb-2"
+                >
+                  네바다 국제영화제
+                </h4>
+                <p
+                  class="font-sans text-[13.5px] text-brand-light/60 font-light"
+                >
+                  플래티넘 어워드
+                </p>
               </div>
-              <div class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group">
-                <svg class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <div
+                class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group"
+              >
+                <svg
+                  class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="12" cy="8" r="6"></circle>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                  <polyline
+                    points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"
+                  ></polyline>
                 </svg>
-                <span class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium">2013</span>
-                <h4 class="font-serif text-[16px] text-white/95 leading-snug mb-2">벨로이트 국제영화제</h4>
-                <p class="font-sans text-[13.5px] text-brand-light/60 font-light">최우수 작품상</p>
+                <span
+                  class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium"
+                  >2013</span
+                >
+                <h4
+                  class="font-serif text-[16px] text-white/95 leading-snug mb-2"
+                >
+                  벨로이트 국제영화제
+                </h4>
+                <p
+                  class="font-sans text-[13.5px] text-brand-light/60 font-light"
+                >
+                  최우수 작품상
+                </p>
               </div>
-              <div class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group">
-                <svg class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <div
+                class="border border-white/5 bg-[#111] p-8 text-center flex flex-col items-center justify-center hover:border-brand-gold/50 hover:bg-[#141414] transition-all duration-500 group"
+              >
+                <svg
+                  class="w-9 h-9 text-brand-gold mb-5 opacity-70 group-hover:opacity-100 transition-opacity"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="12" cy="8" r="6"></circle>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                  <polyline
+                    points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"
+                  ></polyline>
                 </svg>
-                <span class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium">2013</span>
-                <h4 class="font-serif text-[16px] text-white/95 leading-snug mb-2">애선스 국제영화제</h4>
-                <p class="font-sans text-[13.5px] text-brand-light/60 font-light">경쟁부문 First Prize</p>
+                <span
+                  class="font-sans text-[11px] text-brand-gold tracking-widest mb-2 font-medium"
+                  >2013</span
+                >
+                <h4
+                  class="font-serif text-[16px] text-white/95 leading-snug mb-2"
+                >
+                  애선스 국제영화제
+                </h4>
+                <p
+                  class="font-sans text-[13.5px] text-brand-light/60 font-light"
+                >
+                  경쟁부문 First Prize
+                </p>
               </div>
             </div>
           </div>
@@ -1243,59 +1442,119 @@
 
         <div class="flex flex-col md:flex-row mb-28 relative fade-up">
           <div class="w-full md:w-1/3 mb-8 md:mb-0 relative">
-            <div class="md:sticky md:top-32 py-2 z-10 bg-[#161616]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
-              <h3 class="font-cinzel text-brand-gold text-lg md:text-xl tracking-[0.2em] leading-snug">GLOBAL<br>SELECTIONS</h3>
+            <div
+              class="md:sticky md:top-32 py-2 z-10 bg-[#161616]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none"
+            >
+              <h3
+                class="font-cinzel text-brand-gold text-lg md:text-xl tracking-[0.2em] leading-snug"
+              >
+                GLOBAL<br />SELECTIONS
+              </h3>
               <div class="w-8 h-[2px] bg-brand-gold mt-4"></div>
             </div>
           </div>
           <div class="w-full md:w-2/3 md:border-l border-white/10 md:pl-10">
             <div class="border-t border-white/10 mt-2">
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
-                    <h4 class="font-serif text-white/90 text-[15.5px]">스페인 시체스 국제판타스틱영화제</h4>
-                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">포커스 아시아상 후보 노미네이트</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
-                    <h4 class="font-serif text-white/90 text-[15.5px]">미국 뉴욕 현대미술관(MoMA)</h4>
-                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">한국영화제 공식 초청</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
-                    <h4 class="font-serif text-white/90 text-[15.5px]">러시아 모스크바 국제영화제</h4>
-                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">비경쟁 부문 공식 초청</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
-                    <h4 class="font-serif text-white/90 text-[15.5px]">캐나다 몬트리올 국제영화제</h4>
-                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">포커스 온 월드 시네마 부문 초청</span>
-                </div>
+              <div
+                class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors"
+              >
+                <h4 class="font-serif text-white/90 text-[15.5px]">
+                  스페인 시체스 국제판타스틱영화제
+                </h4>
+                <span
+                  class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light"
+                  >포커스 아시아상 후보 노미네이트</span
+                >
+              </div>
+              <div
+                class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors"
+              >
+                <h4 class="font-serif text-white/90 text-[15.5px]">
+                  미국 뉴욕 현대미술관(MoMA)
+                </h4>
+                <span
+                  class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light"
+                  >한국영화제 공식 초청</span
+                >
+              </div>
+              <div
+                class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors"
+              >
+                <h4 class="font-serif text-white/90 text-[15.5px]">
+                  러시아 모스크바 국제영화제
+                </h4>
+                <span
+                  class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light"
+                  >비경쟁 부문 공식 초청</span
+                >
+              </div>
+              <div
+                class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors"
+              >
+                <h4 class="font-serif text-white/90 text-[15.5px]">
+                  캐나다 몬트리올 국제영화제
+                </h4>
+                <span
+                  class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light"
+                  >포커스 온 월드 시네마 부문 초청</span
+                >
+              </div>
             </div>
           </div>
         </div>
 
         <div class="flex flex-col md:flex-row relative fade-up">
           <div class="w-full md:w-1/3 mb-8 md:mb-0 relative">
-            <div class="md:sticky md:top-32 py-2 z-10 bg-[#161616]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
-              <h3 class="font-cinzel text-brand-gold text-lg md:text-xl tracking-[0.2em] leading-snug">EXPERIMENTAL<br>ROOTS</h3>
+            <div
+              class="md:sticky md:top-32 py-2 z-10 bg-[#161616]/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none"
+            >
+              <h3
+                class="font-cinzel text-brand-gold text-lg md:text-xl tracking-[0.2em] leading-snug"
+              >
+                EXPERIMENTAL<br />ROOTS
+              </h3>
               <div class="w-8 h-[2px] bg-brand-gold mt-4"></div>
             </div>
           </div>
           <div class="w-full md:w-2/3 md:border-l border-white/10 md:pl-10">
             <div class="border-t border-white/10 mt-2">
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
-                    <h4 class="font-serif text-white/90 text-[15.5px]">미국 블랙 마리아 영화제</h4>
-                    <span class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light">Director's Citation 수상</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
-                    <h4 class="font-serif text-white/90 text-[15.5px]">영국 레인댄스 영화제</h4>
-                    <span class="font-sans text-brand-light/50 text-[13.5px] mt-2 sm:mt-0 font-light">공식 초청</span>
-                </div>
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors">
-                    <h4 class="font-serif text-white/90 text-[15.5px]">제 1회 한국독립단편영화제</h4>
-                    <span class="font-sans text-brand-light/50 text-[13.5px] mt-2 sm:mt-0 font-light">공식 초청</span>
-                </div>
+              <div
+                class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors"
+              >
+                <h4 class="font-serif text-white/90 text-[15.5px]">
+                  미국 블랙 마리아 영화제
+                </h4>
+                <span
+                  class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light"
+                  >Director's Citation 수상</span
+                >
+              </div>
+              <div
+                class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors"
+              >
+                <h4 class="font-serif text-white/90 text-[15.5px]">
+                  영국 레인댄스 영화제
+                </h4>
+                <span
+                  class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light"
+                  >공식 초청</span
+                >
+              </div>
+              <div
+                class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-5 border-b border-white/10 px-2 group hover:bg-white/[0.02] transition-colors"
+              >
+                <h4 class="font-serif text-white/90 text-[15.5px]">
+                  제 1회 한국독립단편영화제
+                </h4>
+                <span
+                  class="font-sans text-brand-gold/80 text-[13.5px] mt-2 sm:mt-0 font-light"
+                  >공식 초청</span
+                >
+              </div>
             </div>
             <div class="h-10"></div>
           </div>
         </div>
-
       </div>
     </section>
     <section
@@ -1359,7 +1618,11 @@
             <div
               class="relative w-full aspect-[16/9] overflow-hidden bg-[#1a1a1a] border-b border-white/10"
             >
-             <img src="태흥.webp" alt="Media Image" class="w-full h-full object-cover object-[center_15%] opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+              <img
+                src="태흥.webp"
+                alt="Media Image"
+                class="w-full h-full object-cover object-[center_15%] opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+              />
             </div>
             <div class="p-6 flex flex-col flex-grow">
               <p class="font-sans text-xs text-brand-gold mb-4 tracking-wider">
@@ -1488,6 +1751,117 @@
       </div>
     </section>
 
+    <section
+      id="education"
+      class="w-full bg-[#111111] relative z-10 py-12 md:py-16"
+    >
+      <div class="max-w-6xl mx-auto px-6 md:px-12 fade-up">
+        <a
+          href="http://seoulfilmacademy.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="relative z-50 block w-full group transition-all duration-700"
+          style="cursor: pointer !important; -webkit-transform: translateZ(0)"
+        >
+          <div
+            class="flex flex-col md:flex-row items-center justify-between py-8 md:py-10 border-y border-white/10 group-hover:border-brand-gold/40 transition-colors duration-500 relative z-10"
+          >
+            <div
+              class="flex flex-col md:flex-row items-center text-center md:text-left w-full md:w-auto"
+            >
+              <div
+                class="relative flex items-center justify-center w-[72px] h-[72px] md:mr-10 mb-6 md:mb-0 shrink-0"
+              >
+                <svg
+                  class="absolute inset-0 w-full h-full text-brand-gold opacity-85 group-hover:opacity-100 group-hover:rotate-90 transition-all duration-[1.5s] ease-in-out z-10 pointer-events-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="0.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                  <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                  <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                  <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                  <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                  <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                </svg>
+
+                <div
+                  class="absolute inset-0 m-auto w-[24px] h-[24px] z-0 overflow-hidden clip-hexagon group-hover:scale-110 transition-transform duration-[1.5s] ease-out bg-[#161616] flex items-center justify-center"
+                >
+                  <span
+                    class="font-bebas text-brand-light opacity-90 group-hover:opacity-100 text-[11px] tracking-widest leading-none pt-[2px] pl-[1px] transition-opacity duration-500"
+                    >SFA</span
+                  >
+                </div>
+              </div>
+
+              <div class="transition-all duration-500">
+                <span
+                  class="font-cinzel text-brand-gold/90 group-hover:text-brand-gold text-[10px] md:text-[11px] tracking-[0.3em] uppercase block mb-1.5 transition-colors duration-500"
+                  >Educational Leadership</span
+                >
+
+                <h3
+                  class="font-serif text-xl md:text-2xl text-white/95 font-light tracking-wide mb-3 group-hover:text-brand-gold group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.4)] transition-all duration-500"
+                >
+                  서울필름아카데미
+                  <span
+                    class="font-cinzel text-brand-gold/80 group-hover:text-brand-gold text-lg ml-1 transition-colors duration-500"
+                    >SFA</span
+                  >
+                </h3>
+
+                <div
+                  class="font-sans text-[11px] md:text-[12px] mb-2.5 text-brand-light/80 font-light tracking-wide group-hover:text-white transition-colors duration-500"
+                >
+                  <span class="font-medium">영화연출/프로듀서과정 부원장</span>
+                  <span class="mx-1 text-brand-gold/50">·</span>
+                  <span class="mx-1.5 text-brand-gold/50">|</span>
+                  <span class="font-medium">연출전공 학장</span>
+                </div>
+
+                <p
+                  class="font-sans text-[#a3a3a3] text-[12px] md:text-[13px] font-light leading-relaxed group-hover:text-[#e5e5e5] transition-colors duration-500"
+                >
+                  체계적인 영화 이론과 생생한 현장의 리얼리티를 결합하여,<br
+                    class="hidden md:block"
+                  />
+                  글로벌 스탠다드에 부합하는 차세대 영화인을 양성하는 전문 교육
+                  기관.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-center shrink-0 mt-8 md:mt-0">
+              <div
+                class="flex items-center text-brand-gold/90 font-sans text-xs tracking-[0.2em] uppercase border-b border-transparent group-hover:border-brand-gold group-hover:text-brand-gold group-hover:drop-shadow-[0_0_6px_rgba(197,160,89,0.5)] pb-1 transition-all duration-500 opacity-90 group-hover:opacity-100"
+              >
+                <span class="mr-3">Visit Website</span>
+                <svg
+                  class="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
     <footer
       class="w-full bg-[#111111] py-12 text-center relative z-20 border-t border-white/5"
     >
@@ -1503,16 +1877,21 @@
         </p>
       </div>
     </footer>
-
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // 초기 세팅
+        gsap.registerPlugin(TextPlugin);
+
+        // [초기화] 플리커 방지
+        gsap.set(".hero-bg h1, .hero-bg .flex.items-center, #hero-typing-p", {
+          opacity: 0,
+          visibility: "hidden",
+        });
+
         document.body.style.overflow = "hidden";
         window.scrollTo(0, 0);
 
+        // --- 포스터 데이터 (변경 없음) ---
         const posterContainer = document.getElementById("intro-posters");
-
-        // [분리 적용] 1차 시퀀스용: 전체 6장 (청춘만화로 끝남)
         const phase1Images = [
           "해운대.webp",
           "여타짜.webp",
@@ -1521,17 +1900,12 @@
           "통증.jpg",
           "청춘만화.webp",
         ];
-
-        // [분리 적용] 2차 시퀀스용: 마스크 안쪽 3장 (해운대, 여타짜, 공정사회)
-        const phase2Images = ["색즉시공.jpg", "성실한_앨리스.webp"];
-
-        // 반응형 크기 설정 (모바일은 꽉 차게, 데스크탑은 0.6 스케일 액자)
+        const phase2Images = ["공정사회.webp", "성실한_앨리스.webp"];
         const isMobile = window.innerWidth <= 768;
         const startScale1 = isMobile ? 1.05 : 0.65;
         const endScale1 = isMobile ? 1.0 : 0.6;
 
-        // 1차 이미지 DOM 생성 (데스크탑에만 액자 프레임 클래스 추가)
-        const els1 = phase1Images.map(function (src) {
+        const els1 = phase1Images.map((src) => {
           const img = document.createElement("img");
           img.src = src;
           img.className = isMobile
@@ -1541,8 +1915,7 @@
           return img;
         });
 
-        // 2차 이미지 DOM 생성 (잔상 버그 방지를 위해 따로 생성, 마스크용이므로 프레임 없음)
-        const els2 = phase2Images.map(function (src) {
+        const els2 = phase2Images.map((src) => {
           const img = document.createElement("img");
           img.src = src;
           img.className = "intro-poster-img";
@@ -1550,21 +1923,22 @@
           return img;
         });
 
+        // --- 메인 인트로 타임라인 ---
         const tl = gsap.timeline({
           onComplete: function () {
             gsap.to("#intro-overlay", {
               opacity: 0,
-              duration: 2.0,
+              duration: 1.5,
               ease: "power2.inOut",
               onComplete: function () {
                 document.getElementById("intro-overlay").style.display = "none";
                 document.body.style.overflow = "";
+                startHeaderAnimation();
               },
             });
           },
         });
 
-        // [Phase 0] High Concept Pictures 모던 타이포그래 등장
         tl.to("#highconcept-intro", { opacity: 1, duration: 0.5 })
           .to("#hc-word1", {
             y: 0,
@@ -1589,113 +1963,162 @@
             delay: 0.6,
           });
 
-        // [Phase 1] 1차 파바박: 전체 화면 or 액자 뷰 포스터 시퀀스
         const phase1Start = tl.recent().endTime();
         tl.to("#intro-posters", { opacity: 1, duration: 0 }, phase1Start);
-
-        const dur1 = 0.32;
-        els1.forEach(function (img, i) {
-          const startTime = phase1Start + i * dur1;
-          const isLast = i === els1.length - 1;
-
-          if (!isLast) {
+        els1.forEach((img, i) => {
+          const startTime = phase1Start + i * 0.32;
+          if (i !== els1.length - 1) {
             tl.fromTo(
               img,
-              { opacity: 0, scale: startScale1, filter: "blur(2px)" },
-              {
-                opacity: 1,
-                scale: endScale1,
-                filter: "blur(0px)",
-                duration: dur1,
-                ease: "none",
-              },
+              { opacity: 0, scale: startScale1 },
+              { opacity: 1, scale: endScale1, duration: 0.32, ease: "none" },
               startTime,
             );
-            tl.to(img, { opacity: 0, duration: 0.05 }, startTime + dur1 - 0.05);
+            tl.to(img, { opacity: 0, duration: 0.05 }, startTime + 0.32 - 0.05);
           } else {
-            // 마지막 사진 '청춘만화' 확실하게 1초간 홀드!
             tl.fromTo(
               img,
-              { opacity: 0, scale: startScale1, filter: "blur(2px)" },
+              { opacity: 0, scale: startScale1 },
               {
                 opacity: 1,
                 scale: endScale1,
-                filter: "blur(0px)",
                 duration: 1.0,
                 ease: "power1.out",
               },
               startTime,
             );
-            // 홀드 후 부드럽게 완전 소멸
             tl.to(img, { opacity: 0, duration: 0.3 }, startTime + 1.0);
           }
         });
 
-        // [Phase 2] 2차 파바박: 마스크 등장 후 글자 안에서 포스터 시퀀스 (마블 효과)
-        const phase2Start = phase1Start + (els1.length - 1) * dur1 + 1.1;
-
-        // 마스크 먼저 씌우기
+        const phase2Start = tl.recent().endTime() + 0.1;
         tl.to("#intro-mask", { opacity: 1, duration: 0.1 }, phase2Start);
-
-        const dur2 = 0.475; // 약간 느리게 변경 (요청사항 반영)
-        els2.forEach(function (img, i) {
-          const startTime = phase2Start + i * dur2;
-          const isLast = i === els2.length - 1;
-
-          if (!isLast) {
+        els2.forEach((img, i) => {
+          const startTime = phase2Start + i * 0.895;
+          if (i !== els2.length - 1) {
             tl.fromTo(
               img,
-              { opacity: 0, scale: 1.05, filter: "brightness(1.5)" },
-              {
-                opacity: 1,
-                scale: 1.0,
-                filter: "brightness(1.0)",
-                duration: dur2,
-                ease: "none",
-              },
+              { opacity: 0 },
+              { opacity: 1, duration: 0.895, ease: "none" },
               startTime,
             );
-            tl.to(img, { opacity: 0, duration: 0.05 }, startTime + dur2 - 0.05);
+            tl.to(
+              img,
+              { opacity: 0, duration: 0.05 },
+              startTime + 0.895 - 0.05,
+            );
           } else {
-            // Phase 2의 마지막 사진(공정사회) 글자 속에서 1.2초간 확실한 홀드
             tl.fromTo(
               img,
-              { opacity: 0, scale: 1.05, filter: "brightness(1.5)" },
-              {
-                opacity: 1,
-                scale: 1.0,
-                filter: "brightness(1.0)",
-                duration: 0.8,
-                ease: "power2.out",
-              },
+              { opacity: 0 },
+              { opacity: 1, duration: 0.8, ease: "power2.out" },
               startTime,
             );
           }
         });
 
-        // [Phase 3] 마지막 3색 골드 로고로 넘어가기 (Seamless Crossfade)
-        // 글자 속 홀드가 끝난 후 전환
-        const phase3Start = phase2Start + (els2.length - 1) * dur2 + 0.8;
-
-        // 1. 금색 로고 띄우기
-        tl.to(
-          "#intro-gold-text",
-          { opacity: 1, duration: 0.8, ease: "power2.inOut" },
-          phase3Start,
-        );
-
-        // 2. 포스터 컨테이너 전체를 투명하게 날림
-        tl.to(
-          "#intro-posters",
-          { opacity: 0, duration: 0.8, ease: "power2.inOut" },
-          phase3Start,
-        );
-
-        // 3. 포스터가 100% 안보일 때 마스크 지우기
+        const phase3Start = tl.recent().endTime() + 0.5;
+        tl.to("#intro-gold-text", { opacity: 1, duration: 0.8 }, phase3Start);
+        tl.to("#intro-posters", { opacity: 0, duration: 0.8 }, phase3Start);
         tl.to("#intro-mask", { opacity: 0, duration: 0.1 }, phase3Start + 0.8);
+
+        // --- 헤더 애니메이션 ---
+        function startHeaderAnimation() {
+          const headerTl = gsap.timeline();
+          headerTl.to(".hero-bg h1, .hero-bg .flex.items-center", {
+            opacity: 1,
+            visibility: "visible",
+            y: 0,
+            duration: 1.2,
+            stagger: 0.3,
+            ease: "power2.out",
+          });
+          headerTl.add(() => startCinematicTyping(), "-=1.0");
+          headerTl.from(
+            ".absolute.bottom-12",
+            { opacity: 0, y: 10, duration: 1 },
+            "-=0.5",
+          );
+        }
+
+        // --- 시네마틱 타이핑 (Final Re-engineering) ---
+        function startCinematicTyping() {
+          const target = document.getElementById("hero-typing-p");
+
+          const textData = [
+            {
+              text: "대형 상업영화 프로듀서로 시작하여 감독으로 활동 영역을 넓히고,",
+              br: true,
+              gold: false,
+            },
+            {
+              text: "국제 프로젝트 및 영화 교육 분야에서도 영향력을 발휘하고 있는 인물.",
+              br: true,
+              gold: false,
+            },
+            { text: "이론과 현장 경험을 겸비한 ", br: false, gold: false },
+            { text: "대한민국 대표 영화인.", br: false, gold: true },
+          ];
+
+          // 1. 초기 HTML 구조 생성
+          let finalHTML = "";
+          textData.forEach((line) => {
+            const chars = line.text
+              .split("")
+              .map(
+                (c) =>
+                  `<span class="t-char ${line.gold ? "gold-part" : ""}">${c === " " ? "&nbsp;" : c}</span>`,
+              )
+              .join("");
+            finalHTML += chars + (line.br ? "<br>" : "");
+          });
+          finalHTML += '<span class="custom-cursor"></span>';
+
+          target.innerHTML = finalHTML;
+          gsap.set(target, { opacity: 1, visibility: "visible" });
+
+          const charEls = target.querySelectorAll(".t-char");
+          const cursor = target.querySelector(".custom-cursor");
+          const goldPartEls = target.querySelectorAll(".gold-part");
+
+          const typeTl = gsap.timeline();
+
+          // 2. 타이핑 애니메이션
+          charEls.forEach((char, i) => {
+            typeTl.to(
+              char,
+              {
+                opacity: 1,
+                duration: 0.03, // 타이핑 속도 살짝 더 시네마틱하게 조정
+                onStart: () => {
+                  // 👇👇 커서 위치 계산 보정: 글자의 오른쪽 끝에 바짝 붙도록 설정
+                  gsap.set(cursor, {
+                    left: char.offsetLeft + char.offsetWidth,
+                    top: char.offsetTop,
+                  });
+                },
+              },
+              i * 0.05,
+            );
+          });
+
+          // 3. 금빛 하이라이트 (시네마틱 페이드)
+          typeTl.to(
+            goldPartEls,
+            {
+              className: "t-char gold-part gold-glow",
+              duration: 1.5,
+              stagger: 0.03,
+              ease: "power2.inOut",
+            },
+            "+=0.2",
+          );
+
+          // 4. 커서 소멸 (흔들림 방지 위해 투명도만 0)
+          typeTl.to(cursor, { opacity: 0, duration: 0.5, delay: 1 });
+        }
       });
     </script>
-
     <script>
       const contactForm = document.getElementById("contact-form");
       const submitBtn = document.getElementById("submit-btn");
@@ -1769,6 +2192,13 @@
           requestAnimationFrame(function () {
             const windowHeight = window.innerHeight;
             sections.forEach(function (sec, i) {
+              // SFA 섹션 예외 처리
+              if (sec.id === "education") {
+                sec.style.transform = "translateY(0px) scale(1)";
+                sec.style.opacity = 1;
+                return; // SFA 섹션은 흐려지는 효과 스킵!
+              }
+
               const nextSec = sections[i + 1];
               if (nextSec) {
                 const nextRect = nextSec.getBoundingClientRect();

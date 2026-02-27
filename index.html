@@ -75,12 +75,16 @@
             rgba(17, 17, 17, 1) 100%
           ),
           url("hero.png") center/cover no-repeat;
+        background-color: #111111; /* 남는 10% 공간을 자연스럽게 채움 */
+        background-position: top center; /* 사진을 위로 기준점 잡기 */
+        background-size: auto 70%;
         background-attachment: scroll; /* 모바일은 스크롤로 고정 해제 */
         -webkit-transform: translate3d(
           0,
           0,
           0
         ); /* iOS 하드웨어 가속 강제 (버그 방지) */
+        transform: translate3d(0, 0, 0);
       }
 
       /* 2. 데스크탑 설정: 화면이 클 때만 멋진 고정(fixed) 효과 적용 */
@@ -199,22 +203,54 @@
         will-change: transform, opacity;
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
       }
-@media (min-width: 769px) {
-        .phase1-frame {
-          border-radius: 2px;
-          inset: auto;
-          /* 👇 기존의 width 70%, height 110%를 지우고 아래 3줄로 교체합니다 👇 */
-          height: 85vh;         /* 모니터 높이의 85%만큼 큼직하게 */
-          width: auto;          /* 가로는 높이에 맞춰서 자동으로 설정 */
-          aspect-ratio: 2 / 3;  /* 완벽한 영화 포스터 비율 (가장 중요!) */
-          
-          border: 12px solid #4a4545;
-          outline: 5px solid #765f34;
-          outline-offset: 1px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-        }
+      .phase1-wrapper {
+        position: absolute;
+        inset: auto !important; /* 중앙 정렬 유지 */
+        width: 85vw; /* 모바일에서 화면 85% 가득 채우기 */
+        height: auto;
+        aspect-ratio: 2 / 3;
+        border-radius: 3px;
+        opacity: 0;
+        will-change: transform, opacity;
+
+        /* 딥 다크 앰비언트 빛 번짐 효과 */
+        box-shadow:
+          0 40px 80px rgba(0, 0, 0, 0.95),
+          -40px -40px 120px rgba(140, 100, 40, 0.3),
+          40px 50px 120px rgba(180, 60, 20, 0.2);
       }
 
+      /* 2. 액자 내부 (안쪽 비네팅 그림자 + 딥 다크 골드 선) */
+      .phase1-wrapper::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 3px;
+        pointer-events: none; /* 클릭 방해 금지 */
+
+        /* 화면 속으로 빨려 들어가는 내부 그림자 */
+        box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95);
+        /* 감독님이 픽하신 딥 다크 골드 테두리 */
+        border: 4px solid rgba(80, 58, 24, 0.855);
+      }
+
+      /* 3. 실제 포스터 이미지 */
+      .phase1-poster {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 3px;
+        filter: brightness(0.85); /* 톤 다운시켜서 무게감 부여 */
+      }
+
+      /* 4. 데스크탑 크기 유지 (원래 쓰시던 크기 100% 동일) */
+      @media (min-width: 769px) {
+        .phase1-wrapper {
+          height: 85vh;
+          width: auto;
+        }
+      }
       /* 6각형 이미지 크롭용 CSS */
       .clip-hexagon {
         clip-path: polygon(
@@ -499,10 +535,12 @@
 
         <div class="max-w-2xl mx-auto pt-4 min-h-[6em]">
           <div class="max-w-2xl mx-auto pt-4 min-h-[6em]">
-            <p
-              id="hero-typing-p"
-              class="font-serif text-brand-light/70 leading-[2.2] font-light text-[11px] sm:text-[13px] md:text-[15px] relative"
-            ></p>
+            <div class="max-w-2xl mx-auto pt-4 min-h-[8em] w-full">
+              <p
+                id="hero-typing-p"
+                class="font-serif text-brand-light/70 leading-[2.2] font-light text-[11px] sm:text-[13px] md:text-[15px] relative"
+              ></p>
+            </div>
           </div>
         </div>
       </div>
@@ -1890,21 +1928,26 @@
           "청춘만화.webp",
         ];
         const phase2Images = ["공정사회.webp", "성실한_앨리스.webp"];
-      const isMobile = window.innerWidth <= 768;
-        
-        // 👇 데스크탑일 때(뒤에 있는 숫자)의 줌 크기를 0.9 -> 0.85 로 수정했습니다.
-        const startScale1 = isMobile ? 1.05 : 0.9;
-        const endScale1 = isMobile ? 1.0 : 0.85;
+        const startScale1 = 0.9;
+        const endScale1 = 0.85;
+
         const els1 = phase1Images.map((src) => {
+          // 1. 빛과 프레임 효과를 담당할 '액자 통(wrapper)' 생성
+          const wrapper = document.createElement("div");
+          wrapper.className = "phase1-wrapper";
+
+          // 2. 실제 포스터 이미지 생성
           const img = document.createElement("img");
           img.src = src;
-          img.className = isMobile
-            ? "intro-poster-img"
-            : "intro-poster-img phase1-frame";
-          posterContainer.appendChild(img);
-          return img;
-        });
+          img.className = "phase1-poster";
 
+          // 3. 액자 안에 이미지를 넣고, 화면에 등재
+          wrapper.appendChild(img);
+          posterContainer.appendChild(wrapper);
+
+          // 4. GSAP 애니메이션이 이미지 단일이 아닌 '액자 전체'를 움직이도록 리턴!
+          return wrapper;
+        });
         const els2 = phase2Images.map((src) => {
           const img = document.createElement("img");
           img.src = src;
@@ -2091,8 +2134,6 @@
               i * 0.05,
             );
           });
-
-          // 3. 금빛 하이라이트 (시네마틱 페이드)
           typeTl.to(
             goldPartEls,
             {
@@ -2104,8 +2145,19 @@
             "+=0.2",
           );
 
-          // 4. 커서 소멸 (흔들림 방지 위해 투명도만 0)
-          typeTl.to(cursor, { opacity: 0, duration: 0.5, delay: 1 });
+          // 4. 커서 소멸 (금빛 애니메이션이 '완전히 끝난 후' 0.5초 뒤에 실행)
+          typeTl.to(
+            cursor,
+            {
+              opacity: 0,
+              duration: 0.5,
+              onStart: () => {
+                // 커서가 사라지기 시작할 때, 무한 깜빡임 CSS 강제 종료
+                cursor.style.animation = "none";
+              },
+            },
+            "+=0.5", // 타임라인 충돌을 막기 위해 순차적(+=0.5)으로 안전하게 대기
+          );
         }
       });
     </script>

@@ -65,32 +65,40 @@
         overflow-x: hidden;
         overscroll-behavior: none;
       }
-      /* 1. 기본(모바일) 설정: 아이폰 렌더링 버그 방지를 위해 scroll 적용 */
+     /* 1. 모바일 전용: 딱 0.9배만 줌아웃 & 아래쪽 자연스러운 블렌딩 */
       .hero-bg {
-        background:
+        background-image:
           linear-gradient(
             to bottom,
             rgba(17, 17, 17, 0.3) 0%,
-            rgba(17, 17, 17, 0.9) 80%,
-            rgba(17, 17, 17, 1) 100%
+            rgba(17, 17, 17, 0.9) 75%,
+            rgba(17, 17, 17, 1) 90%
           ),
-          url("hero.png") center/cover no-repeat;
-        background-color: #111111; /* 남는 10% 공간을 자연스럽게 채움 */
-        background-position: top center; /* 사진을 위로 기준점 잡기 */
-        background-size: auto 70%;
-        background-attachment: scroll; /* 모바일은 스크롤로 고정 해제 */
-        -webkit-transform: translate3d(
-          0,
-          0,
-          0
-        ); /* iOS 하드웨어 가속 강제 (버그 방지) */
-        transform: translate3d(0, 0, 0);
+          url("hero.png");
+        background-color: #111111;
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-size: auto 90%; /* 모바일 0.9배 줌아웃 */
+        background-attachment: scroll;
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
       }
 
-      /* 2. 데스크탑 설정: 화면이 클 때만 멋진 고정(fixed) 효과 적용 */
+      /* 2. 데스크탑/태블릿 전용: 화면 100% 꽉 채우기 (완벽 복구) */
       @media (min-width: 768px) {
         .hero-bg {
-          background-attachment: fixed;
+          background-image:
+            linear-gradient(
+              to bottom,
+              rgba(17, 17, 17, 0.3) 0%,
+              rgba(17, 17, 17, 0.9) 80%,
+              rgba(17, 17, 17, 1) 100%
+            ),
+            url("hero.png");
+          background-position: center; /* 다시 정중앙 포커스 */
+          background-size: cover !important; /* 빈틈없이 꽉 채우기 강제 적용! */
+          background-color: transparent; /* 모바일용 배경색 해제 */
+          background-attachment: fixed; /* 데스크탑 전용 스크롤 효과 유지 */
         }
       }
 

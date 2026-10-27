@@ -18,13 +18,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&family=Pinyon+Script&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500;600&family=Pinyon+Script&display=swap"
       rel="stylesheet"
     />
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    
     <script>
       tailwind.config = {
         theme: {
@@ -44,7 +45,6 @@
               serif: ['"Noto Serif KR"', "serif"],
               cinzel: ['"Cinzel"', "serif"],
               bebas: ['"Bebas Neue"', "sans-serif"],
-              // 새 폰트 추가
               montserrat: ['"Montserrat"', "sans-serif"],
               pinyon: ['"Pinyon Script"', "cursive"],
             },
@@ -65,7 +65,8 @@
         overflow-x: hidden;
         overscroll-behavior: none;
       }
-     /* 1. 모바일 전용: 딱 0.9배만 줌아웃 & 아래쪽 자연스러운 블렌딩 */
+
+      /* 1. 모바일 전용: 딱 0.9배만 줌아웃 & 아래쪽 자연스러운 블렌딩 */
       .hero-bg {
         background-image:
           linear-gradient(
@@ -228,7 +229,7 @@
           40px 50px 120px rgba(180, 60, 20, 0.2);
       }
 
-      /* 2. 액자 내부 (안쪽 비네팅 그림자 + 딥 다크 골드 선) */
+      /* 액자 내부 (안쪽 비네팅 그림자 + 딥 다크 골드 선) */
       .phase1-wrapper::after {
         content: "";
         position: absolute;
@@ -242,7 +243,7 @@
         border: 4px solid rgba(80, 58, 24, 0.855);
       }
 
-      /* 3. 실제 포스터 이미지 */
+      /* 실제 포스터 이미지 */
       .phase1-poster {
         width: 100%;
         height: 100%;
@@ -252,7 +253,7 @@
         filter: brightness(0.85); /* 톤 다운시켜서 무게감 부여 */
       }
 
-      /* 4. 데스크탑 크기 유지 (원래 쓰시던 크기 100% 동일) */
+      /* 데스크탑 크기 유지 */
       @media (min-width: 769px) {
         .phase1-wrapper {
           height: 85vh;
@@ -293,8 +294,7 @@
         animation: shimmer 1s ease-in-out forwards;
       }
 
-      /* 👇👇 시네마틱 타이핑 커서 CSS 추가 👇👇 */
-      /* 1. 플리커 방지 및 레이아웃 강제 고정 */
+      /* 시네마틱 타이핑 커서 CSS */
       .hero-bg h1,
       .hero-bg .flex.items-center,
       #hero-typing-p {
@@ -311,25 +311,22 @@
         white-space: pre-wrap;
       }
 
-      /* 2. 타이핑 글자 하나하나의 기본 상태 (투명) */
       .t-char {
         display: inline-block;
         opacity: 0;
         transition: opacity 0.05s ease;
       }
 
-      /* 3. 시네마틱 커서 (흔들림 방지 Absolute) */
       .custom-cursor {
         position: absolute;
         width: 2px;
-        height: 1.1em; /* 글자 크기와 비슷하게 맞춤 */
+        height: 1.1em;
         background-color: #c5a059;
         display: inline-block;
         animation: blink 1s step-end infinite;
         pointer-events: none;
         z-index: 10;
         will-change: transform;
-        /* 👇👇 커서 위치를 글자 높이에 맞춰 아래로 미세 조정 (0.5em 정도가 적당) */
         transform: translateY(0.59em);
       }
 
@@ -339,7 +336,6 @@
         }
       }
 
-      /* 4. 금빛 하이라이트 (초기 상태는 일반색, 스크립트가 클래스 추가) */
       .gold-part {
         transition:
           color 1.5s ease,
@@ -350,6 +346,45 @@
         text-shadow: 0 0 15px rgba(197, 160, 89, 0.6);
         font-weight: 500;
       }
+
+      /* ================================================================= */
+      /* 👇👇 [새로 추가됨] Featured Section 용 스크롤 및 갤러리 CSS 👇👇 */
+      /* ================================================================= */
+      .text-scrollbar::-webkit-scrollbar { width: 4px; }
+      .text-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .text-scrollbar::-webkit-scrollbar-thumb { background: rgba(197, 160, 89, 0.3); border-radius: 4px; }
+      .text-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(197, 160, 89, 0.8); }
+      
+      .gallery-scrollbar::-webkit-scrollbar { width: 0px; }
+      
+      .thumb-btn { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); }
+      .thumb-btn:hover { border-color: rgba(197, 160, 89, 0.4); }
+      .thumb-btn.active { border-color: #c5a059; box-shadow: 0 10px 40px rgba(197, 160, 89, 0.15); }
+      .thumb-btn.active .thumb-title { color: #c5a059; }
+      .thumb-btn.active .thumb-poster { transform: scale(1.03); filter: brightness(1.1); }
+      
+      .hide-scroll::-webkit-scrollbar { display: none; }
+      .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+      .seamless-frame {
+        position: relative;
+        background-color: #121212;
+        padding: 4px; 
+        border-radius: 3px;
+        border: 1px solid rgba(255, 255, 255, 0.06); 
+        box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+        transition: border-color 0.4s ease, transform 0.4s ease;
+      }
+      .seamless-frame:hover {
+        border-color: rgba(197, 160, 89, 0.4);
+        transform: scale(1.02);
+      }
+      .seamless-frame img {
+        border-radius: 2px;
+        border: 1px solid #000; 
+      }
+      /* ================================================================= */
+
     </style>
   </head>
   <body class="antialiased selection:bg-brand-gold selection:text-brand-black">
@@ -531,14 +566,14 @@
         >
           LEE JI-SEUNG
         </h1>
-        <div class="flex items-center gap-4">
-          <div class="h-[1px] w-8 md:w-16 bg-brand-gold/40"></div>
+        <div class="flex items-center gap-3 md:gap-4">
+          <div class="h-[1px] w-5 md:w-16 bg-brand-gold/40"></div>
           <h2
-            class="font-sans text-[10px] md:text-[12px] font-medium tracking-[0.5em] text-brand-gold uppercase pl-[0.5em]"
+            class="font-sans text-[10px] md:text-[12px] font-medium tracking-[0.3em] md:tracking-[0.5em] text-brand-gold uppercase pl-[0.3em] md:pl-[0.5em]"
           >
             Film Director & Producer
           </h2>
-          <div class="h-[1px] w-8 md:w-16 bg-brand-gold/40"></div>
+          <div class="h-[1px] w-5 md:w-16 bg-brand-gold/40"></div>
         </div>
 
         <div class="max-w-2xl mx-auto pt-4 min-h-[6em]">
@@ -603,9 +638,9 @@
                 class="w-full h-full bg-brand-gray flex items-center justify-center relative overflow-hidden"
               >
                 <img
-                  src="profile_pic.png"
+                  src="profile_pic.jpg"
                   alt="이지승 감독"
-                  class="w-full h-full object-cover opacity-100 hover:scale-105 transition-transform duration-700"
+                  class="w-full h-full object-cover object-top opacity-100 hover:scale-105 transition-transform duration-700"
                 />
                 <div
                   class="absolute inset-0 bg-brand-black/10 mix-blend-overlay"
@@ -726,15 +761,87 @@
         </div>
       </div>
     </section>
+
     <section id="filmography" class="w-full bg-[#161616] relative z-10">
-      <div class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+      <div class="py-32 px-4 md:px-8 w-full max-w-[1500px] mx-auto">
+        
         <div class="text-center mb-24 fade-up">
           <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2">
             FILMOGRAPHY
           </h3>
           <h2 class="font-serif text-3xl md:text-4xl font-light">주요 작품</h2>
         </div>
-        <div class="mb-32">
+
+        <div class="mb-32 fade-up">
+          <div class="mb-8 pl-2 md:pl-0">
+            <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2 border-l-2 border-brand-gold pl-3">FEATURED FILMS</h3>
+            <h2 class="font-serif text-3xl md:text-4xl font-light">하이라이트</h2>
+          </div>
+
+          <div id="featured-section" class="w-full relative z-10">
+            <div class="w-full mx-auto mb-6">
+              <div id="movie-thumbnails" class="flex md:grid md:grid-cols-4 gap-4 md:gap-6 overflow-x-auto hide-scroll snap-x pb-4"></div>
+            </div>
+
+            <div id="mega-drawer" class="w-full bg-[#0a0a0a] border border-brand-gold/40 rounded overflow-hidden h-0 transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)] relative shadow-[0_30px_60px_rgba(0,0,0,1)]">
+              <div id="drawer-content" class="w-full h-full p-6 md:p-10 transition-opacity duration-500 opacity-0 relative">
+                
+                <button onclick="toggleDrawer(false)" class="absolute top-6 right-6 md:top-8 md:right-8 font-cinzel text-[11px] text-brand-gold/70 hover:text-brand-gold tracking-[0.2em] flex items-center gap-2 z-50 transition-colors">
+                  CLOSE <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15l7-7 7 7"></path></svg>
+                </button>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 h-full mt-8 md:mt-4">
+                  <div class="lg:col-span-3 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 pb-10 lg:pb-0 lg:pr-8">
+                    <h3 id="detail-title" class="font-serif font-medium text-3xl md:text-4xl lg:text-[2.5rem] text-white/95 mb-3 leading-snug tracking-widest drop-shadow-lg break-keep"></h3>
+                    <p id="detail-eng-title" class="font-cinzel text-[12px] md:text-[13px] text-brand-gold tracking-[0.15em] mb-10 uppercase"></p>
+                    <div id="laurel-grid" class="grid grid-cols-2 gap-3 mb-10"></div>
+                    <div id="link-list" class="mt-auto flex flex-col gap-4 pt-6 border-t border-white/5"></div>
+                  </div>
+
+                  <div id="detail-text-col" class="lg:col-span-5 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 pb-10 lg:pb-0 lg:pr-8 h-auto lg:h-[650px]">
+                    <div class="flex justify-between items-end mb-6 border-b border-white/5 pb-3">
+                      <h5 class="font-cinzel text-brand-gold/80 tracking-[0.25em] text-[12px]">SYNOPSIS & STATEMENT</h5>
+                      <div class="flex items-center gap-3 text-[11px] font-sans font-medium tracking-widest bg-[#111] p-1 rounded border border-white/10">
+                        <button id="btn-ko" onclick="switchLanguage('ko')" class="px-3 py-1 rounded bg-brand-gold text-black transition-all">KO</button>
+                        <button id="btn-en" onclick="switchLanguage('en')" class="px-3 py-1 rounded text-brand-muted hover:text-white transition-all">EN</button>
+                      </div>
+                    </div>
+                    <div class="overflow-y-auto text-scrollbar lg:pr-6 flex-1 lg:text-justify">
+                      <h6 class="font-cinzel text-brand-light/40 tracking-[0.2em] text-[10px] mb-3">SYNOPSIS</h6>
+                      <div id="detail-synopsis" class="font-sans text-[#cccccc] font-light leading-[1.9] mb-10 text-[14.5px] break-keep"></div>
+                      <div class="w-12 h-[1px] bg-brand-gold/30 my-8"></div>
+                      <h6 class="font-cinzel text-brand-light/40 tracking-[0.2em] text-[10px] mb-3">DIRECTOR'S STATEMENT</h6>
+                      <div id="detail-statement" class="font-sans text-[#b3b3b3] font-light leading-[1.9] space-y-5 text-[14px] break-keep"></div>
+                    </div>
+                  </div>
+
+                  <div id="detail-gallery-col" class="lg:col-span-4 flex flex-col h-[400px] lg:h-[650px] relative">
+                    <div class="flex justify-center items-center mb-4 absolute -top-12 inset-x-0 lg:static lg:mb-4">
+                       <h5 class="font-cinzel text-brand-gold text-[10px] tracking-[0.3em] bg-[#111] border border-brand-gold/30 px-3 py-1 rounded z-20 shadow-lg">STILL GALLERY</h5>
+                    </div>
+                    <div class="relative flex-1 rounded bg-[#050505] overflow-hidden group border border-white/5">
+                      
+                      <div class="absolute inset-x-0 top-4 z-30 flex justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <span class="font-cinzel text-[10px] text-white tracking-[0.3em] bg-black/60 px-4 py-1.5 rounded-sm backdrop-blur-sm border border-white/10 shadow-xl flex items-center gap-2">
+                          SCROLL TO EXPLORE
+                          <svg class="w-3 h-3 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </span>
+                      </div>
+
+                      <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#050505] to-transparent z-10 pointer-events-none"></div>
+                      <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#050505] to-transparent z-10 pointer-events-none"></div>
+                      
+                      <div id="gallery-scroll-container" class="absolute inset-0 overflow-y-auto gallery-scrollbar p-3">
+                        <div id="gallery-track" class="grid grid-cols-2 gap-4 pb-20 pt-10"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-32 max-w-7xl mx-auto pl-2 md:pl-0">
           <div class="flex items-center gap-4 mb-12 fade-up">
             <h4 class="font-serif text-xl tracking-widest text-brand-light">
               감독
@@ -897,7 +1004,8 @@
             </a>
           </div>
         </div>
-        <div class="fade-up pt-16 border-t border-white/5">
+
+        <div class="max-w-7xl mx-auto fade-up pt-16 border-t border-white/5 pl-2 md:pl-0">
           <div class="flex items-center gap-4 mb-12">
             <h4 class="font-serif text-xl tracking-widest text-brand-light">
               프로듀서
@@ -1792,7 +1900,7 @@
     >
       <div class="max-w-6xl mx-auto px-6 md:px-12 fade-up">
         <a
-          href="http://seoulfilmacademy.com/"
+          href="https://www.instagram.com/sfa.movie/"
           target="_blank"
           rel="noopener noreferrer"
           class="relative z-50 block w-full group transition-all duration-700"
@@ -1876,7 +1984,7 @@
               <div
                 class="flex items-center text-brand-gold/90 font-sans text-xs tracking-[0.2em] uppercase border-b border-transparent group-hover:border-brand-gold group-hover:text-brand-gold group-hover:drop-shadow-[0_0_6px_rgba(197,160,89,0.5)] pb-1 transition-all duration-500 opacity-90 group-hover:opacity-100"
               >
-                <span class="mr-3">Visit Website</span>
+                <span class="mr-3">Visit Instagram</span>
                 <svg
                   class="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-500"
                   fill="none"
@@ -2320,6 +2428,241 @@
       );
       document.querySelectorAll(".fade-up").forEach(function (el) {
         observer.observe(el);
+      });
+    </script>
+
+    <script>
+      // ==========================================
+      // 🎬 하이라이트 (Featured Films) 데이터
+      // ==========================================
+      const moviesData = [
+        {
+          id: 'subway',
+          title: '멈춰선 지하철',
+          engTitle: 'A Message from the Past',
+          year: '2025',
+          thumb: '멈춰선_지하철/poster.jpg',
+          laurels: [
+            { title: 'Kolkata Shorts', desc: 'Jury Mention', icon: '멈춰선_지하철/영화제/영화제_1.png' },
+            { title: 'Spain Cortometrajes', desc: 'Seleccionado 2025', icon: '멈춰선_지하철/영화제/영화제_2.png' },
+            { title: 'Utsav Int\'l', desc: 'Official Selection', icon: '멈춰선_지하철/영화제/영화제_3.png' },
+            { title: 'Russia Amur Autumn', desc: 'Official Selection', icon: '멈춰선_지하철/영화제/영화제_4.png' },
+            { title: 'Lift-Off Sessions', desc: 'Volume 8 2025', icon: '멈춰선_지하철/영화제/영화제_5.png' },
+          ],
+          text: {
+            ko: {
+              synopsis: `30년 만에 생모를 만나러 가는 진호는 지하철에서 정체불명의 여인을 만난다. 그녀는 과거에서 온 듯 낡은 백일 사진을 들고 있고, 진호와 대화를 나눈 후 사라진다. 이후 카페에서 만난 생모가 바로 그 여인이었음을 깨달은 진호는 조용히 그녀의 손을 잡는다. 1995년, 아들을 입양 보내며 눈물 흘리는 그녀의 과거가 겹쳐진다.`,
+              statement: `
+                <p class="text-brand-gold/90 font-serif italic text-[15.5px] mb-6">"영화 &lt;멈춰선 지하철&gt;은 시공간을 초월하는 모성애의 메시지를 담아낸 휴먼 드라마입니다."</p>
+                <p>지하철이라는 상징적인 공간을 배경으로, 30년 전 아들과 헤어진 후 회한에 사무친 어머니와 생애 처음으로 친모를 마주하게 된 아들의 감정적 여정을 섬세하게 탐구합니다.</p>
+                <p>'잊을 수 없는 기억, 멈출 수 없는 사랑'이라는 주제 아래, 영화는 가족의 용서와 이해, 그리고 뒤늦지만 진심 어린 재회를 따뜻한 시선으로 그려냅니다.</p>
+                <p>현실과 초현실의 경계가 흐려지는 지점에서, 관객들은 시간조차 지울 수 없는 진심의 묵직한 무게를 경험하게 될 것입니다.</p>
+              `
+            },
+            en: {
+              synopsis: `Jinho, on his way to meet his birth mother for the first time in 30 years, encounters a mysterious woman on the subway. She holds an old, worn baby photo as if from the past, and after a brief conversation, she disappears.`,
+              statement: `
+                <p class="text-brand-gold/90 font-serif italic text-[15.5px] mb-6">"A Message from the Past is a human drama that delivers a message of maternal love that transcends time and space."</p>
+                <p>Set in the symbolic space of a subway train, the film delicately explores the emotional journey of a mother filled with regret after parting with her son 30 years ago, and the son who, for the first time in his life, comes face to face with his birth mother.</p>
+                <p>Under the theme 'Unforgettable memories, unstoppable love,' the story gently portrays forgiveness, understanding, and a long-overdue but heartfelt reunion of a family.</p>
+                <p>As the boundaries between reality and the surreal begin to blur, the audience is invited to experience the enduring weight of sincerity that time cannot erase.</p>
+              `
+            }
+          },
+          links: [
+            { name: 'Cinephile Review 1', url: 'https://www.cinephile.kr/news/articleView.html?idxno=371' },
+            { name: 'Cinephile Review 2', url: 'https://www.cinephile.kr/news/articleView.html?idxno=372' },
+            { name: 'Cinephile Interview', url: 'https://www.cinephile.kr/news/articleView.html?idxno=407' },
+            { name: 'Amur Autumn Article', url: 'https://amurosen.ru/poslanie-iz-proshlogo/' }
+          ],
+          stills: Array.from({ length: 12 }, (_, i) => `멈춰선_지하철/스틸컷/스틸컷_${i + 1}.jpg`)
+        },
+        {
+          id: 'azooma',
+          title: '공정사회',
+          engTitle: 'Azooma',
+          year: '2013',
+          thumb: '공정사회.webp',
+          laurels: [{ title: 'Nevada Int\'l', desc: 'Platinum Award', icon: '' }],
+          text: {
+            ko: { synopsis: '경찰과 남편이 외면한 딸의 성폭행범을 직접 찾아 나서 40일간의 추적 끝에 통쾌한 복수를 감행하는 엄마의 이야기.', statement: '<p>척박한 현실 속에서도 포기하지 않는 어머니의 강인함을 거칠고 사실적인 톤으로 담아냈다.</p>' },
+            en: { synopsis: 'A mother takes justice into her own hands after the police and her husband abandon her daughter\'s rapist.', statement: '<p>A raw and realistic portrayal of a mother\'s relentless strength.</p>' }
+          },
+          links: [],
+          // 스틸컷 준비되면 경로 추가 (비어 있으면 갤러리 칸 숨김)
+          stills: []
+        },
+        {
+          id: 'island',
+          title: '섬. 사라진 사람들',
+          engTitle: 'No Tomorrow',
+          year: '2016',
+          thumb: '섬_사라진_사람들.webp',
+          laurels: [],
+          text: {
+            ko: { synopsis: '염전노예 사건 제보를 받고 섬으로 간 기자들이 끔찍한 살인사건에 휘말리며 진실을 파헤치는 파운드 푸티지 스릴러.', statement: '<p>페이크 다큐멘터리 형식을 차용하여 관객이 직접 사건의 목격자가 되는 듯한 서스펜스를 구축했다.</p>' },
+            en: { synopsis: 'Reporters investigating a slavery case on an island get entangled in a horrific murder.', statement: '<p>Utilizing a found-footage style to immerse the audience directly into the suspense.</p>' }
+          },
+          links: [],
+          stills: []
+        }
+      ];
+
+      // 영화제 로고가 없을 때 쓰는 메달 아이콘 (Awards 섹션과 동일)
+      const medalIcon = `
+        <svg class="w-8 h-8 relative z-10 text-brand-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="6"></circle>
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+        </svg>`;
+
+      // ==========================================
+      // ⚙️ 상태 관리 및 렌더링 로직
+      // ==========================================
+      const thumbContainer = document.getElementById('movie-thumbnails');
+      const drawer = document.getElementById('mega-drawer');
+      const contentWrapper = document.getElementById('drawer-content');
+      const textCol = document.getElementById('detail-text-col');
+      const galleryCol = document.getElementById('detail-gallery-col');
+
+      let currentMovieId = null;
+      let currentLang = 'ko';
+
+      thumbContainer.innerHTML = moviesData.map((movie) => `
+        <div id="thumb-${movie.id}" onclick="selectMovie('${movie.id}')" class="thumb-btn snap-center shrink-0 w-[160px] md:w-full aspect-[2/3] relative cursor-pointer overflow-hidden rounded bg-[#111] group">
+          <img src="${movie.thumb}" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-30">
+          <img src="${movie.thumb}" alt="${movie.title} 포스터" loading="lazy" class="thumb-poster absolute inset-0 w-full h-full object-contain p-2 opacity-70 transition-all duration-500 z-10">
+          <div class="thumb-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-4 z-20 transition-all duration-500">
+            <span class="font-cinzel text-[10px] text-brand-gold tracking-[0.2em] mb-1 opacity-80">${movie.year}</span>
+            <h4 class="thumb-title font-serif text-[15px] md:text-lg text-white/80 transition-colors leading-snug">${movie.title}</h4>
+          </div>
+        </div>
+      `).join('');
+
+      function selectMovie(id) {
+        if (currentMovieId === id) return;
+        const movie = moviesData.find(m => m.id === id);
+
+        document.querySelectorAll('.thumb-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(`thumb-${id}`).classList.add('active');
+        currentMovieId = id;
+
+        contentWrapper.style.opacity = 0;
+
+        setTimeout(() => {
+          document.getElementById('detail-title').innerText = movie.title;
+          document.getElementById('detail-eng-title').innerText = movie.engTitle;
+
+          renderText();
+
+          document.getElementById('laurel-grid').innerHTML = movie.laurels.map(l => `
+            <div class="bg-[#080808] border border-white/5 rounded-md p-4 flex flex-col items-center text-center justify-center transition-colors hover:border-brand-gold/30 hover:bg-[#111] group">
+              <div class="relative flex items-center justify-center w-14 h-14 mb-2">
+                ${l.icon
+                  ? `<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.9)_15%,rgba(255,255,255,0.2)_55%,transparent_75%)] pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
+                     <img src="${l.icon}" alt="${l.title}" class="w-9 h-9 object-contain relative z-10">`
+                  : medalIcon}
+              </div>
+              <p class="font-sans text-[10px] text-white/80 leading-tight mb-1">${l.title}</p>
+              <p class="font-cinzel text-[8.5px] text-brand-gold/60 tracking-widest leading-tight uppercase">${l.desc}</p>
+            </div>
+          `).join('');
+
+          document.getElementById('link-list').innerHTML = movie.links.map(l => `
+            <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="flex items-center text-[12px] font-sans tracking-widest text-[#e5e5e5] hover:text-brand-gold border-b border-white/10 pb-3 transition-colors">
+              <span class="mr-3 text-brand-gold/50">→</span> ${l.name}
+            </a>
+          `).join('');
+
+          // 스틸컷이 없으면 갤러리 칸을 숨기고 시놉시스 칸을 넓힘
+          const hasStills = movie.stills.length > 0;
+          galleryCol.classList.toggle('hidden', !hasStills);
+          textCol.classList.toggle('lg:col-span-5', hasStills);
+          textCol.classList.toggle('lg:col-span-9', !hasStills);
+          textCol.classList.toggle('lg:border-r', hasStills);
+          textCol.classList.toggle('lg:h-[650px]', hasStills);
+
+          const galleryHtml = movie.stills.map(src => `
+            <div class="seamless-frame">
+              <img src="${src}" alt="${movie.title} 스틸컷" loading="lazy" class="w-full aspect-video object-cover opacity-90 hover:opacity-100 transition-opacity">
+            </div>
+          `).join('');
+          document.getElementById('gallery-track').innerHTML = galleryHtml + galleryHtml;
+
+          drawer.style.height = 'auto';
+          contentWrapper.style.opacity = 1;
+          galleryScroll.scrollTop = 0;
+          galleryPos = 0;
+        }, 400);
+      }
+
+      function switchLanguage(lang) {
+        if (currentLang === lang) return;
+        currentLang = lang;
+
+        const btnKo = document.getElementById('btn-ko');
+        const btnEn = document.getElementById('btn-en');
+
+        if (lang === 'ko') {
+          btnKo.className = 'px-3 py-1 rounded bg-brand-gold text-black transition-all';
+          btnEn.className = 'px-3 py-1 rounded text-brand-muted hover:text-white transition-all';
+        } else {
+          btnEn.className = 'px-3 py-1 rounded bg-brand-gold text-black transition-all';
+          btnKo.className = 'px-3 py-1 rounded text-brand-muted hover:text-white transition-all';
+        }
+
+        const detailSyn = document.getElementById('detail-synopsis');
+        const detailStat = document.getElementById('detail-statement');
+
+        detailSyn.style.opacity = 0;
+        detailStat.style.opacity = 0;
+
+        setTimeout(() => {
+          renderText();
+          detailSyn.style.opacity = 1;
+          detailStat.style.opacity = 1;
+        }, 300);
+      }
+
+      function renderText() {
+        if (!currentMovieId) return;
+        const movie = moviesData.find(m => m.id === currentMovieId);
+        document.getElementById('detail-synopsis').innerHTML = movie.text[currentLang].synopsis;
+        document.getElementById('detail-statement').innerHTML = movie.text[currentLang].statement;
+      }
+
+      function toggleDrawer(forceState) {
+        if (forceState === false) {
+          drawer.style.height = '0px';
+          document.querySelectorAll('.thumb-btn').forEach(el => el.classList.remove('active'));
+          currentMovieId = null;
+        }
+      }
+
+      // ==========================================
+      // ⚙️ 갤러리 오토 스크롤
+      // ==========================================
+      const galleryScroll = document.getElementById('gallery-scroll-container');
+      let isHovered = false;
+      // scrollTop은 정수로 반올림되는 브라우저가 있어서 위치를 따로 누적
+      let galleryPos = 0;
+
+      function autoScroll() {
+        if (!isHovered && galleryScroll.scrollHeight > galleryScroll.clientHeight) {
+          galleryPos += 0.5;
+          if (galleryPos >= galleryScroll.scrollHeight / 2) galleryPos = 0;
+          galleryScroll.scrollTop = galleryPos;
+        }
+        requestAnimationFrame(autoScroll);
+      }
+
+      galleryScroll.addEventListener('mouseenter', () => isHovered = true);
+      galleryScroll.addEventListener('mouseleave', () => { isHovered = false; galleryPos = galleryScroll.scrollTop; });
+      galleryScroll.addEventListener('touchstart', () => isHovered = true, { passive: true });
+      galleryScroll.addEventListener('touchend', () => setTimeout(() => { isHovered = false; galleryPos = galleryScroll.scrollTop; }, 1000));
+
+      window.addEventListener('load', () => {
+        selectMovie('subway');
+        autoScroll();
       });
     </script>
   </body>

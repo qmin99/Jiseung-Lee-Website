@@ -348,40 +348,95 @@
       }
 
       /* ================================================================= */
-      /* 👇👇 [새로 추가됨] Featured Section 용 스크롤 및 갤러리 CSS 👇👇 */
+      /* Featured Films (하이라이트) */
       /* ================================================================= */
-      .text-scrollbar::-webkit-scrollbar { width: 4px; }
-      .text-scrollbar::-webkit-scrollbar-track { background: transparent; }
-      .text-scrollbar::-webkit-scrollbar-thumb { background: rgba(197, 160, 89, 0.3); border-radius: 4px; }
-      .text-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(197, 160, 89, 0.8); }
-      
-      .gallery-scrollbar::-webkit-scrollbar { width: 0px; }
-      
-      .thumb-btn { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); }
-      .thumb-btn:hover { border-color: rgba(197, 160, 89, 0.4); }
-      .thumb-btn.active { border-color: #c5a059; box-shadow: 0 10px 40px rgba(197, 160, 89, 0.15); }
-      .thumb-btn.active .thumb-title { color: #c5a059; }
-      .thumb-btn.active .thumb-poster { transform: scale(1.03); filter: brightness(1.1); }
-      
       .hide-scroll::-webkit-scrollbar { display: none; }
       .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
-      .seamless-frame {
-        position: relative;
-        background-color: #121212;
-        padding: 4px; 
-        border-radius: 3px;
-        border: 1px solid rgba(255, 255, 255, 0.06); 
-        box-shadow: 0 15px 30px rgba(0,0,0,0.8);
-        transition: border-color 0.4s ease, transform 0.4s ease;
+      /* 포스터 카드: 선택 안 된 포스터는 한 톤 낮추고, 선택된 포스터만 금색 액자 */
+      .ff-poster {
+        outline: 1px solid rgba(255, 255, 255, 0.06);
+        outline-offset: 0;
+        filter: grayscale(0.4) brightness(0.55);
+        transition: filter 0.6s ease, outline-color 0.6s ease, outline-offset 0.6s ease, box-shadow 0.6s ease;
       }
-      .seamless-frame:hover {
-        border-color: rgba(197, 160, 89, 0.4);
-        transform: scale(1.02);
+      .ff-card:hover .ff-poster { filter: grayscale(0) brightness(0.85); }
+      .ff-card[aria-pressed="true"] .ff-poster {
+        filter: none;
+        outline-color: rgba(197, 160, 89, 0.75);
+        outline-offset: 7px;
+        box-shadow: 0 30px 60px -25px rgba(197, 160, 89, 0.35);
       }
-      .seamless-frame img {
-        border-radius: 2px;
-        border: 1px solid #000; 
+      .ff-card-title { transition: color 0.4s ease; }
+      .ff-card[aria-pressed="true"] .ff-card-title { color: #e9d5a8; }
+      .ff-card:focus { outline: none; }
+      .ff-card:focus-visible .ff-poster { outline-color: #c5a059; outline-offset: 7px; }
+
+      /* 상세 패널: 내용 높이만큼 부드럽게 열림 (grid rows 0fr → 1fr) */
+      .ff-drawer {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        transition: grid-template-rows 0.8s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s ease;
+      }
+      .ff-drawer.is-open { grid-template-rows: 1fr; opacity: 1; }
+      .ff-drawer-inner { min-height: 0; overflow: hidden; }
+      .ff-fade { transition: opacity 0.35s ease; }
+      .ff-fade.is-swapping { opacity: 0; }
+
+      /* 패널 위 작은 마름모: 지금 열린 포스터를 가리킴 */
+      .ff-notch {
+        position: absolute;
+        top: 3px;
+        left: var(--notch-x, 50%);
+        width: 11px;
+        height: 11px;
+        transform: translateX(-50%) rotate(45deg);
+        background: #0d0d0d;
+        border-left: 1px solid rgba(197, 160, 89, 0.4);
+        border-top: 1px solid rgba(197, 160, 89, 0.4);
+        transition: left 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        z-index: 1;
+      }
+
+      /* 영화제 월계관: 제각각인 원본 로고를 아이보리 단색으로 통일 */
+      .ff-laurel-img {
+        height: 60px;
+        width: auto;
+        max-width: 150px;
+        object-fit: contain;
+        filter: brightness(0) invert(0.85);
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+      }
+      @media (min-width: 768px) {
+        .ff-laurel-img { height: 70px; max-width: 170px; }
+      }
+      .ff-laurel { transition: opacity 0.3s ease; }
+      .ff-laurel:hover .ff-laurel-img { opacity: 1; }
+
+      /* 스틸 뷰어 */
+      .ff-still-thumb {
+        opacity: 0.35;
+        outline: 1px solid transparent;
+        outline-offset: 2px;
+        transition: opacity 0.3s ease, outline-color 0.3s ease;
+      }
+      .ff-still-thumb:hover { opacity: 0.7; }
+      .ff-still-thumb[aria-current="true"] { opacity: 1; outline-color: rgba(197, 160, 89, 0.8); }
+      .ff-still-thumb:focus { outline: none; }
+      .ff-still-thumb:focus-visible { outline-color: #c5a059; opacity: 1; }
+
+      .no-scrollbar{scrollbar-width:none;-ms-overflow-style:none}
+      .no-scrollbar::-webkit-scrollbar{display:none}
+      .ff-jump-btn{transition:opacity .2s}
+      .ff-jump-btn:active{opacity:.6}
+      .ff-lang[aria-pressed="true"] { color: #c5a059; border-color: rgba(197, 160, 89, 0.6); }
+      .ff-lang[aria-pressed="false"] { color: #777; border-color: transparent; }
+      .ff-lang[aria-pressed="false"]:hover { color: #d4d4d4; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ff-drawer, .ff-fade, .ff-notch, .ff-poster, .ff-still-thumb { transition: none; }
       }
       /* ================================================================= */
 
@@ -632,13 +687,13 @@
         >
           <div class="md:col-span-5 fade-up md:mt-4">
             <div
-              class="relative w-full aspect-[3/4] bg-brand-dark border border-white/10 p-2 shadow-2xl"
+              class="relative w-full aspect-[4/5] bg-brand-dark border border-white/10 p-2 shadow-2xl"
             >
               <div
                 class="w-full h-full bg-brand-gray flex items-center justify-center relative overflow-hidden"
               >
                 <img
-                  src="profile_pic.jpg"
+                  src="profile_jiseung_lee.jpg"
                   alt="이지승 감독"
                   class="w-full h-full object-cover object-top opacity-100 hover:scale-105 transition-transform duration-700"
                 />
@@ -772,70 +827,93 @@
           <h2 class="font-serif text-3xl md:text-4xl font-light">주요 작품</h2>
         </div>
 
-        <div class="mb-32 fade-up">
-          <div class="mb-8 pl-2 md:pl-0">
-            <h3 class="font-cinzel text-sm text-brand-gold tracking-[0.3em] mb-2 border-l-2 border-brand-gold pl-3">FEATURED FILMS</h3>
-            <h2 class="font-serif text-3xl md:text-4xl font-light">하이라이트</h2>
+        <div class="mb-32 max-w-7xl mx-auto pl-2 md:pl-0">
+          <div class="flex items-center gap-4 mb-12 fade-up">
+            <h4 class="font-serif text-xl tracking-widest text-brand-light">
+              하이라이트
+              <span class="font-cinzel text-brand-gold ml-1 text-lg"
+                >/ Featured</span
+              >
+            </h4>
+            <div class="h-px bg-white/10 flex-grow"></div>
           </div>
 
-          <div id="featured-section" class="w-full relative z-10">
-            <div class="w-full mx-auto mb-6">
-              <div id="movie-thumbnails" class="flex md:grid md:grid-cols-4 gap-4 md:gap-6 overflow-x-auto hide-scroll snap-x pb-4"></div>
+          <div id="featured-section" class="relative">
+            <!-- 포스터 카드: 개수와 상관없이 가운데 정렬, 넘치면 가로 스크롤 -->
+            <div id="ff-scroller" class="overflow-x-auto hide-scroll snap-x snap-mandatory -ml-6 -mr-4 pl-6 pr-4 md:-mx-6 md:px-6 pt-3 pb-4 fade-up">
+              <div id="ff-cards" class="flex gap-6 md:gap-10 w-max mx-auto" role="group" aria-label="하이라이트 작품"></div>
             </div>
 
-            <div id="mega-drawer" class="w-full bg-[#0a0a0a] border border-brand-gold/40 rounded overflow-hidden h-0 transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)] relative shadow-[0_30px_60px_rgba(0,0,0,1)]">
-              <div id="drawer-content" class="w-full h-full p-6 md:p-10 transition-opacity duration-500 opacity-0 relative">
-                
-                <button onclick="toggleDrawer(false)" class="absolute top-6 right-6 md:top-8 md:right-8 font-cinzel text-[11px] text-brand-gold/70 hover:text-brand-gold tracking-[0.2em] flex items-center gap-2 z-50 transition-colors">
-                  CLOSE <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15l7-7 7 7"></path></svg>
-                </button>
+            <div id="ff-drawer" class="ff-drawer mt-6 md:mt-8">
+              <div class="ff-drawer-inner">
+                <div class="relative pt-[9px]">
+                  <span class="ff-notch" aria-hidden="true"></span>
+                  <article id="ff-panel" class="relative bg-[#0d0d0d] border border-brand-gold/25 rounded-sm shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)]" aria-live="polite">
+                    <button id="ff-close" type="button" aria-label="상세 정보 닫기" class="absolute top-4 right-4 md:top-6 md:right-6 z-10 w-10 h-10 grid place-items-center rounded-full border border-white/10 text-brand-light/50 hover:text-brand-gold hover:border-brand-gold/50 focus-visible:text-brand-gold focus-visible:border-brand-gold focus:outline-none transition-colors">
+                      <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M1 1l12 12M13 1L1 13"/></svg>
+                    </button>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 h-full mt-8 md:mt-4">
-                  <div class="lg:col-span-3 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 pb-10 lg:pb-0 lg:pr-8">
-                    <h3 id="detail-title" class="font-serif font-medium text-3xl md:text-4xl lg:text-[2.5rem] text-white/95 mb-3 leading-snug tracking-widest drop-shadow-lg break-keep"></h3>
-                    <p id="detail-eng-title" class="font-cinzel text-[12px] md:text-[13px] text-brand-gold tracking-[0.15em] mb-10 uppercase"></p>
-                    <div id="laurel-grid" class="grid grid-cols-2 gap-3 mb-10"></div>
-                    <div id="link-list" class="mt-auto flex flex-col gap-4 pt-6 border-t border-white/5"></div>
-                  </div>
-
-                  <div id="detail-text-col" class="lg:col-span-5 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 pb-10 lg:pb-0 lg:pr-8 h-auto lg:h-[650px]">
-                    <div class="flex justify-between items-end mb-6 border-b border-white/5 pb-3">
-                      <h5 class="font-cinzel text-brand-gold/80 tracking-[0.25em] text-[12px]">SYNOPSIS & STATEMENT</h5>
-                      <div class="flex items-center gap-3 text-[11px] font-sans font-medium tracking-widest bg-[#111] p-1 rounded border border-white/10">
-                        <button id="btn-ko" onclick="switchLanguage('ko')" class="px-3 py-1 rounded bg-brand-gold text-black transition-all">KO</button>
-                        <button id="btn-en" onclick="switchLanguage('en')" class="px-3 py-1 rounded text-brand-muted hover:text-white transition-all">EN</button>
-                      </div>
-                    </div>
-                    <div class="overflow-y-auto text-scrollbar lg:pr-6 flex-1 lg:text-justify">
-                      <h6 class="font-cinzel text-brand-light/40 tracking-[0.2em] text-[10px] mb-3">SYNOPSIS</h6>
-                      <div id="detail-synopsis" class="font-sans text-[#cccccc] font-light leading-[1.9] mb-10 text-[14.5px] break-keep"></div>
-                      <div class="w-12 h-[1px] bg-brand-gold/30 my-8"></div>
-                      <h6 class="font-cinzel text-brand-light/40 tracking-[0.2em] text-[10px] mb-3">DIRECTOR'S STATEMENT</h6>
-                      <div id="detail-statement" class="font-sans text-[#b3b3b3] font-light leading-[1.9] space-y-5 text-[14px] break-keep"></div>
-                    </div>
-                  </div>
-
-                  <div id="detail-gallery-col" class="lg:col-span-4 flex flex-col h-[400px] lg:h-[650px] relative">
-                    <div class="flex justify-center items-center mb-4 absolute -top-12 inset-x-0 lg:static lg:mb-4">
-                       <h5 class="font-cinzel text-brand-gold text-[10px] tracking-[0.3em] bg-[#111] border border-brand-gold/30 px-3 py-1 rounded z-20 shadow-lg">STILL GALLERY</h5>
-                    </div>
-                    <div class="relative flex-1 rounded bg-[#050505] overflow-hidden group border border-white/5">
-                      
-                      <div class="absolute inset-x-0 top-4 z-30 flex justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <span class="font-cinzel text-[10px] text-white tracking-[0.3em] bg-black/60 px-4 py-1.5 rounded-sm backdrop-blur-sm border border-white/10 shadow-xl flex items-center gap-2">
-                          SCROLL TO EXPLORE
-                          <svg class="w-3 h-3 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                        </span>
+                    <div id="ff-content" class="ff-fade">
+                      <div class="px-6 md:px-16 pt-[4.75rem] md:pt-16 text-center">
+                        <p id="ff-meta" class="ff-fade font-sans text-[12px] md:text-[13px] text-brand-muted tracking-[0.06em] flex flex-wrap justify-center items-center gap-x-3.5 gap-y-1"></p>
+                        <h3 id="ff-title" class="mt-6 font-serif font-light text-[2.15rem] md:text-5xl lg:text-[3.6rem] leading-[1.2] tracking-[0.02em] text-white/95 break-keep"></h3>
+                        <p id="ff-eng-title" class="mt-4 font-cinzel text-[12px] md:text-[14px] text-brand-gold/90 tracking-[0.24em]"></p>
+                        <p id="ff-cast" class="ff-fade mt-6 font-sans text-[12px] md:text-[13px] text-brand-muted tracking-[0.04em] break-keep"></p>
                       </div>
 
-                      <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#050505] to-transparent z-10 pointer-events-none"></div>
-                      <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#050505] to-transparent z-10 pointer-events-none"></div>
-                      
-                      <div id="gallery-scroll-container" class="absolute inset-0 overflow-y-auto gallery-scrollbar p-3">
-                        <div id="gallery-track" class="grid grid-cols-2 gap-4 pb-20 pt-10"></div>
+                      <div id="ff-laurels" class="mt-10 md:mt-12 px-6 md:px-16 flex flex-wrap justify-center items-center gap-x-8 md:gap-x-12 gap-y-8"></div>
+
+                      <div class="mt-12 md:mt-14 mx-6 md:mx-16 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+                      <div class="px-6 md:px-16 py-12 md:py-16 grid gap-14 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-12">
+                        <!-- 스틸 (모바일에서는 맨 위) -->
+                        <figure id="ff-stills" class="lg:col-start-2 lg:row-start-1 min-w-0">
+                          <div id="ff-still-stage" class="relative aspect-[2/1] bg-black overflow-hidden rounded-[2px] group" tabindex="0" aria-label="스틸컷, 좌우 화살표 키로 넘기기">
+                            <img id="ff-still-main" class="ff-fade absolute inset-0 w-full h-full object-cover" alt="" />
+                            <button type="button" data-step="-1" aria-label="이전 스틸컷" class="ff-still-nav absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 grid place-items-center rounded-full bg-black/45 border border-white/10 text-white/80 hover:text-brand-gold opacity-100 md:opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus:outline-none transition-opacity">
+                              <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L4 7l5 5"/></svg>
+                            </button>
+                            <button type="button" data-step="1" aria-label="다음 스틸컷" class="ff-still-nav absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 grid place-items-center rounded-full bg-black/45 border border-white/10 text-white/80 hover:text-brand-gold opacity-100 md:opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus:outline-none transition-opacity">
+                              <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2l5 5-5 5"/></svg>
+                            </button>
+                          </div>
+                          <figcaption class="mt-3 flex items-center justify-between font-cinzel text-[11px] tracking-[0.2em] text-brand-muted">
+                            <span>Stills</span>
+                            <span id="ff-still-count" class="font-sans tracking-[0.12em] tabular-nums"></span>
+                          </figcaption>
+                          <div id="ff-still-thumbs" class="mt-4 flex gap-2.5 overflow-x-auto hide-scroll p-[3px]"></div>
+                        </figure>
+
+                        <!-- 시놉시스 · 연출의도 -->
+                        <div id="ff-text" class="lg:col-start-1 lg:row-start-1 lg:row-span-2 min-w-0">
+                          <div class="flex items-center justify-between gap-6 mb-7">
+                            <h4 class="font-cinzel text-[12px] tracking-[0.24em] text-brand-gold/80">Synopsis</h4>
+                            <div class="flex items-center gap-1 font-sans text-[11px] tracking-[0.14em]" role="group" aria-label="언어">
+                              <button type="button" data-lang="ko" class="ff-lang px-2 py-1 border-b transition-colors" aria-pressed="true">KO</button>
+                              <button type="button" data-lang="en" class="ff-lang px-2 py-1 border-b transition-colors" aria-pressed="false">EN</button>
+                            </div>
+                          </div>
+                          <p id="ff-synopsis" class="ff-fade font-serif font-light text-[15.5px] md:text-[16.5px] leading-[1.95] md:leading-[2.05] text-[#d6d6d6] break-keep"></p>
+
+                          <h4 class="mt-14 mb-7 font-cinzel text-[12px] tracking-[0.24em] text-brand-gold/80">Director's Statement</h4>
+                          <blockquote id="ff-lead" class="ff-fade pl-5 border-l border-brand-gold/50 font-serif text-[17px] md:text-[18.5px] leading-[1.85] text-[#e9d5a8] break-keep"></blockquote>
+                          <div id="ff-statement" class="ff-fade mt-7 space-y-4 font-sans font-light text-[14px] md:text-[14.5px] leading-[1.95] text-[#a8a8a8] break-keep"></div>
+                        </div>
+
+                        <!-- 관련 기사 -->
+                        <div id="ff-press-wrap" class="lg:col-start-2 lg:row-start-2 min-w-0">
+                          <h4 class="mb-3 font-cinzel text-[12px] tracking-[0.24em] text-brand-gold/80">Press</h4>
+                          <ul id="ff-press" class="border-t border-white/[0.07]"></ul>
+                        </div>
+
+                        <!-- 모바일: 다른 작품 -->
+                        <nav id="ff-jump" class="lg:hidden lg:col-span-2" aria-label="다른 작품">
+                          <h4 class="mb-4 font-cinzel text-[12px] tracking-[0.24em] text-brand-gold/80">Other Works</h4>
+                          <div id="ff-jump-list" class="flex gap-2.5 overflow-x-auto no-scrollbar -mx-1 px-1 pb-1"></div>
+                        </nav>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </div>
               </div>
             </div>
@@ -1984,7 +2062,7 @@
               <div
                 class="flex items-center text-brand-gold/90 font-sans text-xs tracking-[0.2em] uppercase border-b border-transparent group-hover:border-brand-gold group-hover:text-brand-gold group-hover:drop-shadow-[0_0_6px_rgba(197,160,89,0.5)] pb-1 transition-all duration-500 opacity-90 group-hover:opacity-100"
               >
-                <span class="mr-3">Visit Instagram</span>
+                <span class="mr-3">View Page</span>
                 <svg
                   class="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-500"
                   fill="none"
@@ -2434,6 +2512,7 @@
     <script>
       // ==========================================
       // 🎬 하이라이트 (Featured Films) 데이터
+      // year 기준으로 최신작이 왼쪽에 오도록 자동 정렬됨
       // ==========================================
       const moviesData = [
         {
@@ -2441,39 +2520,49 @@
           title: '멈춰선 지하철',
           engTitle: 'A Message from the Past',
           year: '2025',
-          thumb: '멈춰선_지하철/poster.jpg',
+          poster: '멈춰선_지하철/poster.jpg',
+          meta: {
+            ko: ['2025', '단편', '휴먼 드라마', '12분'],
+            en: ['2025', 'Short', 'Human drama', '12 min']
+          },
+          credit: { ko: '각본·연출', en: 'Written & directed by' },
+          cast: {
+            ko: ['김보나', '최지환'],
+            en: ['Kim Bo-na', 'Choi Ji-hwan']
+          },
           laurels: [
-            { title: 'Kolkata Shorts', desc: 'Jury Mention', icon: '멈춰선_지하철/영화제/영화제_1.png' },
-            { title: 'Spain Cortometrajes', desc: 'Seleccionado 2025', icon: '멈춰선_지하철/영화제/영화제_2.png' },
-            { title: 'Utsav Int\'l', desc: 'Official Selection', icon: '멈춰선_지하철/영화제/영화제_3.png' },
-            { title: 'Russia Amur Autumn', desc: 'Official Selection', icon: '멈춰선_지하철/영화제/영화제_4.png' },
-            { title: 'Lift-Off Sessions', desc: 'Volume 8 2025', icon: '멈춰선_지하철/영화제/영화제_5.png' },
+            { festival: 'Kolkata Shorts International Film Festival', award: 'Honorable Jury Mention', year: '2025', icon: '멈춰선_지하철/영화제/영화제_1.png' },
+            { festival: 'Bugarte Film & Visual Arts Festival (Colombia)', award: 'Official Selection', year: '', icon: '멈춰선_지하철/영화제/영화제_2.png' },
+            { festival: 'FIC John Lee, Villa de Mazo (Spain)', award: 'Official Selection', year: '2025', icon: '멈춰선_지하철/영화제/영화제_3.png' },
+            { festival: 'Amur Autumn International Film Festival (Russia)', award: 'Short Film Competition', year: '2025', icon: '멈춰선_지하철/영화제/영화제_4.png' },
+            { festival: 'Lift-Off Filmmaker Sessions Vol. 8', award: 'Official Selection', year: '2025', icon: '멈춰선_지하철/영화제/영화제_5.png' }
           ],
           text: {
             ko: {
-              synopsis: `30년 만에 생모를 만나러 가는 진호는 지하철에서 정체불명의 여인을 만난다. 그녀는 과거에서 온 듯 낡은 백일 사진을 들고 있고, 진호와 대화를 나눈 후 사라진다. 이후 카페에서 만난 생모가 바로 그 여인이었음을 깨달은 진호는 조용히 그녀의 손을 잡는다. 1995년, 아들을 입양 보내며 눈물 흘리는 그녀의 과거가 겹쳐진다.`,
-              statement: `
-                <p class="text-brand-gold/90 font-serif italic text-[15.5px] mb-6">"영화 &lt;멈춰선 지하철&gt;은 시공간을 초월하는 모성애의 메시지를 담아낸 휴먼 드라마입니다."</p>
-                <p>지하철이라는 상징적인 공간을 배경으로, 30년 전 아들과 헤어진 후 회한에 사무친 어머니와 생애 처음으로 친모를 마주하게 된 아들의 감정적 여정을 섬세하게 탐구합니다.</p>
-                <p>'잊을 수 없는 기억, 멈출 수 없는 사랑'이라는 주제 아래, 영화는 가족의 용서와 이해, 그리고 뒤늦지만 진심 어린 재회를 따뜻한 시선으로 그려냅니다.</p>
-                <p>현실과 초현실의 경계가 흐려지는 지점에서, 관객들은 시간조차 지울 수 없는 진심의 묵직한 무게를 경험하게 될 것입니다.</p>
-              `
+              synopsis: '30년 만에 생모를 만나러 가는 진호는 지하철에서 정체불명의 여인을 만난다. 그녀는 과거에서 온 듯 낡은 백일 사진을 들고 있고, 진호와 대화를 나눈 후 사라진다. 이후 카페에서 만난 생모가 바로 그 여인이었음을 깨달은 진호는 조용히 그녀의 손을 잡는다. 1995년, 아들을 입양 보내며 눈물 흘리는 그녀의 과거가 겹쳐진다.',
+              lead: '“영화 《멈춰선 지하철》은 시공간을 초월하는 모성애의 메시지를 담아낸 휴먼 드라마입니다.”',
+              statement: [
+                '지하철이라는 상징적인 공간을 배경으로, 30년 전 아들과 헤어진 후 회한에 사무친 어머니와 생애 처음으로 친모를 마주하게 된 아들의 감정적 여정을 섬세하게 탐구합니다.',
+                '‘잊을 수 없는 기억, 멈출 수 없는 사랑’이라는 주제 아래, 영화는 가족의 용서와 이해, 그리고 뒤늦지만 진심 어린 재회를 따뜻한 시선으로 그려냅니다.',
+                '현실과 초현실의 경계가 흐려지는 지점에서, 관객들은 시간조차 지울 수 없는 진심의 묵직한 무게를 경험하게 될 것입니다.'
+              ]
             },
             en: {
-              synopsis: `Jinho, on his way to meet his birth mother for the first time in 30 years, encounters a mysterious woman on the subway. She holds an old, worn baby photo as if from the past, and after a brief conversation, she disappears.`,
-              statement: `
-                <p class="text-brand-gold/90 font-serif italic text-[15.5px] mb-6">"A Message from the Past is a human drama that delivers a message of maternal love that transcends time and space."</p>
-                <p>Set in the symbolic space of a subway train, the film delicately explores the emotional journey of a mother filled with regret after parting with her son 30 years ago, and the son who, for the first time in his life, comes face to face with his birth mother.</p>
-                <p>Under the theme 'Unforgettable memories, unstoppable love,' the story gently portrays forgiveness, understanding, and a long-overdue but heartfelt reunion of a family.</p>
-                <p>As the boundaries between reality and the surreal begin to blur, the audience is invited to experience the enduring weight of sincerity that time cannot erase.</p>
-              `
+              synopsis: 'On his way to meet his birth mother for the first time in thirty years, Jinho encounters a mysterious woman on the subway. As if she has stepped out of the past, she holds a worn hundred-day baby photograph, and after a brief conversation with him, she vanishes. Later, when he meets his birth mother at a café, Jinho realizes she is that very woman, and quietly takes her hand. Layered over the moment is her past: 1995, a mother in tears as she gives her son up for adoption.',
+              lead: '“A Message from the Past is a human drama that delivers a message of maternal love that transcends time and space.”',
+              statement: [
+                'Set in the symbolic space of a subway train, the film delicately explores the emotional journey of a mother filled with regret after parting with her son 30 years ago, and the son who, for the first time in his life, comes face to face with his birth mother.',
+                'Under the theme ‘Unforgettable memories, unstoppable love,’ the story gently portrays forgiveness, understanding, and a long-overdue but heartfelt reunion of a family.',
+                'As the boundaries between reality and the surreal begin to blur, the audience is invited to experience the enduring weight of sincerity that time cannot erase.'
+              ]
             }
           },
-          links: [
-            { name: 'Cinephile Review 1', url: 'https://www.cinephile.kr/news/articleView.html?idxno=371' },
-            { name: 'Cinephile Review 2', url: 'https://www.cinephile.kr/news/articleView.html?idxno=372' },
-            { name: 'Cinephile Interview', url: 'https://www.cinephile.kr/news/articleView.html?idxno=407' },
-            { name: 'Amur Autumn Article', url: 'https://amurosen.ru/poslanie-iz-proshlogo/' }
+          press: [
+            { outlet: 'Kolkata Shorts International Film Festival', title: '2025 Official Results — Honorable Jury Mention', url: 'https://miniboxoffice.com/uploads/selection_result/1752855389_Result_KSIFF_25.pdf' },
+            { outlet: 'Amur Autumn International Film Festival', title: 'Послание из прошлого — Short Film Competition 2025', url: 'https://amurosen.ru/poslanie-iz-proshlogo/' },
+            { outlet: '씨네필', title: '이지승 감독, 4년 만의 신작 단편영화 ‘멈춰선 지하철’ 촬영 완료…후반 작업 돌입', url: 'https://www.cinephile.kr/news/articleView.html?idxno=407' },
+            { outlet: '씨네필', title: '이지승 감독, 신작 ‘멈춰선 지하철’ 배우 오디션 성황리에 종료', url: 'https://www.cinephile.kr/news/articleView.html?idxno=372' },
+            { outlet: '씨네필', title: '이지승 감독, 4년 만의 신작 단편영화 제작… ‘멈춰선 지하철’ 오디션 진행 예정', url: 'https://www.cinephile.kr/news/articleView.html?idxno=371' }
           ],
           stills: Array.from({ length: 12 }, (_, i) => `멈춰선_지하철/스틸컷/스틸컷_${i + 1}.jpg`)
         },
@@ -2481,189 +2570,414 @@
           id: 'azooma',
           title: '공정사회',
           engTitle: 'Azooma',
-          year: '2013',
-          thumb: '공정사회.webp',
-          laurels: [{ title: 'Nevada Int\'l', desc: 'Platinum Award', icon: '' }],
-          text: {
-            ko: { synopsis: '경찰과 남편이 외면한 딸의 성폭행범을 직접 찾아 나서 40일간의 추적 끝에 통쾌한 복수를 감행하는 엄마의 이야기.', statement: '<p>척박한 현실 속에서도 포기하지 않는 어머니의 강인함을 거칠고 사실적인 톤으로 담아냈다.</p>' },
-            en: { synopsis: 'A mother takes justice into her own hands after the police and her husband abandon her daughter\'s rapist.', statement: '<p>A raw and realistic portrayal of a mother\'s relentless strength.</p>' }
+          year: '2012',
+          poster: '공정사회.webp',
+          meta: {
+            ko: ['2012', '장편', '드라마·스릴러', '74분'],
+            en: ['2012', 'Feature', 'Drama, thriller', '74 min']
           },
-          links: [],
-          // 스틸컷 준비되면 경로 추가 (비어 있으면 갤러리 칸 숨김)
-          stills: []
+          credit: { ko: '각본·연출·제작', en: 'Written, directed & produced by' },
+          cast: {
+            ko: ['장영남', '마동석', '황태광', '배성우', '이재희'],
+            en: ['Jang Young-nam', 'Ma Dong-seok', 'Hwang Tae-kwang', 'Bae Seong-woo', 'Lee Jae-hee']
+          },
+          laurels: [
+            { festival: 'Busan Int\'l Film Festival', award: 'DGK Award · Best Actress', year: '2012', icon: '' },
+            { festival: 'Costa Rica Int\'l Film Festival', award: 'Best Feature Film', year: '2012', icon: '' },
+            { festival: 'Nevada Int\'l Film Festival', award: 'Platinum Award', year: '2012', icon: '' },
+            { festival: 'Beloit Int\'l Film Festival', award: 'Best Feature Film', year: '2013', icon: '' },
+            { festival: 'Athens Int\'l Film + Video Festival', award: 'First Prize · Feature Narrative', year: '2013', icon: '' },
+            { festival: 'Irvine Int\'l Film Festival', award: 'Best Actress', year: '2013', icon: '' }
+          ],
+          text: {
+            ko: {
+              synopsis: '보험회사에 다니며 열 살 딸을 홀로 키우는 그녀. 늦은 귀가로 딸의 하교를 챙기지 못한 그날, 딸은 만신창이가 되어 돌아온다. 담당 형사는 절차만 앞세우고, 별거 중인 유명 치과의사 남편은 자신의 명예를 지키려 사건을 덮기에 급급하다. 더 이상 공정하지 않은 이 사회에서, 그녀는 범인과 무관심한 세상을 그녀만의 방식으로 단죄하기 위한 40일간의 추적을 시작한다.',
+              lead: '“영화 《공정사회》는 누구나 바라지만 현실에서는 좀처럼 이루어지지 않는 ‘공정한 사회’를 영화적 표현으로 옮긴 작품입니다.”',
+              statement: [
+                '딸을 성폭행한 범인을 40일간 추적해 직접 찾아낸 한 엄마의 실화 기사에서 출발한 영화입니다. ‘공정사회’라는 제목에는 실제로는 공정하지 않은 우리 사회의 아이러니를 담았습니다.',
+                '범행 장면은 처음부터 직접 보여주지 않기로 했습니다. 영화를 위해 열 살 아이를 이용하고 싶지 않았기에, 그 참혹함을 뉘앙스로만 전하고자 했습니다.',
+                '시간을 넘나드는 파편적 구조로 익숙한 이야기를 새롭게 풀어내고, 현실에서는 불가능한 응징을 영화 속에서나마 실현해 피해자들이 카타르시스를 느끼기를 바랐습니다.'
+              ]
+            },
+            en: {
+              synopsis: 'She works at an insurance company and is raising her ten-year-old daughter alone. On the day she comes home too late to meet her daughter after school, the girl comes back to her broken and battered. The detective in charge hides behind procedure, and her estranged husband, a famous dentist, is desperate only to bury the case to protect his reputation. In a society that is no longer fair, she begins a forty-day hunt to pass judgment, in her own way, on the man responsible and on the indifferent world around her.',
+              lead: '“Azooma gives cinematic expression to the ‘fair society’ everyone longs for, yet which rarely comes true in reality.”',
+              statement: [
+                'The film grew out of a news story about a mother who spent forty days tracking down the man who raped her daughter. With the title ‘A Fair Society,’ I wanted to capture the irony of a society that is, in truth, not fair at all.',
+                'From the very beginning, I decided never to show the assault directly. Because I did not want to use a ten-year-old child for the sake of the film, I chose to convey its horror only through nuance.',
+                'Through a fragmented structure that moves across time, I set out to tell a familiar story in a new way, and by carrying out on screen a retribution that is impossible in reality, I hoped victims could feel a sense of catharsis.'
+              ]
+            }
+          },
+          press: [
+            { outlet: 'Variety', title: 'Review: ‘Azooma’', url: 'https://variety.com/2012/film/reviews/azooma-1117948602/' },
+            { outlet: 'OSEN', title: '‘공정사회’ 이지승 감독, “성폭력 장면 안 등장한 이유는..” [인터뷰]', url: 'https://www.osen.co.kr/article/G1109485351' },
+            { outlet: 'TENASIA', title: 'Azooma: Interview with Director Lee Ji-seung', url: 'https://web.archive.org/web/20140328144038/http://www.tenasia.com/azooma-interview-with-director-lee-ji-seung-part-1/' },
+            { outlet: '더뮤지컬', title: '박인선 연출가와 이지승 감독, 복수의 시대, 정의의 부재가 만든 그늘', url: 'https://www.themusical.co.kr/Magazine/Detail?num=202' },
+            { outlet: '매일신문', title: '[강성률의 줌인] 영화는 사회를 반영한다', url: 'https://www.imaeil.com/page/view/2013041807212732858' }
+          ],
+          stills: Array.from({ length: 12 }, (_, i) => `공정사회/스틸컷/스틸컷_${i + 1}.jpg`)
         },
         {
           id: 'island',
           title: '섬. 사라진 사람들',
           engTitle: 'No Tomorrow',
-          year: '2016',
-          thumb: '섬_사라진_사람들.webp',
-          laurels: [],
-          text: {
-            ko: { synopsis: '염전노예 사건 제보를 받고 섬으로 간 기자들이 끔찍한 살인사건에 휘말리며 진실을 파헤치는 파운드 푸티지 스릴러.', statement: '<p>페이크 다큐멘터리 형식을 차용하여 관객이 직접 사건의 목격자가 되는 듯한 서스펜스를 구축했다.</p>' },
-            en: { synopsis: 'Reporters investigating a slavery case on an island get entangled in a horrific murder.', statement: '<p>Utilizing a found-footage style to immerse the audience directly into the suspense.</p>' }
+          year: '2015',
+          poster: '섬_사라진_사람들.webp',
+          meta: {
+            ko: ['2015', '장편', '스릴러', '88분'],
+            en: ['2015', 'Feature', 'Thriller', '88 min']
           },
-          links: [],
-          stills: []
+          credit: { ko: '공동각본·연출', en: 'Co-written & directed by' },
+          cast: {
+            ko: ['박효주', '배성우', '이현욱', '최일화', '류준열'],
+            en: ['Park Hyo-joo', 'Bae Seong-woo', 'Lee Hyun-wook', 'Choi Il-hwa', 'Ryu Jun-yeol']
+          },
+          laurels: [
+            { festival: 'Montréal World Film Festival', award: 'Focus on World Cinema', year: '2015', icon: '' },
+            { festival: 'Florence Korea Film Fest', award: 'Independent Korea', year: '2016', icon: '' }
+          ],
+          text: {
+            ko: {
+              synopsis: '염전노예사건 제보를 받은 기자 혜리는 카메라기자 석훈과 함께 사건의 ‘섬’으로 잠입 취재를 떠난다. 다큐멘터리 촬영으로 위장해 다가가지만, 섬 사람들은 좀처럼 입을 열지 않는다. 그리고 의문의 집단 살인사건이 벌어진 뒤, 혜리는 혼수상태에 빠지고 염전 주인과 아들, 인부 상호는 행방불명된다. 수사가 서둘러 종결되고 5개월 후, 유일한 목격자이자 생존자인 혜리가 눈을 뜬다.',
+              lead: '“영화 《섬. 사라진 사람들》은 ‘지금 이 시대에 노예라니’라는 충격에서 출발한 사건 목격 스릴러입니다.”',
+              statement: [
+                '염전노예사건을 바라보며 ‘무관심, 무책임, 이기주의, 탐욕’이라는 키워드를 떠올렸습니다. 부조리한 시스템 속에서, 누군가는 작은 목소리라도 내야 한다고 생각했습니다.',
+                '메이킹 영상과 페이크 다큐를 극영화에 섞은 것은 이 영화가 ‘진실’에 관한 이야기이기 때문입니다. 관객은 석훈의 카메라가 담은 영상조차 진실인지 스스로 묻게 됩니다.',
+                '이런 일이 반복되지 않으려면 곁에 있는 사람에 대한 관심이 필요합니다. 영화의 마지막에 ‘무관심이야말로 가장 큰 죄’라는 버나드 쇼의 말을 놓은 이유입니다.'
+              ]
+            },
+            en: {
+              synopsis: 'After receiving a tip about the salt-farm slavery case, reporter Hye-ri sets out with cameraman Seok-hoon on an undercover assignment to the ‘island’ where it happened. Posing as a documentary crew, they approach the islanders, but no one is willing to talk. Then, after a mysterious mass murder, Hye-ri falls into a coma, while the salt-farm owner, his son and the laborer Sang-ho go missing. The investigation is hastily closed, and five months later Hye-ri, the sole witness and survivor, opens her eyes.',
+              lead: '“No Tomorrow is an eyewitness thriller born from a single shock: slaves, in this day and age?”',
+              statement: [
+                'Watching the salt-farm slavery case, I kept thinking of four words: indifference, irresponsibility, selfishness and greed. Within an unjust system, I felt that someone had to raise even a small voice.',
+                'I mixed making-of footage and fake documentary into a fiction film because this is a story about truth. The audience ends up asking whether even the footage captured by Seok-hoon’s camera is the truth.',
+                'For this never to happen again, we need to care about the people beside us. That is why the film ends with Bernard Shaw’s words that indifference is the greatest sin.'
+              ]
+            }
+          },
+          press: [
+            { outlet: '문화뉴스', title: '‘어벤져스’ 韓 프로듀서부터 ‘섬’ 감독까지…뼛속까지 영화인 이지승', url: 'https://www.mhns.co.kr/news/articleView.html?idxno=10972' },
+            { outlet: '노컷뉴스', title: '끝나지 않은 염전노예사건…누가 ‘사건’을 목격했나', url: 'https://nocutnews.co.kr/news/4531948' },
+            { outlet: 'The Korea Times', title: 'Ryu Jun-yeol turns abusive in ‘No Tomorrow’', url: 'https://www.koreatimes.co.kr/entertainment/shows-dramas/20160215/ryu-jun-yeol-turns-abusive-in-no-tomorrow' },
+            { outlet: '아주경제', title: '[인터뷰] ‘섬. 사라진 사람들’ 박효주, 아직도 성장기', url: 'https://www.ajunews.com/view/20160303152527560' },
+            { outlet: '레이디경향', title: '오묘한 작은 눈의 매력, 배성우', url: 'https://lady.khan.co.kr/entertainment/article/201602261529581' }
+          ],
+          stills: Array.from({ length: 12 }, (_, i) => `섬_사라진_사람들/스틸컷/스틸컷_${i + 1}.jpg`)
         }
-      ];
-
-      // 영화제 로고가 없을 때 쓰는 메달 아이콘 (Awards 섹션과 동일)
-      const medalIcon = `
-        <svg class="w-8 h-8 relative z-10 text-brand-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="6"></circle>
-          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-        </svg>`;
+      ].sort((a, b) => Number(b.year) - Number(a.year));
 
       // ==========================================
-      // ⚙️ 상태 관리 및 렌더링 로직
+      // ⚙️ 렌더링
       // ==========================================
-      const thumbContainer = document.getElementById('movie-thumbnails');
-      const drawer = document.getElementById('mega-drawer');
-      const contentWrapper = document.getElementById('drawer-content');
-      const textCol = document.getElementById('detail-text-col');
-      const galleryCol = document.getElementById('detail-gallery-col');
+      const ff$ = (id) => document.getElementById(id);
+      const ffEsc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      const ffReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      let currentMovieId = null;
-      let currentLang = 'ko';
+      const ffCards = ff$('ff-cards');
+      const ffScroller = ff$('ff-scroller');
+      const ffDrawer = ff$('ff-drawer');
+      const ffContent = ff$('ff-content');
+      const ffThumbs = ff$('ff-still-thumbs');
+      const ffStillMain = ff$('ff-still-main');
 
-      thumbContainer.innerHTML = moviesData.map((movie) => `
-        <div id="thumb-${movie.id}" onclick="selectMovie('${movie.id}')" class="thumb-btn snap-center shrink-0 w-[160px] md:w-full aspect-[2/3] relative cursor-pointer overflow-hidden rounded bg-[#111] group">
-          <img src="${movie.thumb}" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-30">
-          <img src="${movie.thumb}" alt="${movie.title} 포스터" loading="lazy" class="thumb-poster absolute inset-0 w-full h-full object-contain p-2 opacity-70 transition-all duration-500 z-10">
-          <div class="thumb-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-4 z-20 transition-all duration-500">
-            <span class="font-cinzel text-[10px] text-brand-gold tracking-[0.2em] mb-1 opacity-80">${movie.year}</span>
-            <h4 class="thumb-title font-serif text-[15px] md:text-lg text-white/80 transition-colors leading-snug">${movie.title}</h4>
-          </div>
-        </div>
-      `).join('');
+      let ffCurrent = null;
+      let ffLang = 'ko';
+      let ffStill = 0;
+      let ffStillToken = 0;
+      let ffTimer = null;
+      let ffPaused = false;
+      let ffInView = false;
 
-      function selectMovie(id) {
-        if (currentMovieId === id) return;
-        const movie = moviesData.find(m => m.id === id);
+      // 로고 이미지가 없는 영화제용 월계관 가지 (왼쪽 가지를 그리고 오른쪽은 좌우 반전)
+      const ffBranch = (() => {
+        const P0 = [22, 70], C = [1, 40], P1 = [17, 4];
+        const at = (t) => [0, 1].map((k) => (1 - t) ** 2 * P0[k] + 2 * (1 - t) * t * C[k] + t * t * P1[k]);
+        const dir = (t) => {
+          const d = [0, 1].map((k) => 2 * (1 - t) * (C[k] - P0[k]) + 2 * t * (P1[k] - C[k]));
+          return Math.atan2(d[1], d[0]) * 180 / Math.PI;
+        };
+        const leaf = (t, spread) => {
+          const [x, y] = at(t);
+          const a = dir(t) + spread;
+          const cx = (x + Math.cos(a * Math.PI / 180) * 4.6).toFixed(2);
+          const cy = (y + Math.sin(a * Math.PI / 180) * 4.6).toFixed(2);
+          return `<ellipse cx="${cx}" cy="${cy}" rx="1.9" ry="5" transform="rotate(${(a - 90).toFixed(1)} ${cx} ${cy})"/>`;
+        };
+        let leaves = '';
+        for (let i = 0; i < 7; i++) {
+          const t = 0.1 + i * 0.125;
+          leaves += leaf(t, -38) + leaf(Math.min(t + 0.045, 1), 34);
+        }
+        leaves += leaf(1, 0);
+        const svg = `<path d="M${P0} Q${C} ${P1}" fill="none" stroke="currentColor" stroke-width="1"/>${leaves}`;
+        return (flip) => `<svg viewBox="0 0 28 74" class="h-[64px] w-auto shrink-0" fill="currentColor" aria-hidden="true"${flip ? ' style="transform: scaleX(-1)"' : ''}>${svg}</svg>`;
+      })();
 
-        document.querySelectorAll('.thumb-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById(`thumb-${id}`).classList.add('active');
-        currentMovieId = id;
-
-        contentWrapper.style.opacity = 0;
-
-        setTimeout(() => {
-          document.getElementById('detail-title').innerText = movie.title;
-          document.getElementById('detail-eng-title').innerText = movie.engTitle;
-
-          renderText();
-
-          document.getElementById('laurel-grid').innerHTML = movie.laurels.map(l => `
-            <div class="bg-[#080808] border border-white/5 rounded-md p-4 flex flex-col items-center text-center justify-center transition-colors hover:border-brand-gold/30 hover:bg-[#111] group">
-              <div class="relative flex items-center justify-center w-14 h-14 mb-2">
-                ${l.icon
-                  ? `<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.9)_15%,rgba(255,255,255,0.2)_55%,transparent_75%)] pointer-events-none transition-transform duration-500 group-hover:scale-110"></div>
-                     <img src="${l.icon}" alt="${l.title}" class="w-9 h-9 object-contain relative z-10">`
-                  : medalIcon}
-              </div>
-              <p class="font-sans text-[10px] text-white/80 leading-tight mb-1">${l.title}</p>
-              <p class="font-cinzel text-[8.5px] text-brand-gold/60 tracking-widest leading-tight uppercase">${l.desc}</p>
-            </div>
-          `).join('');
-
-          document.getElementById('link-list').innerHTML = movie.links.map(l => `
-            <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="flex items-center text-[12px] font-sans tracking-widest text-[#e5e5e5] hover:text-brand-gold border-b border-white/10 pb-3 transition-colors">
-              <span class="mr-3 text-brand-gold/50">→</span> ${l.name}
-            </a>
-          `).join('');
-
-          // 스틸컷이 없으면 갤러리 칸을 숨기고 시놉시스 칸을 넓힘
-          const hasStills = movie.stills.length > 0;
-          galleryCol.classList.toggle('hidden', !hasStills);
-          textCol.classList.toggle('lg:col-span-5', hasStills);
-          textCol.classList.toggle('lg:col-span-9', !hasStills);
-          textCol.classList.toggle('lg:border-r', hasStills);
-          textCol.classList.toggle('lg:h-[650px]', hasStills);
-
-          const galleryHtml = movie.stills.map(src => `
-            <div class="seamless-frame">
-              <img src="${src}" alt="${movie.title} 스틸컷" loading="lazy" class="w-full aspect-video object-cover opacity-90 hover:opacity-100 transition-opacity">
-            </div>
-          `).join('');
-          document.getElementById('gallery-track').innerHTML = galleryHtml + galleryHtml;
-
-          drawer.style.height = 'auto';
-          contentWrapper.style.opacity = 1;
-          galleryScroll.scrollTop = 0;
-          galleryPos = 0;
-        }, 400);
+      function ffLaurel(l) {
+        const label = `${l.festival} — ${l.award}${l.year ? `, ${l.year}` : ''}`;
+        if (l.icon) {
+          return `<figure class="ff-laurel" title="${ffEsc(label)}"><img src="${ffEsc(l.icon)}" alt="${ffEsc(label)}" class="ff-laurel-img" loading="lazy"></figure>`;
+        }
+        return `
+          <figure class="ff-laurel flex items-center gap-1 text-[#d9d9d9]/75" title="${ffEsc(label)}">
+            ${ffBranch(false)}
+            <figcaption class="w-[124px] text-center leading-tight">
+              <span class="block font-sans text-[8.5px] tracking-[0.16em] uppercase text-brand-gold/90">${ffEsc(l.award)}</span>
+              <span class="block mt-1.5 font-serif text-[12.5px] text-[#e5e5e5]/90 break-keep">${ffEsc(l.festival)}</span>
+              ${l.year ? `<span class="block mt-1 font-sans text-[9.5px] tracking-[0.12em] text-brand-muted">${ffEsc(l.year)}</span>` : ''}
+            </figcaption>
+            ${ffBranch(true)}
+          </figure>`;
       }
 
-      function switchLanguage(lang) {
-        if (currentLang === lang) return;
-        currentLang = lang;
+      ffCards.innerHTML = moviesData.map((m) => `
+        <button type="button" class="ff-card group snap-center shrink-0 w-[150px] sm:w-[180px] md:w-[210px] lg:w-[230px]" data-id="${m.id}" aria-pressed="false" aria-controls="ff-drawer">
+          <span class="ff-poster block relative aspect-[2/3] overflow-hidden rounded-[2px] bg-[#0d0d0d]">
+            <img src="${ffEsc(m.poster)}" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+          </span>
+          <span class="block mt-5 text-center">
+            <span class="block font-cinzel text-[11px] tracking-[0.24em] text-brand-gold/75">${ffEsc(m.year)}</span>
+            <span class="ff-card-title block mt-1.5 font-serif text-[15px] md:text-[17px] text-brand-light/70 group-hover:text-brand-light break-keep">${ffEsc(m.title)}</span>
+          </span>
+        </button>
+      `).join('');
 
-        const btnKo = document.getElementById('btn-ko');
-        const btnEn = document.getElementById('btn-en');
+      function ffRenderText() {
+        const t = ffCurrent.text[ffLang];
+        ff$('ff-meta').innerHTML = ffCurrent.meta[ffLang]
+          .map((item, i) => `${i ? '<span class="w-px h-2.5 bg-white/20" aria-hidden="true"></span>' : ''}<span>${ffEsc(item)}</span>`)
+          .join('');
+        // 크레딧: "각본·연출 이지승 | 출연 ..." (모바일에서는 두 줄)
+        const cast = ffCurrent.cast ? ffCurrent.cast[ffLang] : [];
+        const credit = ffCurrent.credit
+          ? `<span class="block md:inline"><span class="text-brand-light/40 mr-2">${ffEsc(ffCurrent.credit[ffLang])}</span>${ffLang === 'ko' ? '이지승' : 'Lee Ji-seung'}</span>`
+          : '';
+        const starring = cast.length
+          ? `<span class="block md:inline mt-1.5 md:mt-0"><span class="text-brand-light/40 mr-2">${ffLang === 'ko' ? '출연' : 'Starring'}</span>${cast.map(ffEsc).join(', ')}</span>`
+          : '';
+        ff$('ff-cast').innerHTML = credit + (credit && starring ? '<span class="hidden md:inline-block w-px h-2.5 mx-4 bg-white/20 align-middle" aria-hidden="true"></span>' : '') + starring;
+        ff$('ff-text').lang = ffLang;
+        ff$('ff-synopsis').textContent = t.synopsis;
+        ff$('ff-lead').textContent = t.lead;
+        ff$('ff-lead').classList.toggle('hidden', !t.lead);
+        ff$('ff-statement').innerHTML = t.statement.map((p) => `<p>${ffEsc(p)}</p>`).join('');
+      }
 
-        if (lang === 'ko') {
-          btnKo.className = 'px-3 py-1 rounded bg-brand-gold text-black transition-all';
-          btnEn.className = 'px-3 py-1 rounded text-brand-muted hover:text-white transition-all';
-        } else {
-          btnEn.className = 'px-3 py-1 rounded bg-brand-gold text-black transition-all';
-          btnKo.className = 'px-3 py-1 rounded text-brand-muted hover:text-white transition-all';
+      function ffRender() {
+        const m = ffCurrent;
+        ff$('ff-title').textContent = m.title;
+        ff$('ff-eng-title').textContent = m.engTitle;
+        ff$('ff-laurels').innerHTML = m.laurels.map(ffLaurel).join('');
+        ff$('ff-laurels').classList.toggle('hidden', !m.laurels.length);
+        // 6개 이상이면 한 줄에 다 안 들어가므로 3개씩 두 줄로 균형 있게
+        ['lg:max-w-[54rem]', 'lg:mx-auto'].forEach((c) => ff$('ff-laurels').classList.toggle(c, m.laurels.length > 5));
+        ffRenderText();
+
+        const hasStills = m.stills.length > 0;
+        ff$('ff-stills').classList.toggle('hidden', !hasStills);
+        ffThumbs.innerHTML = m.stills.map((src, i) => `
+          <button type="button" class="ff-still-thumb shrink-0 w-[84px] md:w-[96px] aspect-[2/1] overflow-hidden rounded-[1px] bg-black" data-index="${i}" aria-label="스틸컷 ${i + 1}">
+            <img src="${ffEsc(src)}" alt="" class="w-full h-full object-cover" loading="lazy">
+          </button>
+        `).join('');
+        if (hasStills) ffShowStill(0, true);
+
+        const hasPress = m.press.length > 0;
+        ff$('ff-press-wrap').classList.toggle('hidden', !hasPress);
+        ff$('ff-press').innerHTML = m.press.map((p) => `
+          <li class="border-b border-white/[0.07]">
+            <a href="${ffEsc(p.url)}" target="_blank" rel="noopener noreferrer" class="group flex items-center justify-between gap-6 py-4 focus:outline-none focus-visible:text-brand-gold">
+              <span class="min-w-0">
+                <span class="block font-sans text-[10.5px] tracking-[0.14em] text-brand-muted">${ffEsc(p.outlet)}</span>
+                <span class="block mt-1 font-serif text-[14.5px] leading-snug text-brand-light/85 group-hover:text-brand-gold transition-colors break-keep">${ffEsc(p.title)}</span>
+              </span>
+              <svg class="w-3.5 h-3.5 shrink-0 text-brand-gold/60 group-hover:text-brand-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10L10 4M5 4h5v5"/></svg>
+            </a>
+          </li>
+        `).join('');
+
+        // 모바일 전용: 다른 작품으로 바로 가기
+        const jump = ff$('ff-jump-list');
+        if (jump) {
+          jump.innerHTML = moviesData.map((o) => {
+            const on = o.id === m.id;
+            return `
+            <button type="button" class="ff-jump-btn shrink-0 text-left" data-id="${o.id}" aria-current="${on}">
+              <span class="block w-[108px] aspect-[2/3] overflow-hidden rounded-[2px] bg-[#1a1a1a] border ${on ? 'border-brand-gold/70' : 'border-white/10'}">
+                <img src="${ffEsc(o.poster)}" alt="" class="w-full h-full object-cover ${on ? 'opacity-100' : 'opacity-55'}" loading="lazy">
+              </span>
+              <span class="mt-2 block w-[108px] font-serif text-[12px] leading-snug break-keep ${on ? 'text-brand-gold' : 'text-brand-light/70'}">${ffEsc(o.title)}</span>
+            </button>`;
+          }).join('');
         }
 
-        const detailSyn = document.getElementById('detail-synopsis');
-        const detailStat = document.getElementById('detail-statement');
+        // 스틸도 기사도 없으면 글을 가운데 한 칸으로
+        const solo = !hasStills && !hasPress;
+        ['lg:col-span-2', 'lg:max-w-3xl', 'lg:mx-auto', 'lg:w-full'].forEach((c) => ff$('ff-text').classList.toggle(c, solo));
+        ffStartAuto();
+      }
 
-        detailSyn.style.opacity = 0;
-        detailStat.style.opacity = 0;
+      function ffOpen(id) {
+        const movie = moviesData.find((m) => m.id === id);
+        if (!movie) return;
+        const isOpen = ffDrawer.classList.contains('is-open');
+        if (isOpen && ffCurrent === movie) return ffClose();
 
+        ffCurrent = movie;
+        ffCards.querySelectorAll('.ff-card').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.id === id)));
+        ffPlaceNotch();
+
+        if (isOpen) {
+          ffContent.classList.add('is-swapping');
+          setTimeout(() => { ffRender(); ffContent.classList.remove('is-swapping'); }, 350);
+        } else {
+          ffRender();
+          ffDrawer.inert = false;
+          ffDrawer.classList.add('is-open');
+        }
+      }
+
+      function ffClose() {
+        const card = ffCurrent && ffCards.querySelector(`[data-id="${ffCurrent.id}"]`);
+        ffDrawer.classList.remove('is-open');
+        ffDrawer.inert = true;
+        ffCards.querySelectorAll('.ff-card').forEach((c) => c.setAttribute('aria-pressed', 'false'));
+        ffCurrent = null;
+        ffStopAuto();
+        if (card && ffDrawer.contains(document.activeElement)) card.focus();
+      }
+
+      function ffSetLang(lang) {
+        if (lang === ffLang || !ffCurrent) return;
+        ffLang = lang;
+        document.querySelectorAll('.ff-lang').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+        const parts = ['ff-meta', 'ff-cast', 'ff-synopsis', 'ff-lead', 'ff-statement'].map(ff$);
+        parts.forEach((p) => p.classList.add('is-swapping'));
         setTimeout(() => {
-          renderText();
-          detailSyn.style.opacity = 1;
-          detailStat.style.opacity = 1;
+          ffRenderText();
+          parts.forEach((p) => p.classList.remove('is-swapping'));
         }, 300);
       }
 
-      function renderText() {
-        if (!currentMovieId) return;
-        const movie = moviesData.find(m => m.id === currentMovieId);
-        document.getElementById('detail-synopsis').innerHTML = movie.text[currentLang].synopsis;
-        document.getElementById('detail-statement').innerHTML = movie.text[currentLang].statement;
-      }
-
-      function toggleDrawer(forceState) {
-        if (forceState === false) {
-          drawer.style.height = '0px';
-          document.querySelectorAll('.thumb-btn').forEach(el => el.classList.remove('active'));
-          currentMovieId = null;
-        }
+      // 선택된 포스터 바로 아래에 패널의 마름모 표시를 맞춤
+      function ffPlaceNotch() {
+        const card = ffCurrent && ffCards.querySelector(`[data-id="${ffCurrent.id}"]`);
+        if (!card) return;
+        const box = ffDrawer.getBoundingClientRect();
+        const r = card.getBoundingClientRect();
+        const x = Math.max(28, Math.min(box.width - 28, r.left + r.width / 2 - box.left));
+        ffDrawer.style.setProperty('--notch-x', `${x}px`);
       }
 
       // ==========================================
-      // ⚙️ 갤러리 오토 스크롤
+      // ⚙️ 스틸 뷰어
       // ==========================================
-      const galleryScroll = document.getElementById('gallery-scroll-container');
-      let isHovered = false;
-      // scrollTop은 정수로 반올림되는 브라우저가 있어서 위치를 따로 누적
-      let galleryPos = 0;
+      function ffShowStill(i, instant) {
+        const stills = ffCurrent.stills;
+        ffStill = (i + stills.length) % stills.length;
+        const src = stills[ffStill];
+        const token = ++ffStillToken;
 
-      function autoScroll() {
-        if (!isHovered && galleryScroll.scrollHeight > galleryScroll.clientHeight) {
-          galleryPos += 0.5;
-          if (galleryPos >= galleryScroll.scrollHeight / 2) galleryPos = 0;
-          galleryScroll.scrollTop = galleryPos;
+        ff$('ff-still-count').textContent = `${String(ffStill + 1).padStart(2, '0')} / ${String(stills.length).padStart(2, '0')}`;
+        [...ffThumbs.children].forEach((b, n) => b.setAttribute('aria-current', String(n === ffStill)));
+        const active = ffThumbs.children[ffStill];
+        if (active) {
+          ffThumbs.scrollTo({ left: active.offsetLeft - (ffThumbs.clientWidth - active.offsetWidth) / 2, behavior: instant ? 'auto' : 'smooth' });
         }
-        requestAnimationFrame(autoScroll);
+
+        const swap = () => {
+          if (token !== ffStillToken) return;
+          ffStillMain.src = src;
+          ffStillMain.alt = `${ffCurrent.title} 스틸컷 ${ffStill + 1}`;
+          ffStillMain.classList.remove('is-swapping');
+        };
+        if (instant) return swap();
+        ffStillMain.classList.add('is-swapping');
+        const pre = new Image();
+        pre.onload = pre.onerror = () => setTimeout(swap, 250);
+        pre.src = src;
       }
 
-      galleryScroll.addEventListener('mouseenter', () => isHovered = true);
-      galleryScroll.addEventListener('mouseleave', () => { isHovered = false; galleryPos = galleryScroll.scrollTop; });
-      galleryScroll.addEventListener('touchstart', () => isHovered = true, { passive: true });
-      galleryScroll.addEventListener('touchend', () => setTimeout(() => { isHovered = false; galleryPos = galleryScroll.scrollTop; }, 1000));
+      function ffStopAuto() {
+        clearInterval(ffTimer);
+        ffTimer = null;
+      }
 
-      window.addEventListener('load', () => {
-        selectMovie('subway');
-        autoScroll();
+      // 화면에 보일 때만 5초마다 다음 스틸로 (마우스를 올리거나 조작 중이면 멈춤)
+      function ffStartAuto() {
+        ffStopAuto();
+        if (ffReducedMotion || !ffCurrent || ffCurrent.stills.length < 2) return;
+        ffTimer = setInterval(() => {
+          if (ffInView && !ffPaused && !document.hidden) ffShowStill(ffStill + 1);
+        }, 5000);
+      }
+
+      const ffStage = ff$('ff-still-stage');
+      new IntersectionObserver((entries) => { ffInView = entries[0].isIntersecting; }, { threshold: 0.5 }).observe(ffStage);
+      const ffStillsBox = ff$('ff-stills');
+      ffStillsBox.addEventListener('mouseenter', () => { ffPaused = true; });
+      ffStillsBox.addEventListener('mouseleave', () => { ffPaused = false; });
+      ffStillsBox.addEventListener('focusin', () => { ffPaused = true; });
+      ffStillsBox.addEventListener('focusout', () => { ffPaused = false; });
+
+      document.querySelectorAll('.ff-still-nav').forEach((b) => b.addEventListener('click', () => {
+        ffShowStill(ffStill + Number(b.dataset.step));
+        ffStartAuto();
+      }));
+      ffThumbs.addEventListener('click', (e) => {
+        const b = e.target.closest('.ff-still-thumb');
+        if (!b) return;
+        ffShowStill(Number(b.dataset.index));
+        ffStartAuto();
       });
+      ffStage.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        ffShowStill(ffStill + (e.key === 'ArrowRight' ? 1 : -1));
+        ffStartAuto();
+      });
+      let ffTouchX = null;
+      ffStage.addEventListener('touchstart', (e) => { ffTouchX = e.touches[0].clientX; ffPaused = true; }, { passive: true });
+      ffStage.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - (ffTouchX ?? e.changedTouches[0].clientX);
+        if (Math.abs(dx) > 40) ffShowStill(ffStill + (dx < 0 ? 1 : -1));
+        ffTouchX = null;
+        ffPaused = false;
+        ffStartAuto();
+      });
+
+      // ==========================================
+      // ⚙️ 이벤트
+      // ==========================================
+      ffCards.addEventListener('click', (e) => {
+        const card = e.target.closest('.ff-card');
+        if (!card) return;
+        ffScroller.scrollTo({ left: card.offsetLeft - (ffScroller.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' });
+        ffOpen(card.dataset.id);
+      });
+      // 모바일 전용: 다른 작품으로 전환
+      ff$('ff-jump-list').addEventListener('click', (e) => {
+        const b = e.target.closest('.ff-jump-btn');
+        if (!b || b.dataset.id === (ffCurrent && ffCurrent.id)) return;
+        const card = ffCards.querySelector(`[data-id="${b.dataset.id}"]`);
+        if (card) ffScroller.scrollTo({ left: card.offsetLeft - (ffScroller.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' });
+        ffOpen(b.dataset.id);
+        // 고정 메뉴바에 가리지 않도록 그 아래로 맞춤
+        const panel = ff$('ff-panel');
+        const navH = document.getElementById('navbar').getBoundingClientRect().bottom;
+        if (panel) window.scrollTo({ top: panel.getBoundingClientRect().top + window.scrollY - navH - 12, behavior: 'smooth' });
+      });
+      ff$('ff-close').addEventListener('click', ffClose);
+      document.querySelectorAll('.ff-lang').forEach((b) => b.addEventListener('click', () => ffSetLang(b.dataset.lang)));
+      ff$('ff-panel').addEventListener('keydown', (e) => { if (e.key === 'Escape') ffClose(); });
+      ffScroller.addEventListener('scroll', ffPlaceNotch, { passive: true });
+      window.addEventListener('resize', ffPlaceNotch);
+      window.addEventListener('load', ffPlaceNotch);
+
+      ffDrawer.inert = true;
+      ffOpen(moviesData[0].id);
     </script>
   </body>
 </html>

@@ -3,4 +3,4 @@ Allow: /
 Disallow: /test.html
 Disallow: /소개디자인%20example.html
 
-Sitemap: https://jiseung-lee.netlify.app/sitemap.xml
+Sitemap: https://highconceptpictures.co.kr/sitemap.xml
